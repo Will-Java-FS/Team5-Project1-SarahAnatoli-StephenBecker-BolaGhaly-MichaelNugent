@@ -1,15 +1,15 @@
 package com.revature.calorietracker.models;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "admin_actions")
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class AdminAction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +24,4 @@ public class AdminAction {
     @ManyToOne
     @JoinColumn(name = "target_user_id")
     private User targetUser;
-
-    private LocalDateTime createdAt;
 }

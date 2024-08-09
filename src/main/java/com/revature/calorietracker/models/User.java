@@ -39,6 +39,8 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role = Role.USER;
 
+    private Integer dailyCalorieGoal;
+
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
