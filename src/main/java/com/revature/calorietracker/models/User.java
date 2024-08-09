@@ -1,16 +1,16 @@
 package com.revature.calorietracker.models;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,12 +32,7 @@ public class User {
     private Double height;
     private String gender;
     private String role = "user";
-
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private UserProfile profile;
+    private Integer dailyCalorieGoal;
 
     @OneToMany(mappedBy = "user")
     private Set<UserFoodLog> foodLogs;

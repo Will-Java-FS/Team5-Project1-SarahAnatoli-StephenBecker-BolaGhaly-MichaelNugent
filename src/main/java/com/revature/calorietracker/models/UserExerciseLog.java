@@ -1,16 +1,16 @@
 package com.revature.calorietracker.models;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "user_exercise_logs")
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserExerciseLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +29,4 @@ public class UserExerciseLog {
 
     @Column(nullable = false)
     private LocalDate logDate;
-
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 }
