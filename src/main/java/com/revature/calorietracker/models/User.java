@@ -1,17 +1,23 @@
 package com.revature.calorietracker.models;
 
+import com.revature.calorietracker.security.auth.Role;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
 @Getter
 @Setter
-public class User {
+@Builder
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,7 +37,8 @@ public class User {
     private Double weight;
     private Double height;
     private String gender;
-    private String role = "user";
+    @Enumerated(EnumType.STRING)
+    private Role role = Role.USER;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
@@ -47,5 +54,15 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private Set<UserExerciseLog> exerciseLogs;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getPassword() {
+        return passwordHash;
+    }
 }
 
