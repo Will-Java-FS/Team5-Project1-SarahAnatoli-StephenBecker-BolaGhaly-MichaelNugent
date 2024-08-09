@@ -44,9 +44,6 @@ public class User implements UserDetails {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private UserProfile profile;
-
     @OneToMany(mappedBy = "user")
     private Set<UserFoodLog> foodLogs;
 
