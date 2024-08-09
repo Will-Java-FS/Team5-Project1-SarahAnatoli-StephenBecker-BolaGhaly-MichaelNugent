@@ -1,7 +1,6 @@
-package com.revature.calorietracker.models;
+package com.revature.calorietracker.models.auth;
 
 import com.revature.calorietracker.models.User;
-import com.revature.calorietracker.security.token.TokenType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

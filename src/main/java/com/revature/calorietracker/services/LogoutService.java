@@ -1,6 +1,6 @@
-package com.revature.calorietracker.security.config;
+package com.revature.calorietracker.services;
 
-import com.revature.calorietracker.models.Token;
+import com.revature.calorietracker.models.auth.Token;
 import com.revature.calorietracker.repos.TokenRepo;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

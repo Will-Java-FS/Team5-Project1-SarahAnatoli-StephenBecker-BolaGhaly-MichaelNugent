@@ -1,5 +1,6 @@
 package com.revature.calorietracker.security.config;
 
+import com.revature.calorietracker.services.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

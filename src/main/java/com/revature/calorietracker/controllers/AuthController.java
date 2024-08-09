@@ -1,5 +1,9 @@
-package com.revature.calorietracker.security.auth;
+package com.revature.calorietracker.controllers;
 
+import com.revature.calorietracker.models.auth.AuthenticationRequest;
+import com.revature.calorietracker.models.auth.AuthenticationResponse;
+import com.revature.calorietracker.models.auth.RegisterRequest;
+import com.revature.calorietracker.services.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

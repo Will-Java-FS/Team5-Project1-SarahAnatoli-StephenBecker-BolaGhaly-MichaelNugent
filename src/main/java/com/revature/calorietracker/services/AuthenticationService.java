@@ -1,6 +1,9 @@
-package com.revature.calorietracker.security.auth;
+package com.revature.calorietracker.services;
 
-import com.revature.calorietracker.security.config.JwtService;
+import com.revature.calorietracker.models.auth.AuthenticationRequest;
+import com.revature.calorietracker.models.auth.AuthenticationResponse;
+import com.revature.calorietracker.models.auth.RegisterRequest;
+import com.revature.calorietracker.models.auth.Role;
 import com.revature.calorietracker.models.User;
 import com.revature.calorietracker.repos.UserRepo;
 import lombok.RequiredArgsConstructor;

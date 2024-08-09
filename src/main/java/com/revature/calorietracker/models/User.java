@@ -1,6 +1,6 @@
 package com.revature.calorietracker.models;
 
-import com.revature.calorietracker.security.auth.Role;
+import com.revature.calorietracker.models.auth.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;

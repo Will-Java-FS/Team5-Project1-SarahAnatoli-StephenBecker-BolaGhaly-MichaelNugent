@@ -1,4 +1,4 @@
-package com.revature.calorietracker.security.config;
+package com.revature.calorietracker.services;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

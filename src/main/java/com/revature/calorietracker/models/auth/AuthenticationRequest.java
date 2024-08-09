@@ -1,4 +1,4 @@
-package com.revature.calorietracker.security.auth;
+package com.revature.calorietracker.models.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

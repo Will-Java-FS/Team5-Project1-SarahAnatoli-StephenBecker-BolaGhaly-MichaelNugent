@@ -1,6 +1,6 @@
 package com.revature.calorietracker.repos;
 
-import com.revature.calorietracker.models.Token;
+import com.revature.calorietracker.models.auth.Token;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
