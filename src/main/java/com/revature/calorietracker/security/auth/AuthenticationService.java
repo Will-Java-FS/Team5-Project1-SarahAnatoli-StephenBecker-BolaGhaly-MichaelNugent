@@ -34,12 +34,14 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
+        System.out.println("auth service: " + request);
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getUsername(),
                         request.getPassword()
                 )
         );
+        System.out.println("auth service: " + request);
         User user = userRepo.findByUsername(request.getUsername()).orElseThrow(() -> new UsernameNotFoundException("User Not found"));
         String jwt = jwtService.generateToken(user);
         return AuthenticationResponse
