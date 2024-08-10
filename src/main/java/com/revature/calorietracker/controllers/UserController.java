@@ -1,40 +1,44 @@
 package com.revature.calorietracker.controllers;
 
-import com.revature.calorietracker.models.User;
 import com.revature.calorietracker.dto.UserDTO;
 import com.revature.calorietracker.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AuthorizationServiceException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/user/")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
     UserService userService;
 
-    //Get all users.  Admin only feature.  Need role authentication.
+    //Get a user's data by the username found in SecurityContext so that only data owner can access data.
     @GetMapping
-    public List<User> getAll(){return userService.getAll();}
-
-    //Get a user by its id.  Authorization required.  Only data owner and ADMIN accounts can access user's data.
-    @GetMapping("/{id}")
-    public UserDTO getById(@PathVariable int id){return userService.getById(id);}
-
-    //Update a user by its id.  Authorization required.  Only data owner and ADMIN accounts can modify a user's data.
-    //Expects a UserDTO
-    @PatchMapping("/{id}")
-    public UserDTO updateById(@PathVariable long id){
-        System.out.println("UserController.updateById(), id:" + id);
-        return userService.updateById(id);}
-
-    @PatchMapping("/{id}")
-    public UserDTO updatePermissionsById(@PathVariable long id){
-        return userService.updatePermissionsById(id);
+    public UserDTO getByUsername() {
+        return userService.getByUsername(getUsernameFromSecurityContext());
     }
 
-}
+    //Update a user's data by the username found in SecurityContext so that only data owner can modify data.
+    @PatchMapping
+    public UserDTO updateByUsername(@RequestBody UserDTO userDTO) {
+        return userService.updateByUsername(getUsernameFromSecurityContext(), userDTO);
+    }
 
-//Want separate controller for admin requests
+    private String getUsernameFromSecurityContext() {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.isAuthenticated()) {
+            Object principal = authentication.getPrincipal();
+
+            if (principal instanceof UserDetails userDetails) {
+                return userDetails.getUsername();
+            } else
+                throw new AuthorizationServiceException("User is authenticated with service other than UserDetails.");
+        } else throw new AuthorizationServiceException("Failed to acquire user authentication information.");
+    }
+}

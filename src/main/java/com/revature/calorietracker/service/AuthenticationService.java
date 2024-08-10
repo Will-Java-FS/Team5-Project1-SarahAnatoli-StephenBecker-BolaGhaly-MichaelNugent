@@ -1,8 +1,6 @@
 package com.revature.calorietracker.service;
 
-import com.revature.calorietracker.dto.AuthenticationRequest;
-import com.revature.calorietracker.dto.AuthenticationResponse;
-import com.revature.calorietracker.dto.RegisterRequest;
+import com.revature.calorietracker.dto.*;
 import com.revature.calorietracker.models.auth.Role;
 import com.revature.calorietracker.models.User;
 import com.revature.calorietracker.repos.UserRepo;
@@ -37,16 +35,14 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        System.out.println("auth service: " + request);
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getUsername(),
                         request.getPassword()
                 )
         );
-        System.out.println("auth service: " + request);
-        User user = userRepo.findByUsername(request.getUsername()).orElseThrow(() -> new UsernameNotFoundException("User Not found"));
-        String jwt = jwtService.generateToken(user);
+        UserSecurityDTO userSecurityDTO = userRepo.findUserSecurityDTOByUsername(request.getUsername()).orElseThrow(() -> new UsernameNotFoundException("User Not found"));
+        String jwt = jwtService.generateToken(userSecurityDTO);
         return AuthenticationResponse
                 .builder()
                 .token(jwt)

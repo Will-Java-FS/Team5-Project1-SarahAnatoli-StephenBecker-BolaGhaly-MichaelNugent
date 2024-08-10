@@ -32,9 +32,6 @@ public class ApplicationConfig {
 //        };
         return this::getUserSecurityDTO;
     }
-
-    @Transactional
-    @org.springframework.transaction.annotation.Transactional
     private UserSecurityDTO getUserSecurityDTO(String username){
         return userRepo.findUserSecurityDTOByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));

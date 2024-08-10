@@ -1,5 +1,6 @@
 package com.revature.calorietracker.repos;
 
+import com.revature.calorietracker.dto.UserDTO;
 import com.revature.calorietracker.models.User;
 import com.revature.calorietracker.dto.UserSecurityDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,7 +11,8 @@ import java.util.Optional;
 @Repository
 public interface UserRepo extends JpaRepository<User, Long> {
 
-    Optional<User> findByUsername(String username);    //I think this is safe to delete.
+    Optional<UserDTO> findUserDTOByUsername(String username);
+    Optional<User> findByUsername(String username);
 
     Optional<UserSecurityDTO> findUserSecurityDTOByUsername(String username);
 }
