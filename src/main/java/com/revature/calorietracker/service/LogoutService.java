@@ -1,4 +1,4 @@
-package com.revature.calorietracker.services;
+package com.revature.calorietracker.service;
 
 import com.revature.calorietracker.models.auth.Token;
 import com.revature.calorietracker.repos.TokenRepo;
