@@ -1,6 +1,7 @@
 package com.revature.calorietracker.service;
 
 import com.revature.calorietracker.models.User;
+import com.revature.calorietracker.dto.UserDTO;
 import com.revature.calorietracker.repos.UserRepo;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +23,12 @@ public class UserService {
         return null;
     }
     @PreAuthorize("#id==authentication.principal.id or hasRole('ROLE_ADMIN')") //USER privileges means requester must own data.  However, ADMIN requester can always access.
-    public User getById(int id) {
+    public UserDTO getById(int id) {
         return null;
     }
 
     @PreAuthorize("#id==authentication.principal.id or hasRole('ROLE_ADMIN')") //USER privileges means requester must own data.  However, ADMIN requester can always access.
-    public User updateById(long id) {
+    public UserDTO updateById(long id) {
 
 //        System.out.println("UserService.updateById(), id: " + id);
 //        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -37,4 +38,13 @@ public class UserService {
 
         return null;
     }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN') and #id!=authentication.principal.id")//Must be ADMIN to modify user privileges, and cannot modify self.
+    public UserDTO updatePermissionsById(long id){
+        //Permission value must be valid option of Role enumeration (USER, MANAGER, ADMIN)
+        return null;
+    }
 }
+
+//ADMIN methods should return the entire User objects
+//USER methods should return only UserDTOs

@@ -1,9 +1,9 @@
 package com.revature.calorietracker.controllers;
 
 import com.revature.calorietracker.models.User;
+import com.revature.calorietracker.dto.UserDTO;
 import com.revature.calorietracker.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,13 +21,20 @@ public class UserController {
 
     //Get a user by its id.  Authorization required.  Only data owner and ADMIN accounts can access user's data.
     @GetMapping("/{id}")
-    public User getById(@PathVariable int id){return userService.getById(id);}
+    public UserDTO getById(@PathVariable int id){return userService.getById(id);}
 
     //Update a user by its id.  Authorization required.  Only data owner and ADMIN accounts can modify a user's data.
-    //Expects a complete User object
-    @PutMapping("/{id}")
-    public User updateById(@PathVariable long id){
+    //Expects a UserDTO
+    @PatchMapping("/{id}")
+    public UserDTO updateById(@PathVariable long id){
         System.out.println("UserController.updateById(), id:" + id);
         return userService.updateById(id);}
 
+    @PatchMapping("/{id}")
+    public UserDTO updatePermissionsById(@PathVariable long id){
+        return userService.updatePermissionsById(id);
+    }
+
 }
+
+//Want separate controller for admin requests

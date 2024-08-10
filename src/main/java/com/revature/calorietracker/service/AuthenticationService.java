@@ -1,8 +1,8 @@
 package com.revature.calorietracker.service;
 
-import com.revature.calorietracker.models.auth.AuthenticationRequest;
-import com.revature.calorietracker.models.auth.AuthenticationResponse;
-import com.revature.calorietracker.models.auth.RegisterRequest;
+import com.revature.calorietracker.dto.AuthenticationRequest;
+import com.revature.calorietracker.dto.AuthenticationResponse;
+import com.revature.calorietracker.dto.RegisterRequest;
 import com.revature.calorietracker.models.auth.Role;
 import com.revature.calorietracker.models.User;
 import com.revature.calorietracker.repos.UserRepo;

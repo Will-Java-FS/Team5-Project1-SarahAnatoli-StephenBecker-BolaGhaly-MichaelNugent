@@ -3,6 +3,8 @@ package com.revature.calorietracker.models;
 import com.revature.calorietracker.models.auth.Role;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -34,15 +36,18 @@ public class User implements UserDetails {
     private String firstName;
     private String lastName;
     private Integer age;
-    private Double weight;
-    private Double height;
+    private Double weight; //metric system? kilograms?
+    private Double height; //metric system? meters?
     private String gender;
     @Enumerated(EnumType.STRING)
     private Role role = Role.USER;
 
     private Integer dailyCalorieGoal;
 
+    @CreationTimestamp
+    @Column(updatable = false)
     private LocalDateTime createdAt;
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "user")

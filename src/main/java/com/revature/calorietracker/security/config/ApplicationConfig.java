@@ -1,6 +1,6 @@
 package com.revature.calorietracker.security.config;
 
-import com.revature.calorietracker.models.auth.UserSecurityDTO;
+import com.revature.calorietracker.dto.UserSecurityDTO;
 import com.revature.calorietracker.repos.UserRepo;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

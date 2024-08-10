@@ -1,4 +1,4 @@
-package com.revature.calorietracker.models.auth;
+package com.revature.calorietracker.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

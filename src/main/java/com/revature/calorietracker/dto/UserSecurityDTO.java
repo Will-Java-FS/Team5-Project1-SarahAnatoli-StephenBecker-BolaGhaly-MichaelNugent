@@ -1,5 +1,6 @@
-package com.revature.calorietracker.models.auth;
+package com.revature.calorietracker.dto;
 
+import com.revature.calorietracker.models.auth.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
