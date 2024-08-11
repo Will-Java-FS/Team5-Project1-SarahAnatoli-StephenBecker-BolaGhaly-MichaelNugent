@@ -24,5 +24,5 @@ public class BMIRecord {
 
     @Column(nullable = false)
     //@Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime recordedAt = LocalDateTime.now();;
+    private LocalDateTime recordedAt = LocalDateTime.now();
 }
