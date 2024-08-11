@@ -22,19 +22,11 @@ public class BMIRecordService {
         this.bmiRecordRepo=bmiRecordRepo;
     }
 
-    //public BMIRecord saveBMIRecord(BMIRecord bmiRecord) {
-    //    this.bmiRecordRepo.save(bmiRecord);
-    //    return bmiRecord; //still need to get this to work come back to this
-    //}
 
-    //public List<BMIRecord> getBMIlistByUser(Long userId){
-      //  Optional<BMIRecord> bmirecords = bmiRecordRepo.findByUser(userId);
-      //  if (bmirecords.isPresent()) {
-       //     List<BMIRecord> bmir=bmirecords.get();
-//            return bmir;
-  //      }
-    //    return null; //temporary
-    //}
+    public BMIRecord saveBMIRecord(BMIRecord bmiRecord) {
+        return this.bmiRecordRepo.save(bmiRecord);
+    }
+
 
     public List<BMIRecord> getAllRecordsByUser(User user) {
         return bmiRecordRepo.findByUser(user);
