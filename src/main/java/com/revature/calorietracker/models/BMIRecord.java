@@ -1,4 +1,5 @@
 package com.revature.calorietracker.models;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -22,5 +23,6 @@ public class BMIRecord {
     private Double bmiValue;
 
     @Column(nullable = false)
-    private LocalDateTime recordedAt;
+    //@Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime recordedAt = LocalDateTime.now();;
 }
