@@ -4,8 +4,6 @@ import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 @Entity
 @Table(name = "bmi_records")
 @Data
@@ -22,6 +20,7 @@ public class BMIRecord {
 
     private Double bmiValue;
 
+
     @Column(nullable = false)
     //@Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime recordedAt = LocalDateTime.now();;
@@ -29,5 +28,12 @@ public class BMIRecord {
     @PrePersist
     protected void onCreate() {
         this.recordedAt = LocalDateTime.now();
+        this.bmiValue=calculateMetricBMI();
+    }
+
+    Double calculateMetricBMI(){
+        Double hsq=user.getHeight()*user.getHeight();
+        Double w=user.getWeight();
+        return w/hsq;
     }
 }

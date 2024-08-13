@@ -29,12 +29,10 @@ public class BMIRecordController {
         return ResponseEntity.status(200).body(null);  //testing
     }
 
-    @PostMapping("/addbmirecord")
+    @PatchMapping ("/addbmirecord")
     public ResponseEntity<BMIRecord> registerNewUser(@RequestBody BMIRecord bmiRecord) throws Exception {
-        // have not managed to get this to work yet with a jason object
         bmiRecordService.saveBMIRecord(bmiRecord);
         return ResponseEntity.status(200).body(bmiRecord);
-        //return ResponseEntity.status(200).body(null);
     }
 
     @GetMapping("/bmilistbyuserid")
@@ -48,7 +46,7 @@ public class BMIRecordController {
         return ResponseEntity.status(200).body(null);
     }
 
-    @PostMapping("/save")
+    @PostMapping("/savetest")
     public BMIRecord saveBMIRecord(@RequestParam Long userId, @RequestParam Double bmiValue) {
         //request params to check if database saves new bmi records
         User user = new User();
