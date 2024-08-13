@@ -35,4 +35,10 @@ public class UserService {
 
         return UserMapper.toDTO(savedUser);
     }
+
+    public User getUserByUsername(String username) {
+        User user = userRepo.findByUsername(username).orElse(null);
+        System.out.println("UserService.getUserByUsername(username): " + user);
+        return user;
+    }
 }

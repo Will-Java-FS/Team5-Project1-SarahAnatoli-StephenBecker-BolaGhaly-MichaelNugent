@@ -1,6 +1,7 @@
 package com.revature.calorietracker.controllers;
 
 import com.revature.calorietracker.dto.UserDTO;
+import com.revature.calorietracker.models.User;
 import com.revature.calorietracker.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AuthorizationServiceException;
@@ -26,6 +27,11 @@ public class UserController {
     @PatchMapping
     public UserDTO updateByUsername(@RequestBody UserDTO userDTO) {
         return userService.updateByUsername(getUsernameFromSecurityContext(), userDTO);
+    }
+
+    @GetMapping("/test")
+    public User getByUserName(){
+        return userService.getUserByUsername(getUsernameFromSecurityContext());
     }
 
     private String getUsernameFromSecurityContext() {

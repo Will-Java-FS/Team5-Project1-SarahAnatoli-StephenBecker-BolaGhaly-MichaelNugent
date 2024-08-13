@@ -34,4 +34,18 @@ public class UserMapper {
                 user.getLastName()
         );
     }
+
+    public static UserTokenDTO toTokenDTO(User user){
+        return new UserTokenDTO(
+                user.getId(),
+                user.getUsername(),
+                user.getRole()
+        );
+    }
+
+    public static User fromTokenDTO(UserTokenDTO userTokenDTO){
+        return new User(
+                userTokenDTO.id()
+        );
+    }
 }
