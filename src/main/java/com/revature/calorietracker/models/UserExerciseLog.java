@@ -28,5 +28,11 @@ public class UserExerciseLog {
     private Double caloriesBurned;
 
     @Column(nullable = false)
-    private LocalDate logDate;
+    private LocalDate logDate= LocalDate.from(LocalDateTime.now());
+
+    @PrePersist
+    protected void onCreate() {
+        this.logDate = LocalDate.from(LocalDateTime.now());
+
+    }
 }
