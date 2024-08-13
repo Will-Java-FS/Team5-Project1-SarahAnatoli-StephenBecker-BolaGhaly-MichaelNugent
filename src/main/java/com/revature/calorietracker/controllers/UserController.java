@@ -2,6 +2,9 @@ package com.revature.calorietracker.controllers;
 
 import com.revature.calorietracker.dto.UserDTO;
 import com.revature.calorietracker.models.User;
+import com.revature.calorietracker.models.UserFoodLog;
+import com.revature.calorietracker.models.BMIRecord;
+import com.revature.calorietracker.models.UserExerciseLog;
 import com.revature.calorietracker.service.UserService;
 
 import java.util.List;
@@ -21,6 +24,21 @@ public class UserController {
     @GetMapping(value = "/users/all")
     public List<User> getAllUsers() {
         return userService.getAllUsers();
+    }
+
+    @GetMapping(value = "/user/{id}/foodLogs")
+    public List<UserFoodLog> getUserFoodLogsByUserId(@PathVariable long id) {
+        return userService.getUserFoodLogsByUserId(id);
+    }
+
+    @GetMapping(value = "/user/{id}/bmiRecords")
+    public List<BMIRecord> getUserBMIRecordsByUserId(@PathVariable long id) {
+        return userService.getUserBMIRecordsByUserId(id);
+    }
+
+    @GetMapping(value = "/user/{id}/exerciseLogs")
+    public List<UserExerciseLog> getUserExerciseLogsByUserId(@PathVariable long id) {
+        return userService.getUserExerciseLogsByUserId(id);
     }
 
     //Get a user's data by the username found in SecurityContext so that only data owner can access data.

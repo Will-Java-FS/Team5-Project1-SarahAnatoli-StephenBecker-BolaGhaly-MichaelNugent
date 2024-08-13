@@ -4,6 +4,10 @@ import com.revature.calorietracker.dto.UserDTO;
 import com.revature.calorietracker.dto.UserMapper;
 import com.revature.calorietracker.exceptions.UserNotFoundException;
 import com.revature.calorietracker.models.User;
+import com.revature.calorietracker.models.UserFoodLog;
+import com.revature.calorietracker.models.BMIRecord;
+import com.revature.calorietracker.models.UserExerciseLog;
+
 import com.revature.calorietracker.repos.UserRepo;
 import jakarta.transaction.Transactional;
 
@@ -22,6 +26,21 @@ public class UserService {
 
     public List<User> getAllUsers () {
         return userRepo.findAll();
+    }
+
+    public List<UserFoodLog> getUserFoodLogsByUserId (long id) {
+        if (userRepo.findById(id).isPresent()) return userRepo.findById(id).get().getFoodLogs();
+        return null;
+    }
+
+    public List<BMIRecord> getUserBMIRecordsByUserId (long id) {
+        if (userRepo.findById(id).isPresent()) return userRepo.findById(id).get().getBmiRecords();
+        return null;
+    }
+
+    public List<UserExerciseLog> getUserExerciseLogsByUserId (long id) {
+        if (userRepo.findById(id).isPresent()) return userRepo.findById(id).get().getExerciseLogs();
+        return null;
     }
 
     public UserDTO getByUsername(String username) {
