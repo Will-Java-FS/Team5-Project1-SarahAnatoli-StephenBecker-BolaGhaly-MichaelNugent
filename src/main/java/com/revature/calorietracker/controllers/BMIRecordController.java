@@ -1,4 +1,5 @@
 package com.revature.calorietracker.controllers;
+import com.revature.calorietracker.models.Exercise;
 import com.revature.calorietracker.models.User;
 import com.revature.calorietracker.models.BMIRecord;
 import com.revature.calorietracker.service.BMIRecordService;
@@ -6,6 +7,7 @@ import com.revature.calorietracker.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -45,6 +47,17 @@ public class BMIRecordController {
         }
         return ResponseEntity.status(200).body(null);
     }
+
+    @DeleteMapping
+    public ResponseEntity<Void> deleteExercise(@RequestBody BMIRecord bmiRecord) {
+        try {
+            bmiRecordService.deleteBMIById(bmiRecord);
+            return ResponseEntity.status(200).body(null);
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(404).body(null);
+        }
+    }
+
 
     @PostMapping("/savetest")
     public BMIRecord saveBMIRecord(@RequestParam Long userId, @RequestParam Double bmiValue) {
