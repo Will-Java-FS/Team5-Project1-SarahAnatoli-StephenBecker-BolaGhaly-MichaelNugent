@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -52,13 +52,13 @@ public class User implements UserDetails {
     private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "user")
-    private Set<UserFoodLog> foodLogs;
+    private List<UserFoodLog> foodLogs;
 
     @OneToMany(mappedBy = "user")
-    private Set<BMIRecord> bmiRecords;
+    private List<BMIRecord> bmiRecords;
 
     @OneToMany(mappedBy = "user")
-    private Set<UserExerciseLog> exerciseLogs;
+    private List<UserExerciseLog> exerciseLogs;
 
     @Override
     @JsonIgnore
