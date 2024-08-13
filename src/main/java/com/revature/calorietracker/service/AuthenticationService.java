@@ -15,6 +15,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
@@ -33,13 +35,9 @@ public class AuthenticationService {
                 .passwordHash(passwordEncoder.encode(request.getPassword()))
                 .role(Role.USER)
                 .build();
-
         userRepo.save(user);
-
         String jwt = jwtService.generateToken(UserMapper.toTokenDTO(user));
-
         saveUserToken(UserMapper.toTokenDTO(user),jwt);
-
         return AuthenticationResponse.builder().token(jwt).build();
     }
 
@@ -50,12 +48,10 @@ public class AuthenticationService {
                         request.getPassword()
                 )
         );
-
         UserTokenDTO userTokenDTO = userRepo.findUserTokenDTOByUsername(request.getUsername()).orElseThrow(() -> new UsernameNotFoundException("User Not Found"));
         String jwt = jwtService.generateToken(userTokenDTO);
-
+        revokeAllUserTokens(userTokenDTO);
         saveUserToken(userTokenDTO, jwt);
-
         return AuthenticationResponse
                 .builder()
                 .token(jwt)
@@ -72,6 +68,17 @@ public class AuthenticationService {
                 .revoked(false)
                 .build();
         tokenRepo.save(token);
-
     }
+
+    private void revokeAllUserTokens(UserTokenDTO userTokenDTO){
+        List<Token> validUserTokens = tokenRepo.findAllValidTokenByUser(userTokenDTO.id());
+        if(validUserTokens.isEmpty()) return;
+        validUserTokens.forEach(token->{
+            token.setExpired(true);
+            token.setRevoked(true);
+        });
+        tokenRepo.saveAll(validUserTokens);
+    }
+
+    //refresh token
 }
