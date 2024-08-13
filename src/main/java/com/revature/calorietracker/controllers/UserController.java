@@ -29,10 +29,10 @@ public class UserController {
         return userService.updateByUsername(getUsernameFromSecurityContext(), userDTO);
     }
 
-    @GetMapping("/test")
-    public User getByUserName(){
-        return userService.getUserByUsername(getUsernameFromSecurityContext());
-    }
+//    @GetMapping("/test")
+//    public User getByUserName(){
+//        return userService.getUserByUsername(getUsernameFromSecurityContext());
+//    }
 
     private String getUsernameFromSecurityContext() {
 
