@@ -6,6 +6,9 @@ import com.revature.calorietracker.exceptions.UserNotFoundException;
 import com.revature.calorietracker.models.User;
 import com.revature.calorietracker.repos.UserRepo;
 import jakarta.transaction.Transactional;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +20,9 @@ public class UserService {
     @Autowired
     UserRepo userRepo;
 
+    public List<User> getAllUsers () {
+        return userRepo.findAll();
+    }
 
     public UserDTO getByUsername(String username) {
         return userRepo.findUserDTOByUsername(username).orElse(null);
