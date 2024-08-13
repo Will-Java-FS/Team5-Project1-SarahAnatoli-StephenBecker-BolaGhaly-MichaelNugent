@@ -1,5 +1,6 @@
 package com.revature.calorietracker.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.revature.calorietracker.models.auth.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -31,7 +32,7 @@ public class User implements UserDetails {
     private String email;
 
     @Column(nullable = false)
-    private String passwordHash;
+    private String password;
 
     private String firstName;
     private String lastName;
@@ -60,13 +61,9 @@ public class User implements UserDetails {
     private Set<UserExerciseLog> exerciseLogs;
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return role.getAuthorities();
-    }
-
-    @Override
-    public String getPassword() {
-        return passwordHash;
     }
 }
 
