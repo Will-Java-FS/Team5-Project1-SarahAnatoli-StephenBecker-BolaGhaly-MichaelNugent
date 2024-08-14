@@ -8,7 +8,6 @@ import com.revature.calorietracker.models.UserExerciseLog;
 import com.revature.calorietracker.service.UserService;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AuthorizationServiceException;
 import org.springframework.security.core.Authentication;
@@ -21,28 +20,34 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping(value = "/user/{id}")
-    public User getUserByUserId(@PathVariable long id) {
-        return userService.getUserByUserId(id);
-    }
-
-    @GetMapping(value = "/users/all")
+    // for testing purposes
+    @GetMapping(value = "/users")
     public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
 
+    @GetMapping(value = "/user/{id}")
+    public User getUserByUserId(@PathVariable Long id) {
+        return userService.getUserByUserId(id);
+    }
+
+    @PatchMapping(value = "/user/{id}")
+    public User updateUserByUserId(@PathVariable Long id, @RequestBody User patchedUser) {
+        return userService.updateUserByUserId(id, patchedUser);
+    }
+
     @GetMapping(value = "/user/{id}/foodLogs")
-    public List<UserFoodLog> getUserFoodLogsByUserId(@PathVariable long id) {
+    public List<UserFoodLog> getUserFoodLogsByUserId(@PathVariable Long id) {
         return userService.getUserFoodLogsByUserId(id);
     }
 
     @GetMapping(value = "/user/{id}/bmiRecords")
-    public List<BMIRecord> getUserBMIRecordsByUserId(@PathVariable long id) {
+    public List<BMIRecord> getUserBMIRecordsByUserId(@PathVariable Long id) {
         return userService.getUserBMIRecordsByUserId(id);
     }
 
     @GetMapping(value = "/user/{id}/exerciseLogs")
-    public List<UserExerciseLog> getUserExerciseLogsByUserId(@PathVariable long id) {
+    public List<UserExerciseLog> getUserExerciseLogsByUserId(@PathVariable Long id) {
         return userService.getUserExerciseLogsByUserId(id);
     }
 
