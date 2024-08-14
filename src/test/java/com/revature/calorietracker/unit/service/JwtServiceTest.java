@@ -1,7 +1,8 @@
-package com.revature.calorietracker.service;
+package com.revature.calorietracker.unit.service;
 
 import com.revature.calorietracker.dto.UserTokenDTO;
 import com.revature.calorietracker.models.auth.Role;
+import com.revature.calorietracker.service.JwtService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.junit.jupiter.api.BeforeEach;

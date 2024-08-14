@@ -1,5 +1,6 @@
-package com.revature.calorietracker.controllers;
+package com.revature.calorietracker.unit.controllers;
 
+import com.revature.calorietracker.controllers.UserController;
 import com.revature.calorietracker.dto.UserDTO;
 import com.revature.calorietracker.models.User;
 import com.revature.calorietracker.service.UserService;

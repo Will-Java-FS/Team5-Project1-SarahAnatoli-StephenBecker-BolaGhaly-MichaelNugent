@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.UUID;
 import java.util.function.Function;
 
 @Service
@@ -23,7 +24,15 @@ public class JwtService {
     }
 
     private String generateToken(HashMap<String, Object> extraClaims, UserTokenDTO userTokenDTO) {
+        //Token Time Length
         final int TOKEN_VALIDITY_TIME = (1000 * 60 * 60 * 24);
+
+        //ensure no two tokens are identical even when they share all other properties
+        extraClaims.put("uuid", UUID.randomUUID().toString());
+        //Put authenticated user's id into token
+//        System.out.println("JwtService.java: userTokenDTO: " + userTokenDTO);
+        extraClaims.put("userId", userTokenDTO.id());
+//        System.out.println("JwtService.java: extraClaims:" + extraClaims);
         return Jwts
                 .builder()
                 .claims()
@@ -45,8 +54,13 @@ public class JwtService {
         return extractClaim(jwt, Claims::getSubject);
     }
 
+    public Long extractUserId(String jwt) {
+        return extractClaim(jwt, (claims) -> claims.get("userId", Long.class));
+    }
+
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
+//        System.out.println(claims);
         return claimsResolver.apply(claims);
     }
 
