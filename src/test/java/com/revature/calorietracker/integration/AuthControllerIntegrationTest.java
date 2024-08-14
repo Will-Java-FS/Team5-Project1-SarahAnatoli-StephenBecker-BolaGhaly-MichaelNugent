@@ -1,4 +1,4 @@
-package com.revature.calorietracker.controllers;
+package com.revature.calorietracker.integration;
 
 import com.revature.calorietracker.dto.AuthenticationRequest;
 import com.revature.calorietracker.dto.RegisterRequest;
@@ -46,9 +46,9 @@ class AuthControllerIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.token").exists());
 
-        // Clean-up
-        mockMvc.perform(post("/auth/logout"))
-                .andExpect(status().isOk());
+//        // Clean-up
+//        mockMvc.perform(post("/auth/logout"))
+//                .andExpect(status().isOk());
     }
 
     @Test

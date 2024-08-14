@@ -19,7 +19,7 @@ public class UserService {
 
 
     public UserDTO getByUsername(String username) {
-        return userRepo.findUserDTOByUsername(username).orElse(null);
+        return userRepo.findUserDTOByUsername(username).orElseThrow(() -> new UserNotFoundException("User not found."));
     }
 
     public UserDTO updateByUsername(String username, UserDTO userDTO) {
@@ -35,8 +35,4 @@ public class UserService {
 
         return UserMapper.toDTO(savedUser);
     }
-//
-//    public User getUserByUsername(String username) {
-//        return userRepo.findByUsername(username).orElse(null);
-//    }
 }

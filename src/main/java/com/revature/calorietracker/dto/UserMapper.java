@@ -18,7 +18,8 @@ public class UserMapper {
 
         //Critical field updates (might be bad practice to allow)
         Optional.ofNullable(userDTO.username()).ifPresent(user::setUsername);
-        Optional.ofNullable(userDTO.gender()).ifPresent(user::setGender);
+        Optional.ofNullable(userDTO.email()).ifPresent(user::setEmail);
+
     }
 
     public static UserDTO toDTO(User user){

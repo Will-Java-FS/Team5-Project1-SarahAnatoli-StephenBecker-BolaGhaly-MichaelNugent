@@ -1,9 +1,10 @@
-package com.revature.calorietracker.service;
+package com.revature.calorietracker.unit.service;
 
 import com.revature.calorietracker.dto.UserDTO;
 import com.revature.calorietracker.exceptions.UserNotFoundException;
 import com.revature.calorietracker.models.User;
 import com.revature.calorietracker.repos.UserRepo;
+import com.revature.calorietracker.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -41,6 +42,18 @@ public class UserServiceTest {
         assertEquals("johndoe", returnedUserDTO.username());
         verify(userRepo, times(1)).findUserDTOByUsername(username);
     }
+    @Test
+    void getByUsername_ThrowsUserNotFoundException() {
+        // Arrange
+        String username = "nonexistentuser";
+        when(userRepo.findByUsername(username)).thenReturn(Optional.empty());
+
+        // Act & Assert
+        assertThrows(UserNotFoundException.class, () -> {
+            userService.getByUsername(username);
+        });
+        verify(userRepo, times(1)).findUserDTOByUsername(username);
+    }
 
     @Test
     void updateByUsername_UpdatesAndReturnsUserDTO() {
@@ -74,32 +87,4 @@ public class UserServiceTest {
         verify(userRepo, times(1)).findByUsername(username);
     }
 
-//    @Test
-//    void getUserByUsername_ReturnsUser() {
-//        // Arrange
-//        String username = "johndoe";
-//        User mockUser = new User();
-//        when(userRepo.findByUsername(username)).thenReturn(Optional.of(mockUser));
-//
-//        // Act
-//        User returnedUser = userService.getUserByUsername(username);
-//
-//        // Assert
-//        assertNotNull(returnedUser);
-//        verify(userRepo, times(1)).findByUsername(username);
-//    }
-//
-//    @Test
-//    void getUserByUsername_ReturnsNullWhenNotFound() {
-//        // Arrange
-//        String username = "nonexistentuser";
-//        when(userRepo.findByUsername(username)).thenReturn(Optional.empty());
-//
-//        // Act
-//        User returnedUser = userService.getUserByUsername(username);
-//
-//        // Assert
-//        assertNull(returnedUser);
-//        verify(userRepo, times(1)).findByUsername(username);
-//    }
 }

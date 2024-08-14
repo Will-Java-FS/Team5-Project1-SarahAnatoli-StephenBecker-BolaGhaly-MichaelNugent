@@ -1,4 +1,4 @@
-package com.revature.calorietracker.service;
+package com.revature.calorietracker.unit.service;
 
 import com.revature.calorietracker.dto.*;
 import com.revature.calorietracker.models.User;
@@ -6,6 +6,8 @@ import com.revature.calorietracker.models.auth.Role;
 import com.revature.calorietracker.models.auth.Token;
 import com.revature.calorietracker.repos.TokenRepo;
 import com.revature.calorietracker.repos.UserRepo;
+import com.revature.calorietracker.service.AuthenticationService;
+import com.revature.calorietracker.service.JwtService;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
