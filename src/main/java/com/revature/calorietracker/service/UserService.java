@@ -24,6 +24,10 @@ public class UserService {
     @Autowired
     UserRepo userRepo;
 
+    public User getUserByUserId (long id) {
+        return userRepo.findById(id).get();
+    }
+
     public List<User> getAllUsers () {
         return userRepo.findAll();
     }
