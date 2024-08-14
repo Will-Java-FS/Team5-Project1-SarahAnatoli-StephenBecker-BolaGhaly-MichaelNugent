@@ -6,6 +6,8 @@ import lombok.*;
 import java.time.LocalDateTime;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "exercises")
 @Data
@@ -23,5 +25,6 @@ public class Exercise {
     private Double caloriesBurnedPerMinute;
 
     @OneToMany(mappedBy = "exercise")
+    @JsonIgnore
     private Set<UserExerciseLog> exerciseLogs;
 }
