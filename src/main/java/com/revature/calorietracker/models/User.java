@@ -21,6 +21,10 @@ import java.util.List;
 @AllArgsConstructor
 @ToString(exclude = {"foodLogs","bmiRecords", "exerciseLogs"}) //ignore lazily loaded fields because they may not be available
 public class User implements UserDetails {
+    public User(Long id) {
+        this.id = id;
+    }
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
