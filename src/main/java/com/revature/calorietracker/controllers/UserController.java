@@ -8,7 +8,11 @@ import com.revature.calorietracker.models.UserExerciseLog;
 import com.revature.calorietracker.service.UserService;
 
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AuthorizationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,9 +35,12 @@ public class UserController {
         return userService.getUserByUserId(id);
     }
 
-    @PatchMapping(value = "/user/{id}")
-    public User updateUserByUserId(@PathVariable Long id, @RequestBody User patchedUser) {
-        return userService.updateUserByUserId(id, patchedUser);
+    @PostMapping(value = "/user/resetPassword")
+    public ResponseEntity<String> updateUserPassword(@RequestBody Map<String, String> passwordMap) {
+        String newPassword = passwordMap.get("password");
+        User updatedUser = userService.updateUserPassword(getUsernameFromSecurityContext(), newPassword);
+        if (updatedUser != null) return ResponseEntity.status(HttpStatus.OK).body("Password was successfully updated!");
+        else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Password was not updated!");
     }
 
     @GetMapping(value = "/user/{id}/foodLogs")

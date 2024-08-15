@@ -35,39 +35,10 @@ public class UserService {
         return null;
     }
 
-    public User updateUserByUserId(Long id, User patchedUser) {
-        Optional<User> existingUser = userRepo.findById(id);
-
-        try {
-            if (existingUser.isPresent()) userPatcher(existingUser.get(), patchedUser);
-            else return null;
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-
-        return userRepo.save(existingUser.get());
-    }
-
-    private void userPatcher(User existingUser, User incompleteUser) throws IllegalAccessException {
-        Class<?> userClass = User.class;
-        Field[] userFields = userClass.getDeclaredFields();
-
-        for (Field field : userFields){
-            // can't access if the field is private
-            field.setAccessible(true);
-
-            // check if the value of the field is not null,
-            // if not then update existing user
-            Object value = field.get(incompleteUser);
-
-            if (value != null) {
-                if (field.getName().equals("password")) field.set(existingUser, passwordEncoder.encode(value.toString()));
-                else field.set(existingUser, value);
-            }
-
-            // make the field private again
-            field.setAccessible(false);
-        }
+    public User updateUserPassword (String username, String newPassword) {
+        User user = userRepo.findByUsername(username).orElseThrow(() -> new UserNotFoundException("User not found in database."));
+        user.setPassword(passwordEncoder.encode(newPassword));
+        return userRepo.save(user);
     }
 
     public List<UserFoodLog> getUserFoodLogsByUserId (Long id) {
