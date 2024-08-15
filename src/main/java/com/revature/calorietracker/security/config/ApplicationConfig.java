@@ -21,17 +21,7 @@ public class ApplicationConfig {
     private final UserRepo userRepo;
 
     @Bean
-    public UserDetailsService userDetailsService() {
-
-//        return (username) -> {
-//            System.out.println("ApplicationConfig.userDetailsService: " + username);
-//            UserSecurityDTO userSecurityDTO = userRepo.findUserSecurityDTOByUsername(username)
-//                    .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-//            //System.out.println("ApplicationConfig.userDetailsService: " + userSecurityDTO);
-//            return userSecurityDTO;
-//        };
-        return this::getUserSecurityDTO;
-    }
+    public UserDetailsService userDetailsService() {return this::getUserSecurityDTO;}
     private UserSecurityDTO getUserSecurityDTO(String username){
         return userRepo.findUserSecurityDTOByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));

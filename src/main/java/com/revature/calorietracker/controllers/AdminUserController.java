@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+//ADMIN routes: "/admin/user/**"; as opposed to USER routes: "/user/**".
 @RequestMapping("/admin/user")
 public class AdminUserController {
     AdminUserService adminUserService;
-    //ADMIN routes: "/admin/users/**" (as opposed to USER's singular "/user/**" routes).
     @GetMapping("/{id}")
     public User getById(@PathVariable int id){return null;}
     //Get all users.  Need role authentication.
