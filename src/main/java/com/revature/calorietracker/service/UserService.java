@@ -11,8 +11,6 @@ import com.revature.calorietracker.models.UserExerciseLog;
 import com.revature.calorietracker.repos.UserRepo;
 import lombok.RequiredArgsConstructor;
 import java.util.List;
-import java.util.Optional;
-import java.lang.reflect.Field;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,6 +23,11 @@ public class UserService {
     @Autowired
     UserRepo userRepo;
     private final PasswordEncoder passwordEncoder;
+
+    public UserService(UserRepo userRepo, PasswordEncoder passwordEncoder){
+        this.userRepo=userRepo;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     public List<User> getAllUsers () {
         return userRepo.findAll();

@@ -1,10 +1,7 @@
 package com.revature.calorietracker.models;
-
+import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.time.LocalDateTime;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -25,5 +22,18 @@ public class BMIRecord {
     private Double bmiValue;
 
     @Column(nullable = false)
-    private LocalDateTime recordedAt;
+    //@Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime recordedAt = LocalDateTime.now();
+
+    @PrePersist
+    protected void onCreate() {
+        this.recordedAt = LocalDateTime.now();
+        this.bmiValue=calculateMetricBMI();
+    }
+
+    Double calculateMetricBMI(){
+        Double hsq=user.getHeight()*user.getHeight();
+        Double w=user.getWeight();
+        return w/hsq;
+    }
 }
