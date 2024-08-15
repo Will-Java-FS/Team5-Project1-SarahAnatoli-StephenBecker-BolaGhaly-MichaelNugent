@@ -9,7 +9,6 @@ import com.revature.calorietracker.models.BMIRecord;
 import com.revature.calorietracker.models.UserExerciseLog;
 
 import com.revature.calorietracker.repos.UserRepo;
-import lombok.RequiredArgsConstructor;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,14 +17,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-@RequiredArgsConstructor
 public class UserService {
     @Autowired
     UserRepo userRepo;
     private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepo userRepo, PasswordEncoder passwordEncoder){
-        this.userRepo=userRepo;
+    public UserService(UserRepo userRepo, PasswordEncoder passwordEncoder) {
+        this.userRepo = userRepo;
         this.passwordEncoder = passwordEncoder;
     }
 
