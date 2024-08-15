@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -50,8 +51,9 @@ public class User implements UserDetails {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "user")
-    private Set<UserFoodLog> foodLogs;
+    @OneToMany
+    @JoinColumn(name = "food_item_id")
+    private List<FoodItem> foodLogs;
 
     @OneToMany(mappedBy = "user")
     private Set<BMIRecord> bmiRecords;
