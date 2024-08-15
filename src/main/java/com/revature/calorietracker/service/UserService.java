@@ -45,7 +45,6 @@ public class UserService {
             e.printStackTrace();
         }
 
-        existingUser.get().setPassword(passwordEncoder.encode(existingUser.get().getPassword()));
         return userRepo.save(existingUser.get());
     }
 
@@ -60,8 +59,10 @@ public class UserService {
             // check if the value of the field is not null,
             // if not then update existing user
             Object value = field.get(incompleteUser);
+
             if (value != null) {
-                field.set(existingUser, value);
+                if (field.getName().equals("password")) field.set(existingUser, passwordEncoder.encode(value.toString()));
+                else field.set(existingUser, value);
             }
 
             // make the field private again
