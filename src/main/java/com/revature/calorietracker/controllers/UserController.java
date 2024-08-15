@@ -1,6 +1,7 @@
 package com.revature.calorietracker.controllers;
 
 import com.revature.calorietracker.dto.UserDTO;
+import com.revature.calorietracker.models.User;
 import com.revature.calorietracker.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AuthorizationServiceException;

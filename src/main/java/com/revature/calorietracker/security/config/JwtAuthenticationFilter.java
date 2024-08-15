@@ -1,6 +1,7 @@
 package com.revature.calorietracker.security.config;
 
 import com.revature.calorietracker.service.JwtService;
+import com.revature.calorietracker.repos.TokenRepo;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,6 +24,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final UserDetailsService userDetailsService;
     private final JwtService jwtService;
+    private final TokenRepo tokenRepo;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -42,8 +44,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         jwt = authHeader.substring(7);
         username = jwtService.extractUsername(jwt);
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-            if (jwtService.isTokenValid(jwt, userDetails)) {
+
+            //Verify database token is valid
+            boolean isTokenValid = tokenRepo.findByToken(jwt).map(t->!t.isExpired()&& !t.isRevoked()).orElse(false);
+
+            if (jwtService.isTokenValid(jwt, userDetails) && isTokenValid) {
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         userDetails,
                         null,
