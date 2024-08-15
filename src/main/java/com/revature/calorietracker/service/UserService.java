@@ -21,7 +21,7 @@ public class UserService {
 
 
     public UserDTO getByUsername(String username) {
-        return userRepo.findUserDTOByUsername(username).orElseThrow(() -> new UserNotFoundException("User not found."));
+        return userRepo.findUserDTOByUsername(username).orElse(null);
     }
 
     public UserDTO updateByUsername(String username, UserDTO userDTO) {
