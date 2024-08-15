@@ -10,15 +10,19 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import com.revature.calorietracker.models.User;
 
 @Service
 @Transactional
 @org.springframework.transaction.annotation.Transactional
 public class UserService {
-
     @Autowired
     UserRepo userRepo;
 
+
+    public UserService(UserRepo userRepo){
+        this.userRepo=userRepo;
+    }
 
     public UserDTO getByUsername(String username) {
         return userRepo.findUserDTOByUsername(username).orElse(null);
