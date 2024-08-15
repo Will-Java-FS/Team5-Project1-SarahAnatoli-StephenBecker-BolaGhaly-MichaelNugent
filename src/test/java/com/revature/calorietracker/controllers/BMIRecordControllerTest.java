@@ -2,6 +2,7 @@ package com.revature.calorietracker.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.calorietracker.models.BMIRecord;
+import com.revature.calorietracker.models.User;
 import com.revature.calorietracker.service.BMIRecordService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -30,8 +31,12 @@ public class BMIRecordControllerTest {
     @Test
     public void testAddNewBmiRecord() throws Exception {
         // Sample BMIRecord object
-        BMIRecord sampleBMIRecord = new BMIRecord();
-        sampleBMIRecord.setId(1L);
+        //BMIRecord sampleBMIRecord = new BMIRecord();
+        User sampleUser = new User();
+
+        sampleUser.setId(1L);
+        sampleUser.setHeight(70.0);
+        sampleUser.setWeight(70.0);
         //sampleBMIRecord.setBmiValue(22.5);
         // Assuming User and recordedAt fields are set as well
 
@@ -39,10 +44,10 @@ public class BMIRecordControllerTest {
         Mockito.doNothing().when(bmiRecordService).saveBMIRecord(Mockito.any(BMIRecord.class));
 
         // Perform the PATCH request
-        mockMvc.perform(patch("/addbmirecord")
+        mockMvc.perform(patch("/bmirecords/addbmirecord")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(sampleBMIRecord)))
+                        .content(objectMapper.writeValueAsString(sampleUser)))
                 .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(sampleBMIRecord)));
+                .andExpect(content().json(objectMapper.writeValueAsString(sampleUser)));
     }
 }
