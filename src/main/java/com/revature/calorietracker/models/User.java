@@ -1,17 +1,25 @@
 package com.revature.calorietracker.models;
 
+import com.revature.calorietracker.models.auth.Role;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
 @Data
-@AllArgsConstructor
+@Builder
 @NoArgsConstructor
-public class User {
+@AllArgsConstructor
+@ToString(exclude = {"foodLogs","bmiRecords", "exerciseLogs"}) //ignore lazily loaded fields because they may not be available
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,11 +36,19 @@ public class User {
     private String firstName;
     private String lastName;
     private Integer age;
-    private Double weight;
-    private Double height;
+    private Double weight; //metric system? kilograms?
+    private Double height; //metric system? meters?
     private String gender;
-    private String role = "user";
+    @Enumerated(EnumType.STRING)
+    private Role role = Role.USER;
+
     private Integer dailyCalorieGoal;
+
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "user")
     private Set<UserFoodLog> foodLogs;
@@ -42,5 +58,15 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private Set<UserExerciseLog> exerciseLogs;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return role.getAuthorities();
+    }
+
+    @Override
+    public String getPassword() {
+        return passwordHash;
+    }
 }
 
