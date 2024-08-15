@@ -25,13 +25,13 @@ public class UserMapper {
         return new UserDTO(
                 user.getUsername(),
                 user.getEmail(),
-                user.getAge(),
-                user.getDailyCalorieGoal(),
-                user.getHeight(),
-                user.getWeight(),
                 user.getFirstName(),
+                user.getLastName(),
+                user.getAge(),
+                user.getWeight(),
+                user.getHeight(),
                 user.getGender(),
-                user.getLastName()
+                user.getDailyCalorieGoal()
         );
     }
 }
