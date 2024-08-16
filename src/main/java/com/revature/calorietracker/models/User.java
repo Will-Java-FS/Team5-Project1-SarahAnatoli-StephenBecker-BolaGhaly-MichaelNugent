@@ -1,5 +1,6 @@
 package com.revature.calorietracker.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.revature.calorietracker.models.auth.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -61,12 +62,17 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user")
     private Set<UserExerciseLog> exerciseLogs;
 
+    public User(Long id) {
+    }
+
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return role.getAuthorities();
     }
 
     @Override
+    @JsonIgnore
     public String getPassword() {
         return passwordHash;
     }

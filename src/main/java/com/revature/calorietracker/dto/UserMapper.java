@@ -18,7 +18,8 @@ public class UserMapper {
 
         //Critical field updates (might be bad practice to allow)
         Optional.ofNullable(userDTO.username()).ifPresent(user::setUsername);
-        Optional.ofNullable(userDTO.gender()).ifPresent(user::setGender);
+        Optional.ofNullable(userDTO.email()).ifPresent(user::setEmail);
+
     }
 
     public static UserDTO toDTO(User user){
@@ -32,6 +33,20 @@ public class UserMapper {
                 user.getFirstName(),
                 user.getGender(),
                 user.getLastName()
+        );
+    }
+
+    public static UserTokenDTO toTokenDTO(User user){
+        return new UserTokenDTO(
+                user.getId(),
+                user.getUsername(),
+                user.getRole()
+        );
+    }
+
+    public static User fromTokenDTO(UserTokenDTO userTokenDTO){
+        return new User(
+                userTokenDTO.id()
         );
     }
 }
