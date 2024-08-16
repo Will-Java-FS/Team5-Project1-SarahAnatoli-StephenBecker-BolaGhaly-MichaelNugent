@@ -81,6 +81,10 @@ public class UserService {
         return UserMapper.toDTO(savedUser);
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> f2f0309dc1dce6eb54fe705604e715c5aded4661
     public User addDailyCalorieGoal(Long id, Integer dailyCalorieGoal) {
         Optional<User> optionalUser = userRepo.findById(id);
         if (optionalUser.isPresent()) {
@@ -125,9 +129,14 @@ public class UserService {
             }
         }
         return totalCalories;
+<<<<<<< HEAD
     }
 
     public UserSecurityDTO getUserSecurityDTOById (Long id){
+=======
+
+    public UserSecurityDTO getUserSecurityDTOById(Long id) {
+>>>>>>> f2f0309dc1dce6eb54fe705604e715c5aded4661
         return userRepo.findUserSecurityDTOById(id).orElseThrow(() -> new UsernameNotFoundException("UserSecurityDTO not found in database."));
     }
 }
