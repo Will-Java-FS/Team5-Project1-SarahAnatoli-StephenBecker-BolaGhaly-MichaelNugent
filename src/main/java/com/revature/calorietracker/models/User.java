@@ -12,10 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
-<<<<<<< HEAD
 import java.util.Set;
-=======
->>>>>>> 6939ad7adda7ac5c026228916deb916316c2b19d
 
 @Entity
 @Table(name = "users")
@@ -59,14 +56,9 @@ public class User implements UserDetails {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-<<<<<<< HEAD
     @OneToMany
     @JoinColumn(name = "food_item_id")
     private List<FoodItem> foodLogs;
-=======
-    @OneToMany(mappedBy = "user")
-    private List<UserFoodLog> foodLogs;
->>>>>>> 6939ad7adda7ac5c026228916deb916316c2b19d
 
     @OneToMany(mappedBy = "user")
     private List<BMIRecord> bmiRecords;

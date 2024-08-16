@@ -1,20 +1,15 @@
 package com.revature.calorietracker.controllers;
 
 import com.revature.calorietracker.dto.UserDTO;
-import com.revature.calorietracker.models.User;
-import com.revature.calorietracker.models.UserFoodLog;
-import com.revature.calorietracker.models.BMIRecord;
-import com.revature.calorietracker.models.UserExerciseLog;
+import com.revature.calorietracker.models.*;
 import com.revature.calorietracker.service.UserService;
 
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-<<<<<<< HEAD
-=======
+
 import org.springframework.http.HttpStatus;
->>>>>>> 6939ad7adda7ac5c026228916deb916316c2b19d
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AuthorizationServiceException;
 import org.springframework.security.core.Authentication;
@@ -47,7 +42,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/user/{id}/foodLogs")
-    public List<UserFoodLog> getUserFoodLogsByUserId(@PathVariable Long id) {
+    public List<FoodItem> getUserFoodLogsByUserId(@PathVariable Long id) {
         return userService.getUserFoodLogsByUserId(id);
     }
 

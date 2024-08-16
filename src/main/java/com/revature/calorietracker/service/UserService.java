@@ -34,38 +34,38 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public List<User> getAllUsers () {
+    public List<User> getAllUsers() {
         return userRepo.findAll();
     }
 
-    public User getUserByUserId (Long id) {
+    public User getUserByUserId(Long id) {
         if (userRepo.findById(id).isPresent()) return userRepo.findById(id).get();
         return null;
     }
 
-    public User updateUserPassword (String username, String newPassword) {
+    public User updateUserPassword(String username, String newPassword) {
         User user = userRepo.findByUsername(username).orElseThrow(() -> new UserNotFoundException("User not found in database."));
         user.setPassword(passwordEncoder.encode(newPassword));
         return userRepo.save(user);
     }
 
-    public List<UserFoodLog> getUserFoodLogsByUserId (Long id) {
+    public List<FoodItem> getUserFoodLogsByUserId (Long id) {
         if (userRepo.findById(id).isPresent()) return userRepo.findById(id).get().getFoodLogs();
         return null;
     }
 
-    public List<BMIRecord> getUserBMIRecordsByUserId (Long id) {
+    public List<BMIRecord> getUserBMIRecordsByUserId(Long id) {
         if (userRepo.findById(id).isPresent()) return userRepo.findById(id).get().getBmiRecords();
         return null;
     }
 
-    public List<UserExerciseLog> getUserExerciseLogsByUserId (Long id) {
+    public List<UserExerciseLog> getUserExerciseLogsByUserId(Long id) {
         if (userRepo.findById(id).isPresent()) return userRepo.findById(id).get().getExerciseLogs();
         return null;
     }
 
     public UserDTO getByUsername(String username) {
-        return userRepo.findUserDTOByUsername(username).orElseThrow(()->new UserNotFoundException("User not found by username."));
+        return userRepo.findUserDTOByUsername(username).orElseThrow(() -> new UserNotFoundException("User not found by username."));
     }
 
     public UserDTO updateByUsername(String username, UserDTO userDTO) {
@@ -81,10 +81,9 @@ public class UserService {
         return UserMapper.toDTO(savedUser);
     }
 
-<<<<<<< HEAD
     public User addDailyCalorieGoal(Long id, Integer dailyCalorieGoal) {
         Optional<User> optionalUser = userRepo.findById(id);
-        if(optionalUser.isPresent()) {
+        if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             user.setDailyCalorieGoal(dailyCalorieGoal);
             userRepo.save(user);
@@ -99,11 +98,11 @@ public class UserService {
         int totalCalories = 0;
 
         Optional<User> optionalUser = userRepo.findById(id);
-        if(optionalUser.isPresent()) {
+        if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             List<FoodItem> userFoodLogs = user.getFoodLogs();
-            for(FoodItem food : userFoodLogs) {
-                if(food.getLogDate() == today) {
+            for (FoodItem food : userFoodLogs) {
+                if (food.getLogDate() == today) {
                     totalCalories += food.getCalories();
                 }
             }
@@ -116,19 +115,19 @@ public class UserService {
         int totalCalories = 0;
 
         Optional<User> optionalUser = userRepo.findById(id);
-        if(optionalUser.isPresent()) {
+        if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             List<FoodItem> userFoodLogs = user.getFoodLogs();
-            for(FoodItem food : userFoodLogs) {
-                if(food.getLogDate().isAfter(oneWeekAgo)) {
+            for (FoodItem food : userFoodLogs) {
+                if (food.getLogDate().isAfter(oneWeekAgo)) {
                     totalCalories += food.getCalories();
                 }
             }
         }
         return totalCalories;
-=======
-    public UserSecurityDTO getUserSecurityDTOById(Long id) {
+    }
+
+    public UserSecurityDTO getUserSecurityDTOById (Long id){
         return userRepo.findUserSecurityDTOById(id).orElseThrow(() -> new UsernameNotFoundException("UserSecurityDTO not found in database."));
->>>>>>> 6939ad7adda7ac5c026228916deb916316c2b19d
     }
 }
