@@ -27,8 +27,6 @@ class UserControllerIntegrationTest {
     @Autowired
     private UserRepo userRepo;
 
-    private User testUser;
-
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
@@ -37,10 +35,10 @@ class UserControllerIntegrationTest {
         userRepo.deleteAll();
 
         // Create a test user in the database
-        testUser = new User();
+        User testUser = new User();
         testUser.setUsername("testuser");
         testUser.setEmail("testuser@example.com");
-        testUser.setPasswordHash("passwordHash");
+        testUser.setPassword("passwordHash");
         testUser.setAge(25);
         testUser.setDailyCalorieGoal(2000);
         testUser.setHeight(1.75);

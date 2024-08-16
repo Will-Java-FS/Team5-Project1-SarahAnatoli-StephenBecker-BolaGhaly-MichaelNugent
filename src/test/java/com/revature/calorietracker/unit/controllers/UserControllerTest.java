@@ -47,7 +47,7 @@ class UserControllerTest {
     @Test
     void getByUsername_ReturnsUserDTO() {
         // Arrange
-        UserDTO mockUserDTO = new UserDTO("johndoe", "johndoe@example.com", 30, 2000, 1.75, 70.0, "John", "Male", "Doe");
+        UserDTO mockUserDTO = new UserDTO("johndoe", "johndoe@example.com", "John", "Doe", 30, 70.75, 1.7,"Male",2000);
         when(userService.getByUsername("johndoe")).thenReturn(mockUserDTO);
 
         // Act
@@ -62,7 +62,7 @@ class UserControllerTest {
     @Test
     void updateByUsername_UpdatesAndReturnsUserDTO() {
         // Arrange
-        UserDTO updateUserDTO = new UserDTO("johndoe", "johndoe@example.com", 31, 2500, 1.75, 70.0, "John", "Male", "Doe");
+        UserDTO updateUserDTO = new UserDTO("johndoe", "johndoe@example.com", "John", "Doe", 31, 70.75, 1.7,"Male",2000);
         when(userService.updateByUsername(eq("johndoe"), any(UserDTO.class))).thenReturn(updateUserDTO);
 
         // Act

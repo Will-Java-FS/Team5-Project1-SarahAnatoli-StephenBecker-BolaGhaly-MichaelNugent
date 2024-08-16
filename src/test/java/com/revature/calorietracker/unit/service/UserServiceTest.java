@@ -31,7 +31,7 @@ public class UserServiceTest {
     void getByUsername_ReturnsUserDTO() {
         //Arrange
         String username = "johndoe";
-        UserDTO mockUserDTO = new UserDTO("johndoe", "johndoe@example.com", 30, 2000, 1.75, 70.0, "John", "Male", "Doe");
+        UserDTO mockUserDTO = new UserDTO("johndoe", "johndoe@example.com", "John", "Doe", 30, 70.75, 1.7,"Male",2000);
         when(userRepo.findUserDTOByUsername(username)).thenReturn(Optional.of(mockUserDTO));
 
         //Act
@@ -59,7 +59,7 @@ public class UserServiceTest {
     void updateByUsername_UpdatesAndReturnsUserDTO() {
         //Arrange
         String username = "johndoe";
-        UserDTO updateUserDTO = new UserDTO("johndoe", "johnConner@sky.net", 31, 2500, 1.75, 70.0, "John", "Male", "Conner");
+        UserDTO updateUserDTO = new UserDTO("johndoe", "johndoe@example.com", "John", "Doe", 30, 70.75, 1.7,"Male",2000);
         User existingUser = new User();
         when(userRepo.findByUsername(username)).thenReturn(Optional.of(existingUser));
         when(userRepo.save(any(User.class))).thenReturn(existingUser);
@@ -77,7 +77,7 @@ public class UserServiceTest {
     void updateByUsername_ThrowsUserNotFoundException() {
         // Arrange
         String username = "nonexistentuser";
-        UserDTO updateUserDTO = new UserDTO("johndoe", "johndoe@example.com", 31, 2500, 1.75, 70.0, "John", "Male", "Doe");
+        UserDTO updateUserDTO = new UserDTO("johndoe", "johndoe@example.com", "John", "Doe", 30, 70.75, 1.7,"Male",2000);
         when(userRepo.findByUsername(username)).thenReturn(Optional.empty());
 
         // Act & Assert

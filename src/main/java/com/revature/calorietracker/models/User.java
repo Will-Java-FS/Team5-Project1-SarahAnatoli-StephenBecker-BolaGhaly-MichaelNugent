@@ -14,6 +14,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+
 @Entity
 @Table(name = "users")
 @Data
@@ -22,6 +23,10 @@ import java.util.Set;
 @AllArgsConstructor
 @ToString(exclude = {"foodLogs","bmiRecords", "exerciseLogs"}) //ignore lazily loaded fields because they may not be available
 public class User implements UserDetails {
+    public User(Long id) {
+        this.id = id;
+    }
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,7 +38,7 @@ public class User implements UserDetails {
     private String email;
 
     @Column(nullable = false)
-    private String passwordHash;
+    private String password;
 
     private String firstName;
     private String lastName;
@@ -57,24 +62,15 @@ public class User implements UserDetails {
     private List<FoodItem> foodLogs;
 
     @OneToMany(mappedBy = "user")
-    private Set<BMIRecord> bmiRecords;
+    private List<BMIRecord> bmiRecords;
 
     @OneToMany(mappedBy = "user")
-    private Set<UserExerciseLog> exerciseLogs;
-
-    public User(Long id) {
-    }
+    private List<UserExerciseLog> exerciseLogs;
 
     @Override
     @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return role.getAuthorities();
-    }
-
-    @Override
-    @JsonIgnore
-    public String getPassword() {
-        return passwordHash;
     }
 }
 
