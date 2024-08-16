@@ -2,6 +2,7 @@ package com.revature.calorietracker.service;
 
 import com.revature.calorietracker.dto.UserDTO;
 import com.revature.calorietracker.dto.UserMapper;
+import com.revature.calorietracker.dto.UserSecurityDTO;
 import com.revature.calorietracker.exceptions.UserNotFoundException;
 import com.revature.calorietracker.models.User;
 import com.revature.calorietracker.models.UserFoodLog;
@@ -12,6 +13,7 @@ import com.revature.calorietracker.repos.UserRepo;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -58,7 +60,7 @@ public class UserService {
     }
 
     public UserDTO getByUsername(String username) {
-        return userRepo.findUserDTOByUsername(username).orElseThrow(() -> new UserNotFoundException("User not found."));
+        return userRepo.findUserDTOByUsername(username).orElseThrow(()->new UserNotFoundException("User not found by username."));
     }
 
     public UserDTO updateByUsername(String username, UserDTO userDTO) {
@@ -72,5 +74,9 @@ public class UserService {
         User savedUser = userRepo.save(user);
 
         return UserMapper.toDTO(savedUser);
+    }
+
+    public UserSecurityDTO getUserSecurityDTOById(Long id) {
+        return userRepo.findUserSecurityDTOById(id).orElseThrow(() -> new UsernameNotFoundException("UserSecurityDTO not found in database."));
     }
 }

@@ -19,4 +19,6 @@ public interface UserRepo extends JpaRepository<User, Long> {
     Optional<UserSecurityDTO> findUserSecurityDTOByUsername(String username);
 
     Optional<UserTokenDTO> findUserTokenDTOByUsername(String username);
+
+    Optional<UserSecurityDTO> findUserSecurityDTOById(Long id);
 }
