@@ -13,10 +13,6 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
-<<<<<<< HEAD
-=======
-
->>>>>>> f2f0309dc1dce6eb54fe705604e715c5aded4661
 
 @Entity
 @Table(name = "users")
