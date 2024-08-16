@@ -56,7 +56,7 @@ class AuthenticationServiceTest {
         User user = User.builder()
                 .username("johndoe")
                 .email("johndoe@example.com")
-                .passwordHash("hashed_password")
+                .password("hashed_password")
                 .role(Role.USER)
                 .build();
         when(passwordEncoder.encode(anyString())).thenReturn("hashed_password");

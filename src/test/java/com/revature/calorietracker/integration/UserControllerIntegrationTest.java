@@ -38,7 +38,7 @@ class UserControllerIntegrationTest {
         User testUser = new User();
         testUser.setUsername("testuser");
         testUser.setEmail("testuser@example.com");
-        testUser.setPasswordHash("passwordHash");
+        testUser.setPassword("passwordHash");
         testUser.setAge(25);
         testUser.setDailyCalorieGoal(2000);
         testUser.setHeight(1.75);
