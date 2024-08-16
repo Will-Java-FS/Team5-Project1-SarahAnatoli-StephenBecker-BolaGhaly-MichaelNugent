@@ -12,7 +12,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
+<<<<<<< HEAD
 import java.util.Set;
+=======
+>>>>>>> 6939ad7adda7ac5c026228916deb916316c2b19d
 
 @Entity
 @Table(name = "users")
@@ -22,6 +25,10 @@ import java.util.Set;
 @AllArgsConstructor
 @ToString(exclude = {"foodLogs","bmiRecords", "exerciseLogs"}) //ignore lazily loaded fields because they may not be available
 public class User implements UserDetails {
+    public User(Long id) {
+        this.id = id;
+    }
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,7 +40,7 @@ public class User implements UserDetails {
     private String email;
 
     @Column(nullable = false)
-    private String passwordHash;
+    private String password;
 
     private String firstName;
     private String lastName;
@@ -52,29 +59,25 @@ public class User implements UserDetails {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+<<<<<<< HEAD
     @OneToMany
     @JoinColumn(name = "food_item_id")
     private List<FoodItem> foodLogs;
+=======
+    @OneToMany(mappedBy = "user")
+    private List<UserFoodLog> foodLogs;
+>>>>>>> 6939ad7adda7ac5c026228916deb916316c2b19d
 
     @OneToMany(mappedBy = "user")
-    private Set<BMIRecord> bmiRecords;
+    private List<BMIRecord> bmiRecords;
 
     @OneToMany(mappedBy = "user")
-    private Set<UserExerciseLog> exerciseLogs;
-
-    public User(Long id) {
-    }
+    private List<UserExerciseLog> exerciseLogs;
 
     @Override
     @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return role.getAuthorities();
-    }
-
-    @Override
-    @JsonIgnore
-    public String getPassword() {
-        return passwordHash;
     }
 }
 

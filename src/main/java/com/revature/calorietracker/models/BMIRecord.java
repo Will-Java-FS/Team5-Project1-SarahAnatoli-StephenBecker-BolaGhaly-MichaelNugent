@@ -1,8 +1,8 @@
 package com.revature.calorietracker.models;
 import java.time.LocalDateTime;
-
 import jakarta.persistence.*;
 import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "bmi_records")
@@ -16,14 +16,14 @@ public class BMIRecord {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
     private User user;
 
     private Double bmiValue;
 
-
     @Column(nullable = false)
     //@Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime recordedAt = LocalDateTime.now();;
+    private LocalDateTime recordedAt = LocalDateTime.now();
 
     @PrePersist
     protected void onCreate() {

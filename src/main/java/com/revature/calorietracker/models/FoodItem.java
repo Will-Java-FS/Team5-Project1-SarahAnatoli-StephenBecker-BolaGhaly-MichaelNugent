@@ -7,6 +7,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "food_items")
 @Data
@@ -31,5 +33,6 @@ public class FoodItem {
     private Double fat;
 
     @OneToMany(mappedBy = "foodItem")
+    @JsonIgnore
     private Set<UserFoodLog> foodLogs;
 }
