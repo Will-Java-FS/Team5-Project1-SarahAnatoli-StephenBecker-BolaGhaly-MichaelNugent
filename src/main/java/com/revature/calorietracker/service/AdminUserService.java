@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -26,5 +27,11 @@ public class AdminUserService {
         }
 
         return allUsersDTOAccounts;
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    public void deleteUserAccount(Long id) {
+        User userInDB = adminUserRepo.getUserAccountById(id);
+        adminUserRepo.delete(userInDB);
     }
 }
