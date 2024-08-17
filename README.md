@@ -1,4 +1,4 @@
-# Team5: Project1
+# Team 5: Project 1
 ## Members    
 Sarah Anatoli    
 Stephen Becker    

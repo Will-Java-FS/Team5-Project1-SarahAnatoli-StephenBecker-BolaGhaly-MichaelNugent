@@ -69,7 +69,6 @@ public class UserController {
     }
 
     private String getUsernameFromSecurityContext() {
-
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication != null && authentication.isAuthenticated()) {
@@ -82,19 +81,20 @@ public class UserController {
         } else throw new AuthorizationServiceException("Failed to acquire user authentication information.");
     }
 
-    @PatchMapping("user/{id}")
-    public ResponseEntity<User> addDailyCalorieGoal(@PathVariable Long id, @RequestBody Integer dailyCalorieGoal) {
+    @PatchMapping("/user/{id}")
+    public ResponseEntity<User> addDailyCalorieGoal(@PathVariable Long id, @RequestBody Map<String, Integer> dailyCalorieGoalMap) {
+        Integer dailyCalorieGoal = dailyCalorieGoalMap.get("dailyCalorieGoal");
         User updatedUser = userService.addDailyCalorieGoal(id, dailyCalorieGoal);
         return ResponseEntity.status(200).body(updatedUser);
     }
 
-    @GetMapping("user/{id}/calories/daily")
+    @GetMapping("/user/{id}/calories/daily")
     public ResponseEntity<Integer> getDailyCaloricIntake(@PathVariable Long id) {
         int totalCalories = userService.getDailyCaloricIntake(id);
         return ResponseEntity.status(200).body(totalCalories);
     }
 
-    @GetMapping("user/{id}/calories/weekly")
+    @GetMapping("/user/{id}/calories/weekly")
     public ResponseEntity<Integer> getWeeklyCaloricIntake(@PathVariable Long id) {
         int totalCalories = userService.getWeeklyCaloricIntake(id);
         return ResponseEntity.status(200).body(totalCalories);
