@@ -3,6 +3,7 @@ package com.revature.calorietracker.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -23,6 +24,8 @@ public class FoodItem {
 
     @Column(nullable = false)
     private Integer calories;
+
+    private LocalDate logDate;
 
     private String servingSize;
     private Double protein;
