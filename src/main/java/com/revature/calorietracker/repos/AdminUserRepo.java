@@ -12,4 +12,7 @@ import java.util.List;
 public interface AdminUserRepo extends JpaRepository<User, Long> {
     @Query(value = "SELECT * FROM users WHERE role = 'USER'", nativeQuery = true)
     List<User> getAllUserAccounts();
+
+    @Query(value = "SELECT * FROM users WHERE id = ?1 LIMIT 1", nativeQuery = true)
+    User getUserAccountById(Long id);
 }
