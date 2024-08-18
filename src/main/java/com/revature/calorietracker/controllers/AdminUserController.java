@@ -59,7 +59,7 @@ public class AdminUserController {
         }
     }
 
-    // Admins can manage user roles
+    // Admins can update a user's role
     // (only upgrade them from 'USER' to 'ADMIN')
     @PostMapping(value = "/admin/user/{id}/role")
     public ResponseEntity<String> promoteUserRoleToAdmin(@PathVariable Long id) {
@@ -72,6 +72,21 @@ public class AdminUserController {
         else {
             adminUserService.promoteUserRoleToAdmin(id);
             return ResponseEntity.status(HttpStatus.OK).body("User's role was successfully updated from 'USER' to 'ADMIN'!");
+        }
+    }
+
+    // Admins can edit a user's account
+    @PatchMapping(value = "/admin/user/{id}")
+    public ResponseEntity<Object> updateUserAccount(@PathVariable Long id, @RequestBody UserDTO patchedUser) throws IllegalAccessException {
+        Optional<User> userInDB = Optional.ofNullable(adminUserRepo.getUserAccountById(id));
+
+        if (userInDB.isEmpty())
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User does not exist in the database (incorrect user id)!");
+        else if (!userInDB.get().getRole().equals(Role.USER))
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User cannot be updated! User's role is '" + userInDB.get().getRole() + "'.");
+        else {
+            UserDTO userDTO = adminUserService.updateUserAccount(id, patchedUser);
+            return ResponseEntity.status(HttpStatus.OK).body(userDTO);
         }
     }
 }
