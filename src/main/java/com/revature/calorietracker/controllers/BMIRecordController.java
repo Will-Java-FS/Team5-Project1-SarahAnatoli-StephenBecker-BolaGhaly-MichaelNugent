@@ -1,4 +1,5 @@
 package com.revature.calorietracker.controllers;
+import com.revature.calorietracker.dto.UserDTO;
 import com.revature.calorietracker.models.Exercise;
 import com.revature.calorietracker.models.User;
 import com.revature.calorietracker.models.BMIRecord;
@@ -31,11 +32,17 @@ public class BMIRecordController {
         return ResponseEntity.status(200).body(null);  //testing
     }
 
-    @PatchMapping ("/addbmirecord")
-    public ResponseEntity<BMIRecord> registerNewUser(@RequestBody BMIRecord bmiRecord) throws Exception {
-        bmiRecordService.saveBMIRecord(bmiRecord);
-        return ResponseEntity.status(200).body(bmiRecord);
+    //@PatchMapping ("/addbmirecord")
+    //public ResponseEntity<BMIRecord> registerNewUser(@RequestBody BMIRecord bmiRecord) throws Exception {
+    //    bmiRecordService.saveBMIRecord(bmiRecord);
+    //    return ResponseEntity.status(200).body(bmiRecord);
+    //}
+    @PostMapping("/addbmirecord")
+    public ResponseEntity<UserDTO> registerNewUser(@RequestBody UserDTO userDTO) throws Exception {
+        bmiRecordService.saveBMIRecord(userDTO);
+        return ResponseEntity.status(200).body(userDTO);
     }
+
 
     @GetMapping("/bmilistbyuserid")
     public ResponseEntity<List<BMIRecord>> getBMIbyUser(@RequestBody User user) throws Exception {
@@ -70,7 +77,7 @@ public class BMIRecordController {
         bmiRecord.setBmiValue(bmiValue);
         bmiRecord.setRecordedAt(LocalDateTime.now());
 
-        return bmiRecordService.saveBMIRecord(bmiRecord);
+        return bmiRecordService.saveBMIRecordoldway(bmiRecord);
     }
 
 }

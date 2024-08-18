@@ -1,5 +1,6 @@
 package com.revature.calorietracker.service;
 
+import com.revature.calorietracker.dto.UserDTO;
 import com.revature.calorietracker.models.BMIRecord;
 import com.revature.calorietracker.models.Exercise;
 import com.revature.calorietracker.models.User;
@@ -26,7 +27,13 @@ public class BMIRecordService {
     }
 
 
-    public BMIRecord saveBMIRecord(BMIRecord bmiRecord) {
+    public BMIRecord saveBMIRecordoldway(BMIRecord bmiRecord) {
+        return this.bmiRecordRepo.save(bmiRecord);
+    }
+    public BMIRecord saveBMIRecord(UserDTO userDTO) {
+        Double height = userDTO.height();
+        Double weight = userDTO.weight();
+        BMIRecord bmiRecord=new BMIRecord(height,weight);
         return this.bmiRecordRepo.save(bmiRecord);
     }
 

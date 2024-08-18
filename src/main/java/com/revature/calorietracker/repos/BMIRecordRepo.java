@@ -13,4 +13,5 @@ public interface BMIRecordRepo extends JpaRepository<BMIRecord, Long> {
      List<BMIRecord> findByUser(User user);
      //Optional<BMIRecord> findById(Long id);
 
+
 }

@@ -25,15 +25,20 @@ public class BMIRecord {
     //@Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime recordedAt = LocalDateTime.now();
 
-    @PrePersist
-    protected void onCreate() {
+    public BMIRecord(Double height, Double weight) {
         this.recordedAt = LocalDateTime.now();
-        this.bmiValue=calculateMetricBMI();
+        this.bmiValue = (height*height)/weight;
     }
 
-    Double calculateMetricBMI(){
-        Double hsq=user.getHeight()*user.getHeight();
-        Double w=user.getWeight();
-        return w/hsq;
-    }
+    //@PrePersist
+    //protected void onCreate() {
+    //    this.recordedAt = LocalDateTime.now();
+    //    this.bmiValue=calculateMetricBMI();
+    //}
+
+    //Double calculateMetricBMI(){
+    //    Double hsq=user.getHeight()*user.getHeight();
+    //    Double w=user.getWeight();
+    //    return w/hsq;
+    //}
 }
