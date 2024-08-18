@@ -3,6 +3,7 @@ package com.revature.calorietracker.service;
 import com.revature.calorietracker.dto.UserDTO;
 import com.revature.calorietracker.dto.UserMapper;
 import com.revature.calorietracker.models.User;
+import com.revature.calorietracker.models.auth.Role;
 import com.revature.calorietracker.repos.AdminUserRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -41,6 +42,13 @@ public class AdminUserService {
     public void updateUserPassword(Long id, String newPassword) {
         User user = adminUserRepo.getUserAccountById(id);
         user.setPassword(passwordEncoder.encode(newPassword));
+        adminUserRepo.save(user);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    public void promoteUserRoleToAdmin(Long id) {
+        User user = adminUserRepo.getUserAccountById(id);
+        user.setRole(Role.ADMIN);
         adminUserRepo.save(user);
     }
 }
