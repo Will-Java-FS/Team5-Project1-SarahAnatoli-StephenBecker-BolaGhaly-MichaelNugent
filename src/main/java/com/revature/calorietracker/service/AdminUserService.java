@@ -6,17 +6,18 @@ import com.revature.calorietracker.models.User;
 import com.revature.calorietracker.models.auth.Role;
 import com.revature.calorietracker.repos.AdminUserRepo;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
 public class AdminUserService {
+    @Autowired
     AdminUserRepo adminUserRepo;
     PasswordEncoder passwordEncoder;
 
@@ -50,5 +51,13 @@ public class AdminUserService {
         User user = adminUserRepo.getUserAccountById(id);
         user.setRole(Role.ADMIN);
         adminUserRepo.save(user);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    public UserDTO updateUserAccount (Long id, UserDTO patchedUser) throws IllegalAccessException {
+        User existingUser = adminUserRepo.getUserAccountById(id);
+        UserMapper.updateEntityWithNonNullDTOValues(existingUser, patchedUser);
+        adminUserRepo.save(existingUser);
+        return UserMapper.toDTO(existingUser);
     }
 }
