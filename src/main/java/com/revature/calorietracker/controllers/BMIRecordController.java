@@ -1,12 +1,15 @@
 package com.revature.calorietracker.controllers;
-import com.revature.calorietracker.dto.UserDTO;
-import com.revature.calorietracker.models.Exercise;
-import com.revature.calorietracker.models.User;
+
+import com.revature.calorietracker.dto.UserSecurityDTO;
 import com.revature.calorietracker.models.BMIRecord;
+import com.revature.calorietracker.models.User;
 import com.revature.calorietracker.service.BMIRecordService;
 import com.revature.calorietracker.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AuthorizationServiceException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -22,9 +25,9 @@ public class BMIRecordController {
     UserService userService;
 
 
-    public BMIRecordController(UserService userService, BMIRecordService bmiRecordService){
-        this.userService=userService;
-        this.bmiRecordService=bmiRecordService;
+    public BMIRecordController(UserService userService, BMIRecordService bmiRecordService) {
+        this.userService = userService;
+        this.bmiRecordService = bmiRecordService;
     }
 
     @GetMapping("/test")
@@ -32,24 +35,37 @@ public class BMIRecordController {
         return ResponseEntity.status(200).body(null);  //testing
     }
 
+    @PostMapping("/addbmirecord")
+    public BMIRecord addBMIRecord(@RequestBody BMIRecord bmiRecord) throws Exception {
+        Long userId = getUserIdFromSecurityContext();
+
+        return bmiRecordService.saveBMIRecordMike(userId, bmiRecord);
+//        return ResponseEntity.status(200).body(bmiRecord);
+    }
     //@PatchMapping ("/addbmirecord")
     //public ResponseEntity<BMIRecord> registerNewUser(@RequestBody BMIRecord bmiRecord) throws Exception {
     //    bmiRecordService.saveBMIRecord(bmiRecord);
     //    return ResponseEntity.status(200).body(bmiRecord);
     //}
-    @PostMapping("/addbmirecord")
-    public ResponseEntity<UserDTO> registerNewUser(@RequestBody UserDTO userDTO) throws Exception {
-        bmiRecordService.saveBMIRecord(userDTO);
-        return ResponseEntity.status(200).body(userDTO);
-    }
+//    @PostMapping("/addbmirecord")
+//    public ResponseEntity<UserDTO> registerNewUser(@RequestBody UserDTO userDTO) throws Exception {
+//
+//        Long userId = getUserIdFromSecurityContext();
+//
+//        System.out.println("UserId: " + userId);
+//
+//
+//        bmiRecordService.saveBMIRecord(userDTO);
+//        return ResponseEntity.status(200).body(userDTO);
+//    }
 
 
     @GetMapping("/bmilistbyuserid")
     public ResponseEntity<List<BMIRecord>> getBMIbyUser(@RequestBody User user) throws Exception {
-        try{
-            List<BMIRecord> rec= bmiRecordService.getAllRecordsByUser(user);
+        try {
+            List<BMIRecord> rec = bmiRecordService.getAllRecordsByUser(user);
             return ResponseEntity.status(200).body(rec);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.getMessage();
         }
         return ResponseEntity.status(200).body(null);
@@ -78,6 +94,20 @@ public class BMIRecordController {
         bmiRecord.setRecordedAt(LocalDateTime.now());
 
         return bmiRecordService.saveBMIRecordoldway(bmiRecord);
+    }
+
+    private Long getUserIdFromSecurityContext() {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.isAuthenticated()) {
+            Object principal = authentication.getPrincipal();
+
+            if (principal instanceof UserSecurityDTO userSecurityDTO) {
+                return userSecurityDTO.getId();
+            } else
+                throw new AuthorizationServiceException("User is authenticated with object other than UserSecurityDTO.");
+        } else throw new AuthorizationServiceException("Failed to acquire user authentication information.");
     }
 
 }

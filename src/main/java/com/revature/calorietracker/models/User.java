@@ -58,7 +58,7 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user")
     private List<UserFoodLog> foodLogs;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<BMIRecord> bmiRecords;
 
     @OneToMany(mappedBy = "user")
