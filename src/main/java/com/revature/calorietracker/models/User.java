@@ -60,7 +60,7 @@ public class User implements UserDetails {
     @JoinColumn(name = "food_item_id")
     private List<FoodItem> foodLogs;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<BMIRecord> bmiRecords;
 
     @OneToMany(mappedBy = "user")

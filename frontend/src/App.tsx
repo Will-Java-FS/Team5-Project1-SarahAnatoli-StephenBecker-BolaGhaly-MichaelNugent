@@ -6,13 +6,17 @@ import UserRegister from './pages/Auth/UserRegister'
 import UserProfile from './pages/UserProfile'
 
 //CSS
-import './css/App.css'
+import './CSS/App.css'
+import NavigationBar from './components/NavBar'
 
 function App() {
 
   return (
     <>
       <BrowserRouter>
+        <Routes>
+          <Route path='*' element={<NavigationBar />} />
+        </Routes>
         <Routes>
           <Route path='/Register' element={<UserRegister />} />
           <Route path='/Login' element={<UserLogin />} />
