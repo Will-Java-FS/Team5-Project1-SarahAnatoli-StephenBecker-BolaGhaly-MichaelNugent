@@ -16,6 +16,8 @@ import org.springframework.web.server.ResponseStatusException;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static com.revature.calorietracker.service.SecurityContextService.getUserIdFromSecurityContext;
+
 @RequestMapping("/bmirecords")
 @RestController
 public class BMIRecordController {
@@ -96,18 +98,5 @@ public class BMIRecordController {
         return bmiRecordService.saveBMIRecordoldway(bmiRecord);
     }
 
-    private Long getUserIdFromSecurityContext() {
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if (authentication != null && authentication.isAuthenticated()) {
-            Object principal = authentication.getPrincipal();
-
-            if (principal instanceof UserSecurityDTO userSecurityDTO) {
-                return userSecurityDTO.getId();
-            } else
-                throw new AuthorizationServiceException("User is authenticated with object other than UserSecurityDTO.");
-        } else throw new AuthorizationServiceException("Failed to acquire user authentication information.");
-    }
 
 }
