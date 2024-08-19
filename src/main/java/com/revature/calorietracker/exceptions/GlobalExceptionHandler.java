@@ -23,4 +23,9 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(ex.getMessage(),HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(BMIRecordNotFoundException.class)
+    public ResponseEntity<String> handleBMIRecordNotFoundException(BMIRecordNotFoundException ex){
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
 }

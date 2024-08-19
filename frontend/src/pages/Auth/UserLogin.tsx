@@ -1,6 +1,7 @@
-import { useState } from "react";
-// import axiosInstance from "../AxiosInstance";
+import { useContext, useState } from "react";
 import axios from "axios";
+
+import { AuthContext } from "../../AuthContext";
 
 export default function UserLogin() {
 
@@ -8,20 +9,21 @@ export default function UserLogin() {
     const [password, setPassword] = useState<string>('');
     const [errorMessage, setErrorMessage] = useState<string>('');
 
+    const { login } = useContext(AuthContext);
+
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         //Prevents page reload
         event.preventDefault();
 
         try {
-            // const response = await axiosInstance.post('/auth/authenticate', { username, password });
+            //replace this web url with an environment variable so as to support both development and production instances
             const response = await axios.post('http://localhost:8080/auth/authenticate', { username, password });
 
             // Assuming the JWT is returned in the response
-            const token = response.data.token;
-            localStorage.setItem('token', token);  // Store token in localStorage
+            login(response.data.token);
 
             // Redirect or perform other post-login actions
-            console.log('Login successful', response.data);
+            console.log(response.data);
 
         } catch (error) {
             console.error('Error during login:', error);

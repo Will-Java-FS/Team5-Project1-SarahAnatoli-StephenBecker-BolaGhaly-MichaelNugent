@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react"
 import axiosInstance from "../AxiosInstance"
 
-import '../css/UserProfile.css'
+import '../CSS/UserProfile.css'
 
 export default function UserProfile() {
 
-  const [userData, setUserData] = useState({ username: null, email: null, firstName: null, lastName: null, gender: null, age: null, height: null, weight: null });
+  const [userData, setUserData] = useState({ username: null, email: null, firstName: null, lastName: null, gender: null, age: null, height: null, weight: null, dailyCalorieGoal: null });
 
   useEffect(() => {
 
