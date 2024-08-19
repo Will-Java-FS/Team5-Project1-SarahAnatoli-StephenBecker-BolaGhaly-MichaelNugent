@@ -12,13 +12,13 @@ const UserRegister = () => {
         event.preventDefault();
 
         try {
+            //replace this web url with an environment variable so as to support both development and production instances
             const response = await axios.post('http://localhost:8080/auth/register', {
                 username: usernameRef.current!.value,
                 email: emailRef.current!.value,
                 password: passwordRef.current!.value,
             });
 
-            // Assuming success
             setSuccessMessage('Registration successful! You can now log in.');
             setErrorMessage('');  // Clear any previous error message
 

@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom';
 import '../CSS/NavBar.css';
 
-const NavigationBar = () => {
+//enums
+import { view } from '../enums';
+
+const NavigationBar = (props: { view: view }) => {
   return (
     <nav className="navbar">
       <div className="navbar-logo">

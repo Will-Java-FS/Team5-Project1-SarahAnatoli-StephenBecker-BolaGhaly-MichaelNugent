@@ -35,13 +35,13 @@ public class BMIRecordController {
         return ResponseEntity.status(200).body(null);  //testing
     }
 
-    @PostMapping("/addbmirecord")
-    public BMIRecord addBMIRecord(@RequestBody BMIRecord bmiRecord) throws Exception {
-        Long userId = getUserIdFromSecurityContext();
-
-        return bmiRecordService.saveBMIRecordMike(userId, bmiRecord);
-//        return ResponseEntity.status(200).body(bmiRecord);
-    }
+//    @PostMapping("/addbmirecord")
+//    public BMIRecord addBMIRecord(@RequestBody BMIRecord bmiRecord) throws Exception {
+//        Long userId = getUserIdFromSecurityContext();
+//
+//        return bmiRecordService.saveBMIRecordMike(userId, bmiRecord);
+////        return ResponseEntity.status(200).body(bmiRecord);
+//    }
     //@PatchMapping ("/addbmirecord")
     //public ResponseEntity<BMIRecord> registerNewUser(@RequestBody BMIRecord bmiRecord) throws Exception {
     //    bmiRecordService.saveBMIRecord(bmiRecord);

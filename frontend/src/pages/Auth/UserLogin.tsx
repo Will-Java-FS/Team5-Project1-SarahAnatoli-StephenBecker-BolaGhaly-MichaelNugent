@@ -13,7 +13,7 @@ export default function UserLogin() {
         event.preventDefault();
 
         try {
-            // const response = await axiosInstance.post('/auth/authenticate', { username, password });
+            //replace this web url with an environment variable so as to support both development and production instances
             const response = await axios.post('http://localhost:8080/auth/authenticate', { username, password });
 
             // Assuming the JWT is returned in the response
