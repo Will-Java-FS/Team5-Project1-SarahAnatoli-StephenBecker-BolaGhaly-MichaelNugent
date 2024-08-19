@@ -1,5 +1,8 @@
-import { useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import axios from 'axios';
+
+//context
+import { AuthContext } from '../../AuthContext';
 
 const UserRegister = () => {
     const usernameRef = useRef<HTMLInputElement>(null);
@@ -7,6 +10,8 @@ const UserRegister = () => {
     const passwordRef = useRef<HTMLInputElement>(null);
     const [errorMessage, setErrorMessage] = useState<string>('');
     const [successMessage, setSuccessMessage] = useState<string>('');
+
+    const {login} = useContext(AuthContext);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -22,10 +27,8 @@ const UserRegister = () => {
             setSuccessMessage('Registration successful! You can now log in.');
             setErrorMessage('');  // Clear any previous error message
 
+            login(response.data.token)
             console.log('Registration successful', response.data);
-            // Assuming the JWT is returned in the response
-            const token = response.data.token;
-            localStorage.setItem('token', token);  // Store token in localStorage
 
 
         } catch (error) {

@@ -13,23 +13,28 @@ import Hero from './pages/Hero'
 //enums
 import { view } from './enums'
 
+//context
+import { AuthProvider } from './AuthContext'
+
 function App() {
 
-  
+
 
 
   return (
     <>
       <BrowserRouter>
-        <Routes>
-          <Route path='*' element={<NavigationBar view={view.guest}/>} />
-        </Routes>
-        <Routes>
-          <Route path='/' element={<Hero />} />
-          <Route path='/Register' element={<UserRegister />} />
-          <Route path='/Login' element={<UserLogin />} />
-          <Route path='/Profile' element={<UserProfile />} />
-        </Routes>
+        <AuthProvider>
+          <Routes>
+            <Route path='*' element={<NavigationBar view={view.guest} />} />
+          </Routes>
+          <Routes>
+            <Route path='/' element={<Hero />} />
+            <Route path='/Register' element={<UserRegister />} />
+            <Route path='/Login' element={<UserLogin />} />
+            <Route path='/Profile' element={<UserProfile />} />
+          </Routes>
+        </AuthProvider>
       </BrowserRouter>
     </>
   )
