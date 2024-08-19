@@ -11,11 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.AuthorizationServiceException;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+
+import static com.revature.calorietracker.service.SecurityContextService.getUsernameFromSecurityContext;
 
 @RestController
 public class UserController {
@@ -67,20 +65,6 @@ public class UserController {
     public UserDTO updateByUsername(@RequestBody UserDTO userDTO) {
         return userService.updateByUsername(getUsernameFromSecurityContext(), userDTO);
     }
-
-    private String getUsernameFromSecurityContext() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if (authentication != null && authentication.isAuthenticated()) {
-            Object principal = authentication.getPrincipal();
-
-            if (principal instanceof UserDetails userDetails) {
-                return userDetails.getUsername();
-            } else
-                throw new AuthorizationServiceException("User is authenticated with service other than UserDetails.");
-        } else throw new AuthorizationServiceException("Failed to acquire user authentication information.");
-    }
-
     @PatchMapping("/user/{id}")
     public ResponseEntity<User> addDailyCalorieGoal(@PathVariable Long id, @RequestBody Map<String, Integer> dailyCalorieGoalMap) {
         Integer dailyCalorieGoal = dailyCalorieGoalMap.get("dailyCalorieGoal");
