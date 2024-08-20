@@ -1,5 +1,5 @@
 export enum view{
-    guest = "guest",
-    user = "user",
-    admin = "admin"
+    GUEST = "GUEST",
+    USER = "USER",
+    ADMIN = "ADMIN"
   }

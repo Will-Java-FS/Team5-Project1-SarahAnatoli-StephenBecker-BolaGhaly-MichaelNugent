@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import axios from "axios";
 
 import { AuthContext } from "../../AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function UserLogin() {
 
@@ -10,6 +11,8 @@ export default function UserLogin() {
     const [errorMessage, setErrorMessage] = useState<string>('');
 
     const { login } = useContext(AuthContext);
+
+    const navigate = useNavigate();
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         //Prevents page reload
@@ -23,7 +26,8 @@ export default function UserLogin() {
             login(response.data.token);
 
             // Redirect or perform other post-login actions
-            console.log(response.data);
+            navigate("/");
+            // console.log(response.data);
 
         } catch (error) {
             console.error('Error during login:', error);

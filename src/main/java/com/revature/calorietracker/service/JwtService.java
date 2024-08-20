@@ -34,6 +34,7 @@ public class JwtService {
         extraClaims.put("uuid", UUID.randomUUID().toString());
         //Put authenticated user's id into token
         extraClaims.put("userId", userTokenDTO.id());
+        extraClaims.put("role",userTokenDTO.role());
         return Jwts
                 .builder()
                 .claims()
