@@ -10,7 +10,7 @@ import '../CSS/UserPortal.css';  // Import the external CSS file
 import { jwtDecode } from "jwt-decode";
 
 //images
-import BMIChart from '../assets/images/BMIChart.png'
+// import BMIChart from '../assets/images/BMIChart.png'
 import FoodJournal from '../assets/images/FoodJournal.png'
 import UserProfileIcon from '../assets/images/UserProfileIcon.png'
 import ExerciseLogsIcon from '../assets/images/ExerciseLogsIcon.png'

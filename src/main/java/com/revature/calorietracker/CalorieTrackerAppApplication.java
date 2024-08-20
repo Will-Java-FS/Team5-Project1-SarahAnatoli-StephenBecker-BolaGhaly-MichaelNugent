@@ -9,8 +9,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication(scanBasePackages = "com.revature.calorietracker")
 @EntityScan("com.revature.calorietracker.models")
 @EnableJpaRepositories("com.revature.calorietracker.repos")
-
-
 public class CalorieTrackerAppApplication {
 
 	public static void main(String[] args) {
