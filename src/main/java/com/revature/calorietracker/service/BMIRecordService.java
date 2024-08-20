@@ -31,18 +31,27 @@ public class BMIRecordService {
     }
 
 
-    public BMIRecord saveBMIRecord(BMIRecord bmiRecord) {
+    //public BMIRecord saveBMIRecord(BMIRecord bmiRecord) {
         //User user = userRepo.findById(userId).orElseThrow(() -> new UsernameNotFoundException("User not found in saveBMIRecordMike()"));
 
         //bmiRecord.setUser(user);
         //bmiRecord.calculateAndSetBMIValue();
 
+        //return bmiRecordRepo.save(bmiRecord);
+    //}
+
+    public BMIRecord saveBMIRecordMike(Long userId,BMIRecord bmiRecord) {
+        User user = userRepo.findById(userId).orElseThrow(() -> new UsernameNotFoundException("User not found in saveBMIRecordMike()"));
+
+        bmiRecord.setUser(user);
+        bmiRecord.calculateAndSetBMIValue();
+
         return bmiRecordRepo.save(bmiRecord);
     }
 
-    public BMIRecord saveBMIRecordoldway(BMIRecord bmiRecord) {
-        return this.bmiRecordRepo.save(bmiRecord);
-    }
+    //public BMIRecord saveBMIRecordoldway(BMIRecord bmiRecord) {
+    //    return this.bmiRecordRepo.save(bmiRecord);
+    //}
 
 //    public BMIRecord saveBMIRecord(UserDTO userDTO) {
 //        Double height = userDTO.height();
@@ -52,9 +61,10 @@ public class BMIRecordService {
 //    }
 
 
-    public List<BMIRecord> getAllRecordsById(User user) {
-        //return bmiRecordRepo.findByUser(userId);
-        return bmiRecordRepo.findByUser(user);
+
+    public List<BMIRecord> getAllRecordsById(Long userId) {
+        return bmiRecordRepo.findByUserId(userId);
+        //return bmiRecordRepo.findByUser(user);
 
         //Optional<List<BMIRecord>> bmiRecordRepo.findByUserId(userId);
 

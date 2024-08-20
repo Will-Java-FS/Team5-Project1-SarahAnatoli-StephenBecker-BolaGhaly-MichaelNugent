@@ -63,6 +63,7 @@ public class BMIRecordController {
 //        return ResponseEntity.status(200).body(userDTO);
 //    }
 
+    /*
     @PostMapping("/addbmirecord")
     public BMIRecord addBMIRecord(@RequestBody BMIRecord bmiRecord) throws Exception {
         Long userId = getUserIdFromSecurityContext();
@@ -71,6 +72,14 @@ public class BMIRecordController {
         return bmiRecordService.saveBMIRecord(bmiRecord);
 //        return ResponseEntity.status(200).body(bmiRecord);
     }
+     */
+
+    @PostMapping("/addbmirecord")
+    public BMIRecord addBMIRecord(@RequestBody BMIRecord bmiRecord) throws Exception {
+        Long userId = getUserIdFromSecurityContext();
+        return bmiRecordService.saveBMIRecordMike(userId ,bmiRecord);
+        }
+
 
     /*
     @GetMapping("/bmilistbyuserid")
@@ -87,9 +96,9 @@ public class BMIRecordController {
     @GetMapping("/bmilistbyuserid")
     public ResponseEntity<List<BMIRecord>> getBMIbyUser(@RequestBody User user) throws Exception {
         try {
-            //Long userId = getUserIdFromSecurityContext();
-            List<BMIRecord> rec = bmiRecordService.getAllRecordsById(user);
-            //List<BMIRecord> rec = bmiRecordService.getAllRecordsById(userId);
+            Long userId = getUserIdFromSecurityContext();
+            //List<BMIRecord> rec = bmiRecordService.getAllRecordsById(user);
+            List<BMIRecord> rec = bmiRecordService.getAllRecordsById(userId);
             return ResponseEntity.status(200).body(rec);
         } catch (Exception e) {
             e.getMessage();
@@ -108,7 +117,7 @@ public class BMIRecordController {
         }
     }
 
-
+    /*
     @PostMapping("/savetest")
     public BMIRecord saveBMIRecord(@RequestParam Long userId, @RequestParam Double bmiValue) {
         //request params to check if database saves new bmi records
@@ -120,8 +129,10 @@ public class BMIRecordController {
         bmiRecord.setBmiValue(bmiValue);
         bmiRecord.setRecordedAt(LocalDateTime.now());
 
-        return bmiRecordService.saveBMIRecordoldway(bmiRecord);
+        //return bmiRecordService.saveBMIRecordoldway(bmiRecord);
     }
+    */
+
 
 
 }
