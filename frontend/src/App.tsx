@@ -15,6 +15,7 @@ import { view } from './enums'
 
 //context
 import { AuthProvider } from './AuthContext'
+import FoodLog from './pages/FoodItem'
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
             <Route path='/Register' element={<UserRegister />} />
             <Route path='/Login' element={<UserLogin />} />
             <Route path='/Profile' element={<UserProfile />} />
+            <Route path='/FoodItem' element={<FoodLog />} />
           </Routes>
         </AuthProvider>
       </BrowserRouter>

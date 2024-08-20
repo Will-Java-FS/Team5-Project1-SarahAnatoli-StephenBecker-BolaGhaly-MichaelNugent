@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import axiosInstance from "../AxiosInstance"
+import { Link } from 'react-router-dom';
 
 import '../CSS/UserProfile.css'
 
@@ -59,6 +60,20 @@ export default function UserProfile() {
         <h3>Health & Fitness Goals</h3>
         <div className="profile-info">
           <p><strong>Daily Calorie Goal:</strong> {userData.dailyCalorieGoal} kcal</p>
+        </div>
+      </div>
+
+      {/* Card for food log */}
+      <div className="profile-card">
+        <h3>Food Log</h3>
+        <div className="profile-info">
+          <p><strong>Daily Caloric Intake:</strong> {} kcal</p>
+          <p><strong>Weekly Caloric Intake:</strong> {} kcal</p>
+          <ul className="foodItem-links">
+        <li>
+          <Link to="/FoodItem">Access your food log</Link>
+        </li>
+      </ul>
         </div>
       </div>
     </div>
