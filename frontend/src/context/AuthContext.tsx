@@ -2,7 +2,7 @@ import { createContext, ReactNode, useEffect, useState } from 'react';
 import { jwtDecode } from 'jwt-decode';
 
 //enums
-import { view } from '../enums/enums';
+import { view } from '../enums/view';
 
 // Create a Context
 export const AuthContext = createContext({

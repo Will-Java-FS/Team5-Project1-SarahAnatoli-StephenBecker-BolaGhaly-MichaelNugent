@@ -3,16 +3,17 @@ import { Link } from 'react-router-dom';
 import '../CSS/NavBar.css';
 
 //enums
-import { view } from '../enums/enums';
+import { view } from '../enums/view';
 
 //context
 import { AuthContext } from '../context/AuthContext';
 
+const genericLinks: string[] = ["Foods", "Exercises"]
 
 const navLinksList: { [key in view]: string[] } = {
-  [view.GUEST]: ["Login", "Register"],
-  [view.USER]: ["Profile", "Logout"],
-  [view.ADMIN]: ["ModifyUsers", "Logout"]
+  [view.GUEST]: [...genericLinks, "Login", "Register"],
+  [view.USER]: [...genericLinks, "Logout"],
+  [view.ADMIN]: [...genericLinks, "Logout"]
 }
 
 const buildNavLinks = (list: Array<string>): JSX.Element[] => {

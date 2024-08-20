@@ -6,7 +6,7 @@ import UserPortal from '../components/UserPortal'
 import AdminPortal from '../components/AdminPortal'
 
 //enums
-import { view } from '../enums/enums'
+import { view } from '../enums/view'
 
 //context
 import { AuthContext } from '../context/AuthContext'
