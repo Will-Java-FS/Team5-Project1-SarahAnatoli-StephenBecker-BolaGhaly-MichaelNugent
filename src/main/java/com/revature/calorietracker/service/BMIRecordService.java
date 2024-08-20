@@ -1,5 +1,6 @@
 package com.revature.calorietracker.service;
 
+import com.revature.calorietracker.dto.UserDTO;
 import com.revature.calorietracker.models.BMIRecord;
 import com.revature.calorietracker.models.User;
 import com.revature.calorietracker.repos.BMIRecordRepo;
@@ -30,11 +31,11 @@ public class BMIRecordService {
     }
 
 
-    public BMIRecord saveBMIRecordMike(Long userId, BMIRecord bmiRecord) {
-        User user = userRepo.findById(userId).orElseThrow(() -> new UsernameNotFoundException("User not found in saveBMIRecordMike()"));
+    public BMIRecord saveBMIRecord(BMIRecord bmiRecord) {
+        //User user = userRepo.findById(userId).orElseThrow(() -> new UsernameNotFoundException("User not found in saveBMIRecordMike()"));
 
-        bmiRecord.setUser(user);
-        bmiRecord.calculateAndSetBMIValue();
+        //bmiRecord.setUser(user);
+        //bmiRecord.calculateAndSetBMIValue();
 
         return bmiRecordRepo.save(bmiRecord);
     }
@@ -51,8 +52,12 @@ public class BMIRecordService {
 //    }
 
 
-    public List<BMIRecord> getAllRecordsByUser(User user) {
+    public List<BMIRecord> getAllRecordsById(User user) {
+        //return bmiRecordRepo.findByUser(userId);
         return bmiRecordRepo.findByUser(user);
+
+        //Optional<List<BMIRecord>> bmiRecordRepo.findByUserId(userId);
+
     }
 
     public void deleteBMIById(BMIRecord bmiRecord) {

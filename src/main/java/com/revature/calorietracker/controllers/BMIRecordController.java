@@ -1,5 +1,6 @@
 package com.revature.calorietracker.controllers;
 
+import com.revature.calorietracker.dto.UserDTO;
 import com.revature.calorietracker.dto.UserSecurityDTO;
 import com.revature.calorietracker.models.BMIRecord;
 import com.revature.calorietracker.models.User;
@@ -15,6 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import static com.revature.calorietracker.service.SecurityContextService.getUserIdFromSecurityContext;
 
@@ -61,7 +63,16 @@ public class BMIRecordController {
 //        return ResponseEntity.status(200).body(userDTO);
 //    }
 
+    @PostMapping("/addbmirecord")
+    public BMIRecord addBMIRecord(@RequestBody BMIRecord bmiRecord) throws Exception {
+        Long userId = getUserIdFromSecurityContext();
+        bmiRecord.setId(userId);
 
+        return bmiRecordService.saveBMIRecord(bmiRecord);
+//        return ResponseEntity.status(200).body(bmiRecord);
+    }
+
+    /*
     @GetMapping("/bmilistbyuserid")
     public ResponseEntity<List<BMIRecord>> getBMIbyUser(@RequestBody User user) throws Exception {
         try {
@@ -72,6 +83,20 @@ public class BMIRecordController {
         }
         return ResponseEntity.status(200).body(null);
     }
+    */
+    @GetMapping("/bmilistbyuserid")
+    public ResponseEntity<List<BMIRecord>> getBMIbyUser(@RequestBody User user) throws Exception {
+        try {
+            //Long userId = getUserIdFromSecurityContext();
+            List<BMIRecord> rec = bmiRecordService.getAllRecordsById(user);
+            //List<BMIRecord> rec = bmiRecordService.getAllRecordsById(userId);
+            return ResponseEntity.status(200).body(rec);
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        return ResponseEntity.status(200).body(null);
+    }
+
 
     @DeleteMapping
     public ResponseEntity<Void> deleteExercise(@RequestBody BMIRecord bmiRecord) {
