@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import '../CSS/NavBar.css';
 
 //enums
-import { view } from '../enums';
+import { view } from '../enums/enums';
 
 //context
-import { AuthContext } from '../AuthContext';
+import { AuthContext } from '../context/AuthContext';
 
 
 const navLinksList: { [key in view]: string[] } = {
@@ -31,10 +31,8 @@ const buildNavLinks = (list: Array<string>): JSX.Element[] => {
 const NavigationBar = () => {
 
   const { role } = useContext(AuthContext);
-  console.log(role)
 
   const navLinks = buildNavLinks(navLinksList[role]);
-
 
   return (
     <nav className="navbar">

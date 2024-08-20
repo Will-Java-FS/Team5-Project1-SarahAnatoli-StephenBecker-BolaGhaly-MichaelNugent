@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import axiosInstance from "../AxiosInstance"
+import axiosInstance from "../axios/AxiosInstance"
 
 import '../CSS/UserProfile.css'
 
@@ -17,7 +17,7 @@ export default function UserProfile() {
 
         setUserData(response.data);
 
-        console.log(response.data)
+        // console.log(response.data)
 
       } catch (error) {
         console.error('Error in UserProfile data fetch: ', error)

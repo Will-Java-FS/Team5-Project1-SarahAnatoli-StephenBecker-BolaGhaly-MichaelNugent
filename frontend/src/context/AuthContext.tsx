@@ -2,7 +2,7 @@ import { createContext, ReactNode, useEffect, useState } from 'react';
 import { jwtDecode } from 'jwt-decode';
 
 //enums
-import { view } from './enums';
+import { view } from '../enums/enums';
 
 // Create a Context
 export const AuthContext = createContext({
@@ -40,7 +40,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             localStorage.setItem('token', jwt);
 
             const decodedToken = jwtDecode<DecodedToken>(jwt);
-            console.log("Decoded Token: ", decodedToken);
+            // console.log("Decoded Token: ", decodedToken);
 
             if(isValidRole(decodedToken.role)){
                 setRole(view[decodedToken.role as keyof typeof view])
