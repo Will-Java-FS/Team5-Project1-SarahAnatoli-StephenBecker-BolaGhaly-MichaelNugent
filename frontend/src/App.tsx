@@ -10,13 +10,9 @@ import Home from './pages/Home'
 //CSS
 import './CSS/App.css'
 import NavigationBar from './components/NavBar'
-import Hero from './pages/Hero'
-
-//enums
-import { view } from './enums'
 
 //context
-import { AuthProvider } from './AuthContext'
+
 import BMIList from './pages/BMIList'
 import { AuthProvider } from './context/AuthContext'
 
@@ -38,8 +34,8 @@ function App() {
             <Route path='/Register' element={<UserRegister />} />
             <Route path='/Login' element={<UserLogin />} />
             <Route path='/Profile' element={<UserProfile />} />
-            <Route path='/bmirecords/bmilistbyuserid' element={<BMIList/>}/>
             <Route path='/Logout' element={<Logout />} />
+            <Route path='/bmirecords/bmilistbyuserid' element={<BMIList/>}/>
             {/* <Route path='/Portal' element={<Portal />} /> */}
           </Routes>
         </AuthProvider>
