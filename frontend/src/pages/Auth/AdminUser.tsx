@@ -7,19 +7,31 @@ import "../../CSS/AdminUser.css";
 export const AdminUser = () => {
   const [allUsers, setAllUsers] = useState<any[]>([]);
 
-  useEffect(() => {
-    const getAllUsers = async () => {
-      try {
-        const response = await axiosInstance.get("/admin/users");
+  const getAllUsers = async () => {
+    try {
+      const response = await axiosInstance.get("/admin/users");
 
-        if (response.status === 200) {
-          setAllUsers(response.data);
-        }
-      } catch (error) {
-        console.error("Failed to get all users.", error);
+      if (response.status === 200) {
+        setAllUsers(response.data);
       }
-    };
+    } catch (error) {
+      console.error("Failed to get all users.", error);
+    }
+  };
 
+  const deleteUser = async (id: number) => {
+    try {
+      const response = await axiosInstance.delete(`/admin/user/${id}`);
+
+      if (response.status === 200) {
+        getAllUsers();
+      }
+    } catch (error) {
+      console.error("Failed to get all users.", error);
+    }
+  }
+
+  useEffect(() => {
     getAllUsers();
   }, []);
 
@@ -75,7 +87,7 @@ export const AdminUser = () => {
               <button className="edit-button">
                 <i className="fa-solid fa-pen-to-square" /> Edit
               </button>
-              <button className="delete-button">
+              <button className="delete-button" onClick={() => deleteUser(user.id)}>
                 <i className="fa-solid fa-trash" /> Delete
               </button>
             </div>
