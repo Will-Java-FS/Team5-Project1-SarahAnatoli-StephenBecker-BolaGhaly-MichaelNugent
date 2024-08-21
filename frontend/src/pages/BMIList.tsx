@@ -1,10 +1,34 @@
 import { useEffect, useState,useRef } from "react";
 import axiosInstance from "../axios/AxiosInstance";
+import AddBMI from "./AddBMI";
+
+interface BMIRecord {
+  id: number | undefined;
+  height: number | undefined;
+  weight: number | undefined;
+  bmiValue: number | undefined;
+  recordedAt: string | undefined;
+}
+
 
 export default function BMIList(){
 
-    const [userBMI, setUserBMI] = useState([{ id: undefined,height: undefined, weight: undefined, bmiValue: undefined, recordedAt: undefined}]);
-    const [editMode, setEditMode] = useState(false);
+  const [userBMI, setUserBMI] = useState<BMIRecord[]>([]);
+  const [editMode, setEditMode] = useState(false);
+
+  const handleDelete = async (bmiRecord:BMIRecord | undefined) => {
+    try {
+      const recordid=bmiRecord?.id;
+      await axiosInstance.delete(`/bmirecords/del`, { data: bmiRecord });
+
+      // Filter out the deleted record from the state
+      setUserBMI(userBMI.filter((bmi) => bmi.id !== recordid));
+    } catch (error) {
+      console.error("Error deleting BMI record: ", error);
+    }
+  };
+
+
 
     useEffect(() => {
 
@@ -26,53 +50,30 @@ export default function BMIList(){
       }, [])
 
 
-    const heightRef = useRef<HTMLInputElement>(null);
-    const weightRef = useRef<HTMLInputElement>(null);
-    const bmiValueRef = useRef<HTMLInputElement>(null);
-    const recordedAtRef = useRef<HTMLInputElement>(null);
-
-    /*
-    const save = async () => {
-
-        try {
-            const response = await axiosInstance.get("/bmirecords/addbmirecord", {
-            height: heightRef.current!.value,
-            weight: weightRef.current!.value,
-            bmiValue: bmiValueRef.current!.value,
-            recordedAt: recordedAtRef.current!.value,
-          })
-          console.log(response)
-          setUserBMI(response.data)
-    
-        } catch (error) {
-          console.error("Failed to update user BMI information:", error)
-        }
-    
-        setEditMode(false);
-      }
-        */
+    //const heightRef = useRef<HTMLInputElement>(null);
+    //const weightRef = useRef<HTMLInputElement>(null);
+    //const bmiValueRef = useRef<HTMLInputElement>(null);
+    //const recordedAtRef = useRef<HTMLInputElement>(null);
 
       
       return (
         <>
         <div>
           <h2>User BMI Records</h2>
-            {userBMI ? userBMI.map((userBMI, index) => (
-              <div key={index}>
+            {userBMI ? userBMI.map((userBMI, id) => (
+              <div key={id}>
                 <p><strong>Height:</strong> {userBMI.height} cm</p>
                 <p><strong>Weight:</strong> {userBMI.weight} kg</p>
                 <p><strong>BMI Value:</strong> {userBMI.bmiValue}</p>
                 <p><strong>Recorded At:</strong> {new Date(userBMI.recordedAt).toLocaleString()}</p>
-                <button type="submit">Remove</button>
+                <button onClick={() => handleDelete(userBMI)}>Delete</button>
                 <p>🏋️💪🏋️‍♀️</p>
               </div>
             ) ): (
             <p>Loading...</p>
           )}
-          <button type="submit">Add Record</button>
+              
         </div>
-        <h3>Add a New BMI Record</h3>
-
         </>
         );
     

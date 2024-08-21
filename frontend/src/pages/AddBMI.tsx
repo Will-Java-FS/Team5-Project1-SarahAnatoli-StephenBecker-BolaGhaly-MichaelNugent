@@ -47,6 +47,7 @@ export default function AddBMI() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    save();
 
     const newRecord = {
       ...newBMI,
@@ -68,7 +69,6 @@ export default function AddBMI() {
 
   return (
         <>
-      <h3>Add a New BMI Record</h3>
       <form onSubmit={handleSubmit}>
         <div>
           <label>
@@ -94,8 +94,7 @@ export default function AddBMI() {
             />
           </label>
         </div>
-
-        <button type="submit" onClick={save}>Add BMI Record</button>
+        <button type="submit">Add Record</button>
       </form>
       </>
   );

@@ -15,7 +15,7 @@ import NavigationBar from './components/NavBar'
 
 import BMIList from './pages/BMIList'
 import { AuthProvider } from './context/AuthContext'
-import BMIAdd from './pages/BMIAdd'
+import BMIAdd from './pages/AddBMI'
 
 function App() {
 
@@ -37,7 +37,7 @@ function App() {
             <Route path='/Profile' element={<UserProfile />} />
             <Route path='/Logout' element={<Logout />} />
             <Route path='/bmirecords' element={<BMIList/>}/>
-            <Route path='/test' element={<BMIAdd/>}/>
+            <Route path='/addbmirecord' element={<BMIAdd/>}/>
             {/* <Route path='/Portal' element={<Portal />} /> */}
           </Routes>
         </AuthProvider>

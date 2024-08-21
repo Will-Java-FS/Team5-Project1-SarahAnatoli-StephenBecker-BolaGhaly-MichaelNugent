@@ -59,7 +59,7 @@ public class BMIRecordController {
     }
 
 
-    @DeleteMapping
+    @DeleteMapping("/del")
     public ResponseEntity<Void> deleteExercise(@RequestBody BMIRecord bmiRecord) {
         try {
             bmiRecordService.deleteBMIById(bmiRecord);
