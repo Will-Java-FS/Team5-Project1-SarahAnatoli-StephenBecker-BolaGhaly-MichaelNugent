@@ -25,7 +25,10 @@ export default function UserPortal() {
         if (token) {
             const decodedToken = jwtDecode<DecodedToken>(token);
             const tokenUsername = decodedToken.sub;
-            console.log(decodedToken.sub)
+
+            //debug
+            // console.log(decodedToken.sub)
+            
             setUsername(tokenUsername)
         }
     }, [])
