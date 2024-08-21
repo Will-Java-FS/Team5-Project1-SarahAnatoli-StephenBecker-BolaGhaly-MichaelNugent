@@ -1,6 +1,5 @@
-import { useEffect, useState,useRef } from "react";
+import { useEffect, useState } from "react";
 import axiosInstance from "../axios/AxiosInstance";
-import AddBMI from "./AddBMI";
 import { useNavigate } from 'react-router-dom';
 
 
@@ -19,7 +18,6 @@ export default function BMIList(){
   const navigate = useNavigate();
 
   const [userBMI, setUserBMI] = useState<BMIRecord[]>([]);
-  const [editMode, setEditMode] = useState(false);
 
   const handleDelete = async (bmiRecord:BMIRecord | undefined) => {
     try {
@@ -53,13 +51,6 @@ export default function BMIList(){
         getUserData();
     
       }, [])
-
-
-    //const heightRef = useRef<HTMLInputElement>(null);
-    //const weightRef = useRef<HTMLInputElement>(null);
-    //const bmiValueRef = useRef<HTMLInputElement>(null);
-    //const recordedAtRef = useRef<HTMLInputElement>(null);
-
       
       return (
         <>
