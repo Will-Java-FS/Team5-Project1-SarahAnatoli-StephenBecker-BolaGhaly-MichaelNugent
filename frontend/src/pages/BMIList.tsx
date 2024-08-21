@@ -54,6 +54,7 @@ export default function BMIList(){
 
       
       return (
+        <>
         <div>
           <h2>User BMI Records</h2>
             {userBMI ? userBMI.map((userBMI, index) => (
@@ -62,12 +63,17 @@ export default function BMIList(){
                 <p><strong>Weight:</strong> {userBMI.weight} kg</p>
                 <p><strong>BMI Value:</strong> {userBMI.bmiValue}</p>
                 <p><strong>Recorded At:</strong> {new Date(userBMI.recordedAt).toLocaleString()}</p>
+                <button type="submit">Remove</button>
                 <p>🏋️💪🏋️‍♀️</p>
               </div>
             ) ): (
             <p>Loading...</p>
           )}
+          <button type="submit">Add Record</button>
         </div>
+        <h3>Add a New BMI Record</h3>
+
+        </>
         );
     
 

@@ -15,6 +15,7 @@ import NavigationBar from './components/NavBar'
 
 import BMIList from './pages/BMIList'
 import { AuthProvider } from './context/AuthContext'
+import BMIAdd from './pages/BMIAdd'
 
 function App() {
 
@@ -35,7 +36,8 @@ function App() {
             <Route path='/Login' element={<UserLogin />} />
             <Route path='/Profile' element={<UserProfile />} />
             <Route path='/Logout' element={<Logout />} />
-            <Route path='/bmirecords/bmilistbyuserid' element={<BMIList/>}/>
+            <Route path='/bmirecords' element={<BMIList/>}/>
+            <Route path='/test' element={<BMIAdd/>}/>
             {/* <Route path='/Portal' element={<Portal />} /> */}
           </Routes>
         </AuthProvider>
