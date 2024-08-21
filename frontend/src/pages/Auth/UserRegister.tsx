@@ -2,7 +2,11 @@ import { useContext, useRef, useState } from 'react';
 import axios from 'axios';
 
 //context
-import { AuthContext } from '../../AuthContext';
+import { AuthContext } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+
+//CSS
+import '../../CSS/UserRegister.css'
 
 const UserRegister = () => {
     const usernameRef = useRef<HTMLInputElement>(null);
@@ -11,7 +15,9 @@ const UserRegister = () => {
     const [errorMessage, setErrorMessage] = useState<string>('');
     const [successMessage, setSuccessMessage] = useState<string>('');
 
-    const {login} = useContext(AuthContext);
+    const { login } = useContext(AuthContext);
+
+    const navigate = useNavigate();
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -24,16 +30,17 @@ const UserRegister = () => {
                 password: passwordRef.current!.value,
             });
 
-            setSuccessMessage('Registration successful! You can now log in.');
+            setSuccessMessage('Registration successful!  You should be redirected.');
             setErrorMessage('');  // Clear any previous error message
 
             login(response.data.token)
             console.log('Registration successful', response.data);
+            navigate("/");
 
-
-        } catch (error) {
+        } catch (error: any) {
             console.error('Error during registration:', error);
-            setErrorMessage('Registration failed. Please try again.');
+            setErrorMessage(error.response.data);
+            // setErrorMessage('Registration failed. Please try again.');
             setSuccessMessage('');  // Clear any previous success message
         }
     };
