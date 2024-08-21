@@ -32,10 +32,10 @@ export default function AdminPortal() {
     }, [])
 
     return (
-        <div className='AdminPortal'>
-            <h1>Welcome, ADMIN {username}</h1>
-            <UserPortalCards />
-            <PortalCard title="Modify Users" to="/Users" imgSrc={UsersIcon} />
-        </div>
-    )
+      <div className="AdminPortal">
+        <h1>Welcome, ADMIN {username}</h1>
+        <UserPortalCards />
+        <PortalCard title="Modify Users" to="/Admin/Users" imgSrc={UsersIcon} />
+      </div>
+    );
 }
