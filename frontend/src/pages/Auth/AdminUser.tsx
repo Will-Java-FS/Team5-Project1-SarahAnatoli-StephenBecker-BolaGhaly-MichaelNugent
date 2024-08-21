@@ -87,7 +87,13 @@ export const AdminUser = () => {
               <button className="edit-button">
                 <i className="fa-solid fa-pen-to-square" /> Edit
               </button>
-              <button className="delete-button" onClick={() => deleteUser(user.id)}>
+              <button className="admin-button">
+                <i className="fa-solid fa-user-tie" /> Make Admin
+              </button>
+              <button
+                className="delete-button"
+                onClick={() => deleteUser(user.id)}
+              >
                 <i className="fa-solid fa-trash" /> Delete
               </button>
             </div>

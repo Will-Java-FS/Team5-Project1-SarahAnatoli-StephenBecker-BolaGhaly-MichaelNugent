@@ -34,7 +34,8 @@
 .admin-user-buttons button {
   cursor: pointer;
   display: flex;
-  gap: 4px;
+  width: max-content;
+  column-gap: 6px;
   align-items: center;
   padding: 8px 16px;
   border: none;
@@ -52,6 +53,10 @@
 
 .delete-button {
   background-color: #f73325;
+}
+
+.admin-button {
+  background-color: #046096;
 }
 
 .admin-user-info {
