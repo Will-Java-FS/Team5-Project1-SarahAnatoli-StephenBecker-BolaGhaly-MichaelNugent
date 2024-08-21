@@ -35,20 +35,7 @@ public class BMIRecord {
         this.bmiValue = (height * height) / weight;
     }
 
-    //@PrePersist
-    //protected void onCreate() {
-    //    this.recordedAt = LocalDateTime.now();
-    //    this.bmiValue=calculateMetricBMI();
-    //}
-
-    //    public Double calculateMetricBMI(){
-//        Double hsq=user.getHeight()*user.getHeight();
-//        Double w=user.getWeight();
-//        this.bmiValue = w/hsq;
-//        return w/hsq;
-//    }
     public void calculateAndSetBMIValue() {
-//        Double hsq = this.height * this.height;
         this.bmiValue = this.weight / (this.height * this.height);
 
     }

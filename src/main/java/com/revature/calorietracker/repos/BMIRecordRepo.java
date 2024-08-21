@@ -11,8 +11,6 @@ import java.util.Optional;
 
 @Repository
 public interface BMIRecordRepo extends JpaRepository<BMIRecord, Long> {
-     //List<BMIRecord> findByUser(User user);
-
      List<BMIRecord> findByUserId(Long userId);
 
 

@@ -15,6 +15,7 @@ import { view } from './enums'
 
 //context
 import { AuthProvider } from './AuthContext'
+import BMIList from './pages/BMIList'
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
             <Route path='/Register' element={<UserRegister />} />
             <Route path='/Login' element={<UserLogin />} />
             <Route path='/Profile' element={<UserProfile />} />
+            <Route path='/bmirecords/bmilistbyuserid' element={<BMIList/>}/>
           </Routes>
         </AuthProvider>
       </BrowserRouter>
