@@ -8,6 +8,9 @@ import { view } from '../enums/view';
 //context
 import { AuthContext } from '../context/AuthContext';
 
+//image
+import Logo from '../assets/images/CalorieTrackerLogo.webp'
+
 const genericLinks: string[] = ["Foods", "Exercises"]
 
 const navLinksList: { [key in view]: string[] } = {
@@ -42,7 +45,10 @@ const NavigationBar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-logo">
-        <Link to="/">Calorie Tracker</Link>
+        <Link to="/">
+          <img src={Logo} className='logo' />
+          <h1>Calorie Tracker</h1>
+        </Link>
       </div>
       <ul className="navbar-links">
         {navLinks}
