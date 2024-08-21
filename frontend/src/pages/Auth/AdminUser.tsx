@@ -27,9 +27,21 @@ export const AdminUser = () => {
         getAllUsers();
       }
     } catch (error) {
-      console.error("Failed to get all users.", error);
+      console.error("Failed to delete this user.", error);
     }
-  }
+  };
+
+  const makeUserAdmin = async (id: number) => {
+    try {
+      const response = await axiosInstance.post(`/admin/user/${id}/role`);
+
+      if (response.status === 200) {
+        getAllUsers();
+      }
+    } catch (error) {
+      console.error("Failed to make this user an admin.", error);
+    }
+  };
 
   useEffect(() => {
     getAllUsers();
@@ -87,7 +99,10 @@ export const AdminUser = () => {
               <button className="edit-button">
                 <i className="fa-solid fa-pen-to-square" /> Edit
               </button>
-              <button className="admin-button">
+              <button
+                className="admin-button"
+                onClick={() => makeUserAdmin(user.id)}
+              >
                 <i className="fa-solid fa-user-tie" /> Make Admin
               </button>
               <button
