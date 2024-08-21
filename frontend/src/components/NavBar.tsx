@@ -1,25 +1,47 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import '../CSS/NavBar.css';
 
 //enums
-import { view } from '../enums';
+import { view } from '../enums/view';
 
-const NavigationBar = (props: { view: view }) => {
+//context
+import { AuthContext } from '../context/AuthContext';
+
+const genericLinks: string[] = ["Foods", "Exercises"]
+
+const navLinksList: { [key in view]: string[] } = {
+  [view.GUEST]: [...genericLinks, "Login", "Register"],
+  [view.USER]: [...genericLinks, "Logout"],
+  [view.ADMIN]: [...genericLinks, "Logout"]
+}
+
+const buildNavLinks = (list: Array<string>): JSX.Element[] => {
+  const listItems: JSX.Element[] = [];
+  list.forEach((linkName) => {
+    listItems.push(
+      <li key={linkName}>
+        <Link to={"/" + linkName}>{linkName}</Link>
+      </li>
+    )
+  })
+
+  return listItems;
+}
+
+const NavigationBar = () => {
+
+  const { role } = useContext(AuthContext);
+
+  const navLinks = buildNavLinks(navLinksList[role]);
+
   return (
     <nav className="navbar">
       <div className="navbar-logo">
         <Link to="/">Calorie Tracker</Link>
       </div>
       <ul className="navbar-links">
-        <li>
-          <Link to="/Profile">Profile</Link>
-        </li>
-        <li>
-          <Link to="/Register">Register</Link>
-        </li>
-        <li>
-          <Link to="/Login">Login</Link>
-        </li>
+        {navLinks}
       </ul>
     </nav>
   );
