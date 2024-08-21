@@ -3,7 +3,7 @@ import axiosInstance from "../axios/AxiosInstance";
 
 export default function BMIList(){
 
-    const [userBMI, setUserBMI] = useState({ id: undefined,height: undefined, weight: undefined, bmiValue: undefined, recordedAt: undefined});
+    const [userBMI, setUserBMI] = useState([{ id: undefined,height: undefined, weight: undefined, bmiValue: undefined, recordedAt: undefined}]);
     const [editMode, setEditMode] = useState(false);
 
     useEffect(() => {
@@ -15,6 +15,7 @@ export default function BMIList(){
             if (response === null) throw 'null result'
     
             setUserBMI(response.data);
+            console.log(response)
     
           } catch (error) {
             console.error('Error in UserBMI data fetch: ', error)
@@ -50,17 +51,24 @@ export default function BMIList(){
         setEditMode(false);
       }
         */
+
+      
+      return (
+        <div>
+          <h2>User BMI Records</h2>
+            {userBMI ? userBMI.map((userBMI, index) => (
+              <div key={index}>
+                <p><strong>Height:</strong> {userBMI.height} cm</p>
+                <p><strong>Weight:</strong> {userBMI.weight} kg</p>
+                <p><strong>BMI Value:</strong> {userBMI.bmiValue}</p>
+                <p><strong>Recorded At:</strong> {new Date(userBMI.recordedAt).toLocaleString()}</p>
+                <p>🏋️💪🏋️‍♀️</p>
+              </div>
+            ) ): (
+            <p>Loading...</p>
+          )}
+        </div>
+        );
     
 
-
-    return(<>
-        <h3>I exist</h3>
-        <p><strong>Weight:</strong> {editMode ? <input type="text" defaultValue={userBMI.weight} ref={weightRef} /> : userBMI.weight}</p>
-        <p><strong>Height:</strong> {editMode ? <input type="text" defaultValue={userBMI.height} ref={heightRef} /> : userBMI.height}</p>
-        <div>
-        {editMode
-          ? <><button>Save</button><button onClick={() => setEditMode(false)}>Cancel</button></>
-          : <button onClick={() => setEditMode(true)}>Edit</button>}
-      </div>
-    </>)
 }

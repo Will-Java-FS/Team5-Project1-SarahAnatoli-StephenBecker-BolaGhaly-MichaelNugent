@@ -46,7 +46,7 @@ public class BMIRecordController {
         }
 
     @GetMapping("/bmilistbyuserid")
-    public ResponseEntity<List<BMIRecord>> getBMIbyUser(@RequestBody User user) throws Exception {
+    public ResponseEntity<List<BMIRecord>> getBMIbyUser() throws Exception {
         try {
             Long userId = getUserIdFromSecurityContext();
             //List<BMIRecord> rec = bmiRecordService.getAllRecordsById(user);
