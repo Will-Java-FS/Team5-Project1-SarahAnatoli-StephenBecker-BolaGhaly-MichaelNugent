@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+import static java.lang.Math.round;
+
 @Entity
 @Table(name = "bmi_records")
 @Data
@@ -36,7 +38,9 @@ public class BMIRecord {
     }
 
     public void calculateAndSetBMIValue() {
-        this.bmiValue = this.weight / (this.height * this.height);
+        double n= (double) Math.round(this.weight / (this.height * this.height)*703);
+        //this.bmiValue = this.weight / (this.height * this.height)*703;
+        this.bmiValue = n;
 
     }
-}
+}git

@@ -74,7 +74,7 @@ export default function AddBMI() {
       <form onSubmit={handleSubmit}>
         <div>
           <label>
-            Height (cm):
+            Height (in):
             <input
               type="text"
               name="height"
@@ -86,7 +86,7 @@ export default function AddBMI() {
         </div>
         <div>
           <label>
-            Weight (kg):
+            Weight (lb):
             <input
               type="text"
               name="weight"
@@ -96,8 +96,9 @@ export default function AddBMI() {
             />
           </label>
         </div>
-        <button type="submit">Add Record</button>
+        <button >Add Record</button>
       </form>
+      <button  onClick={()=>navigate("/bmirecords")}>Cancel</button>
       </>
   );
 }

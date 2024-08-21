@@ -67,8 +67,8 @@ export default function BMIList(){
           <h2>User BMI Records</h2>
             {userBMI ? userBMI.map((userBMI, id) => (
               <div key={id}>
-                <p><strong>Height:</strong> {userBMI.height} cm</p>
-                <p><strong>Weight:</strong> {userBMI.weight} kg</p>
+                <p><strong>Height:</strong> {userBMI.height} in</p>
+                <p><strong>Weight:</strong> {userBMI.weight} lb</p>
                 <p><strong>BMI Value:</strong> {userBMI.bmiValue}</p>
                 <p><strong>Recorded At:</strong> {new Date(userBMI.recordedAt).toLocaleString()}</p>
                 <button onClick={() => handleDelete(userBMI)}>Delete</button>
