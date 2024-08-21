@@ -40,3 +40,8 @@
     display: block;
     margin: 0 auto;
 }
+
+.AdminPortal a{
+    text-decoration: none;
+    color: black;
+  }

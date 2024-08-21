@@ -36,6 +36,9 @@ export default function AdminPortal() {
             <h1>Welcome, ADMIN {username}</h1>
             <UserPortalCards />
             <PortalCard title="Modify Users" to="/Users" imgSrc={UsersIcon} />
+            <PortalCard title="Modify Foods" to="/Foods" imgSrc={UsersIcon} />
+            <PortalCard title="Modify Exercises" to="/Exercises" imgSrc={UsersIcon} />
         </div>
+
     )
 }
