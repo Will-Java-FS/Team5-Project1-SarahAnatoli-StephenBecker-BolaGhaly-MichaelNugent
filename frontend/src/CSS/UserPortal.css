@@ -29,6 +29,11 @@
   text-decoration: none;
 }
 
+.UserPortal h1 {
+  flex-basis: 100%;
+  text-align: center;
+}
+
 .UserPortal .card img {
   max-width: 100%;
   height: auto;
