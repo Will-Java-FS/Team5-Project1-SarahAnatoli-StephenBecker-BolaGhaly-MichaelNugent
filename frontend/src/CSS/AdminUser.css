@@ -47,7 +47,7 @@
   border-radius: 10px;
 }
 
-.edit-button {
+.edit-button, .save-changes-button {
   background-color: #049660;
 }
 
@@ -57,6 +57,10 @@
 
 .admin-button {
   background-color: #046096;
+}
+
+.cancel-button {
+  background-color: #525252;
 }
 
 .admin-user-info {

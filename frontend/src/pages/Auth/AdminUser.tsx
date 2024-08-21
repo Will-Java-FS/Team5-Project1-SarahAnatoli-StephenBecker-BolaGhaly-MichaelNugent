@@ -6,7 +6,8 @@ import "../../CSS/AdminUser.css";
 
 export const AdminUser = () => {
   const [allUsers, setAllUsers] = useState<any[]>([]);
-  const [editMode, setEditMode] = useState(true);
+  const [editMode, setEditMode] = useState(false);
+  const [editUserId, setEditUserId] = useState<number>();
   const usernameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const firstNameRef = useRef<HTMLInputElement>(null);
@@ -53,6 +54,11 @@ export const AdminUser = () => {
     }
   };
 
+  const editButtonClicked = async (id: number) => {
+    setEditUserId(id);
+    setEditMode(true);
+  };
+
   useEffect(() => {
     getAllUsers();
   }, []);
@@ -66,7 +72,7 @@ export const AdminUser = () => {
             <div className="admin-user-container">
               <div className="admin-user-info">
                 <h6>Username</h6>
-                {editMode ? (
+                {editMode && editUserId === user.id ? (
                   <input
                     type="text"
                     defaultValue={user.username}
@@ -78,7 +84,7 @@ export const AdminUser = () => {
               </div>
               <div className="admin-user-info">
                 <h6>Email</h6>
-                {editMode ? (
+                {editMode && editUserId === user.id ? (
                   <input
                     type="email"
                     defaultValue={user.email}
@@ -90,7 +96,7 @@ export const AdminUser = () => {
               </div>
               <div className="admin-user-info">
                 <h6>First Name</h6>
-                {editMode ? (
+                {editMode && editUserId === user.id ? (
                   <input
                     type="text"
                     defaultValue={user.firstName}
@@ -102,7 +108,7 @@ export const AdminUser = () => {
               </div>
               <div className="admin-user-info">
                 <h6>Last Name</h6>
-                {editMode ? (
+                {editMode && editUserId === user.id ? (
                   <input
                     type="text"
                     defaultValue={user.lastName}
@@ -114,7 +120,7 @@ export const AdminUser = () => {
               </div>
               <div className="admin-user-info">
                 <h6>Age</h6>
-                {editMode ? (
+                {editMode && editUserId === user.id ? (
                   <input
                     type="number"
                     defaultValue={user.age}
@@ -127,7 +133,7 @@ export const AdminUser = () => {
               </div>
               <div className="admin-user-info">
                 <h6>Weight</h6>
-                {editMode ? (
+                {editMode && editUserId === user.id ? (
                   <input
                     type="number"
                     defaultValue={user.weight}
@@ -141,7 +147,7 @@ export const AdminUser = () => {
               </div>
               <div className="admin-user-info">
                 <h6>Height</h6>
-                {editMode ? (
+                {editMode && editUserId === user.id ? (
                   <input
                     type="number"
                     defaultValue={user.height}
@@ -155,7 +161,7 @@ export const AdminUser = () => {
               </div>
               <div className="admin-user-info">
                 <h6>Gender</h6>
-                {editMode ? (
+                {editMode && editUserId === user.id ? (
                   <input
                     type="text"
                     defaultValue={user.gender}
@@ -167,7 +173,7 @@ export const AdminUser = () => {
               </div>
               <div className="admin-user-info">
                 <h6>Daily Calorie Goal</h6>
-                {editMode ? (
+                {editMode && editUserId === user.id ? (
                   <input
                     type="number"
                     defaultValue={user.dailyCalorieGoal}
@@ -183,23 +189,38 @@ export const AdminUser = () => {
                 )}
               </div>
             </div>
-            <div className="admin-user-buttons">
-              <button className="edit-button">
-                <i className="fa-solid fa-pen-to-square" /> Edit
-              </button>
-              <button
-                className="admin-button"
-                onClick={() => makeUserAdmin(user.id)}
-              >
-                <i className="fa-solid fa-user-tie" /> Make Admin
-              </button>
-              <button
-                className="delete-button"
-                onClick={() => deleteUser(user.id)}
-              >
-                <i className="fa-solid fa-trash" /> Delete
-              </button>
-            </div>
+
+            {editMode && editUserId === user.id ? (
+              <div className="admin-user-buttons">
+                <button className="save-changes-button">
+                  <i className="fa-solid fa-check" /> Save Changes
+                </button>
+                <button className="cancel-button" onClick={() => setEditMode(false)}>
+                  <i className="fa-solid fa-xmark" /> Cancel
+                </button>
+              </div>
+            ) : (
+              <div className="admin-user-buttons">
+                <button
+                  className="edit-button"
+                  onClick={() => editButtonClicked(user.id)}
+                >
+                  <i className="fa-solid fa-pen-to-square" /> Edit
+                </button>
+                <button
+                  className="admin-button"
+                  onClick={() => makeUserAdmin(user.id)}
+                >
+                  <i className="fa-solid fa-user-tie" /> Make Admin
+                </button>
+                <button
+                  className="delete-button"
+                  onClick={() => deleteUser(user.id)}
+                >
+                  <i className="fa-solid fa-trash" /> Delete
+                </button>
+              </div>
+            )}
           </div>
         ))}
       </div>
