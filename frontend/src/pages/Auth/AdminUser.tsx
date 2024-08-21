@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axiosInstance from "../../axios/AxiosInstance";
 
 //CSS
@@ -6,6 +6,16 @@ import "../../CSS/AdminUser.css";
 
 export const AdminUser = () => {
   const [allUsers, setAllUsers] = useState<any[]>([]);
+  const [editMode, setEditMode] = useState(true);
+  const usernameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const firstNameRef = useRef<HTMLInputElement>(null);
+  const lastNameRef = useRef<HTMLInputElement>(null);
+  const ageRef = useRef<HTMLInputElement>(null);
+  const weightRef = useRef<HTMLInputElement>(null);
+  const heightRef = useRef<HTMLInputElement>(null);
+  const genderRef = useRef<HTMLInputElement>(null);
+  const dailyCalorieGoalRef = useRef<HTMLInputElement>(null);
 
   const getAllUsers = async () => {
     try {
@@ -56,43 +66,121 @@ export const AdminUser = () => {
             <div className="admin-user-container">
               <div className="admin-user-info">
                 <h6>Username</h6>
-                <p>{user.username}</p>
+                {editMode ? (
+                  <input
+                    type="text"
+                    defaultValue={user.username}
+                    ref={usernameRef}
+                  />
+                ) : (
+                  <p>{user.username}</p>
+                )}
               </div>
               <div className="admin-user-info">
                 <h6>Email</h6>
-                <p>{user.email}</p>
+                {editMode ? (
+                  <input
+                    type="email"
+                    defaultValue={user.email}
+                    ref={emailRef}
+                  />
+                ) : (
+                  <p>{user.email}</p>
+                )}
               </div>
               <div className="admin-user-info">
                 <h6>First Name</h6>
-                <p>{user.firstName == null ? " - " : user.firstName}</p>
+                {editMode ? (
+                  <input
+                    type="text"
+                    defaultValue={user.firstName}
+                    ref={firstNameRef}
+                  />
+                ) : (
+                  <p>{user.firstName == null ? " - " : user.firstName}</p>
+                )}
               </div>
               <div className="admin-user-info">
                 <h6>Last Name</h6>
-                <p>{user.lastName == null ? " - " : user.lastName}</p>
+                {editMode ? (
+                  <input
+                    type="text"
+                    defaultValue={user.lastName}
+                    ref={lastNameRef}
+                  />
+                ) : (
+                  <p>{user.lastName == null ? " - " : user.lastName}</p>
+                )}
               </div>
               <div className="admin-user-info">
                 <h6>Age</h6>
-                <p>{user.age == null ? " - " : user.age}</p>
+                {editMode ? (
+                  <input
+                    type="number"
+                    defaultValue={user.age}
+                    ref={ageRef}
+                    min={0}
+                  />
+                ) : (
+                  <p>{user.age == null ? " - " : user.age}</p>
+                )}
               </div>
               <div className="admin-user-info">
                 <h6>Weight</h6>
-                <p>{user.weight == null ? " - " : user.weight}</p>
+                {editMode ? (
+                  <input
+                    type="number"
+                    defaultValue={user.weight}
+                    ref={weightRef}
+                    min={0}
+                    step={0.01}
+                  />
+                ) : (
+                  <p>{user.weight == null ? " - " : user.weight}</p>
+                )}
               </div>
               <div className="admin-user-info">
                 <h6>Height</h6>
-                <p>{user.height == null ? " - " : user.height}</p>
+                {editMode ? (
+                  <input
+                    type="number"
+                    defaultValue={user.height}
+                    ref={heightRef}
+                    min={0}
+                    step={0.01}
+                  />
+                ) : (
+                  <p>{user.height == null ? " - " : user.height}</p>
+                )}
               </div>
               <div className="admin-user-info">
                 <h6>Gender</h6>
-                <p>{user.gender == null ? " - " : user.gender}</p>
+                {editMode ? (
+                  <input
+                    type="text"
+                    defaultValue={user.gender}
+                    ref={genderRef}
+                  />
+                ) : (
+                  <p>{user.gender == null ? " - " : user.gender}</p>
+                )}
               </div>
               <div className="admin-user-info">
                 <h6>Daily Calorie Goal</h6>
-                <p>
-                  {user.dailyCalorieGoal == null
-                    ? " - "
-                    : user.dailyCalorieGoal}
-                </p>
+                {editMode ? (
+                  <input
+                    type="number"
+                    defaultValue={user.dailyCalorieGoal}
+                    ref={dailyCalorieGoalRef}
+                    min={0}
+                  />
+                ) : (
+                  <p>
+                    {user.dailyCalorieGoal == null
+                      ? " - "
+                      : user.dailyCalorieGoal}
+                  </p>
+                )}
               </div>
             </div>
             <div className="admin-user-buttons">
