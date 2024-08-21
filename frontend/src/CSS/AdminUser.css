@@ -1,0 +1,76 @@
+.admin-user-card {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 14px 20px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.admin-user-card:nth-child(odd) {
+  background-color: #cdd37d1e;
+}
+
+.admin-user-card:nth-child(even) {
+  background-color: #7dd3c515;
+}
+
+.admin-user-container {
+  display: flex;
+  column-gap: 34px;
+  row-gap: 24px;
+  flex-wrap: wrap;
+}
+
+.admin-user-buttons {
+  display: flex;
+  column-gap: 12px;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+}
+
+.admin-user-buttons button {
+  cursor: pointer;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  padding: 8px 16px;
+  border: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 0 2px black;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 10px;
+}
+
+.edit-button {
+  background-color: #049660;
+}
+
+.delete-button {
+  background-color: #f73325;
+}
+
+.admin-user-info {
+  display: flex;
+  flex-direction: column;
+  row-gap: 4px;
+}
+
+.admin-user-info h6,
+.admin-user-info p {
+  margin: 0;
+}
+
+.admin-user-info h6 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.admin-user-info p {
+  font-size: 16px;
+  text-align: center;
+}
