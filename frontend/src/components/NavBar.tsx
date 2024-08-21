@@ -11,13 +11,16 @@ import { AuthContext } from '../context/AuthContext';
 const genericLinks: string[] = ["Foods", "Exercises"]
 
 const navLinksList: { [key in view]: string[] } = {
-  [view.GUEST]: [...genericLinks, "Login", "Register"],
-  [view.USER]: [...genericLinks, "Logout"],
-  [view.ADMIN]: [...genericLinks, "Logout"]
+  [view.GUEST]: ["Pricing", "Contact", ...genericLinks, "Login", "Register"],
+  [view.USER]: ["Home", ...genericLinks, "Logout"],
+  [view.ADMIN]: ["Home", "Modify Users", ...genericLinks, "Logout"]
 }
 
 const buildNavLinks = (list: Array<string>): JSX.Element[] => {
   const listItems: JSX.Element[] = [];
+
+
+
   list.forEach((linkName) => {
     listItems.push(
       <li key={linkName}>

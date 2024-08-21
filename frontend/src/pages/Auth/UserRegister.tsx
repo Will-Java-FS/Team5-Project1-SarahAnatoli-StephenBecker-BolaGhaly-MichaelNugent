@@ -5,6 +5,9 @@ import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
+//CSS
+import '../../CSS/UserRegister.css'
+
 const UserRegister = () => {
     const usernameRef = useRef<HTMLInputElement>(null);
     const emailRef = useRef<HTMLInputElement>(null);
