@@ -59,6 +59,29 @@ export const AdminUser = () => {
     setEditMode(true);
   };
 
+  const saveChangesForUserInfo = async (id: number) => {
+    try {
+      setEditMode(false);
+      const response = await axiosInstance.patch(`/admin/user/${id}`, {
+        username: usernameRef.current!.value,
+        email: emailRef.current!.value,
+        firstName: firstNameRef.current!.value,
+        lastName: lastNameRef.current!.value,
+        age: ageRef.current!.value,
+        weight: weightRef.current!.value,
+        height: heightRef.current!.value,
+        gender: genderRef.current!.value,
+        dailyCalorieGoal: dailyCalorieGoalRef.current!.value,
+      });
+
+      if (response.status === 200) {
+        getAllUsers();
+      }
+    } catch (error) {
+      console.error("Failed to update this user's information.", error);
+    }
+  };
+
   useEffect(() => {
     getAllUsers();
   }, []);
@@ -192,10 +215,16 @@ export const AdminUser = () => {
 
             {editMode && editUserId === user.id ? (
               <div className="admin-user-buttons">
-                <button className="save-changes-button">
+                <button
+                  className="save-changes-button"
+                  onClick={() => saveChangesForUserInfo(user.id)}
+                >
                   <i className="fa-solid fa-check" /> Save Changes
                 </button>
-                <button className="cancel-button" onClick={() => setEditMode(false)}>
+                <button
+                  className="cancel-button"
+                  onClick={() => setEditMode(false)}
+                >
                   <i className="fa-solid fa-xmark" /> Cancel
                 </button>
               </div>
