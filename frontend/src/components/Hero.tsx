@@ -1,9 +1,30 @@
 
 
+//images
+import { useNavigate } from 'react-router-dom'
+import HeroImage from '../assets/images/HeroImage.webp'
+
+//CSS
+import '../CSS/Hero.css'
+
 export default function Hero() {
+    const navigate = useNavigate();
     return (
         <div className="Hero">
-            <h1>Hero page</h1>
+            <img src={HeroImage} className='heroImage' />
+
+            <h2 className='headline'>Track Your Health, Reach Your Goals: Log Daily Calories, BMI, and Exercise with Ease.</h2>
+            <p className='subheading'>Access comprehensive food and exercise databases to stay on top of your daily health goals. Whether you're tracking your BMI, monitoring calorie intake, or logging your workouts, our app gives you the tools to succeed on your wellness journey.</p>
+            <button type='button' onClick={() => navigate("/Register")} className='callToActionButton' > Sign Up!!!</button>
+
+
+        </div>
+    )
+}
+
+/*
+<h1>Hero page</h1>
+            <h1>Calorie Tracker</h1>
             <p>It's purpose is to market the product to prospective users.</p>
             <ul>
                 <li>
@@ -47,7 +68,4 @@ export default function Hero() {
                     <p>Subtle design elements like shapes or patterns to add depth and visual interest without overwhelming the main content.</p>
                 </li>
             </ul>
-
-        </div>
-    )
-}
+            */

@@ -1,5 +1,6 @@
 package com.revature.calorietracker.controllers;
 
+import com.revature.calorietracker.dto.CalorieMeter;
 import com.revature.calorietracker.dto.UserDTO;
 import com.revature.calorietracker.models.*;
 import com.revature.calorietracker.service.UserService;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static com.revature.calorietracker.service.SecurityContextService.getUserIdFromSecurityContext;
 import static com.revature.calorietracker.service.SecurityContextService.getUsernameFromSecurityContext;
 
 @RestController
@@ -76,6 +78,11 @@ public class UserController {
     public ResponseEntity<Integer> getDailyCaloricIntake(@PathVariable Long id) {
         int totalCalories = userService.getDailyCaloricIntake(id);
         return ResponseEntity.status(200).body(totalCalories);
+    }
+
+    @GetMapping("/user/calorieMeter")
+    public CalorieMeter getCalorieMeter(){
+        return userService.getCalorieMeterByUserId(getUserIdFromSecurityContext());
     }
 
     @GetMapping("/user/{id}/calories/weekly")
