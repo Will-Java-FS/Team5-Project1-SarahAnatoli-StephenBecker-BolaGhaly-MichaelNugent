@@ -1,6 +1,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import axiosInstance from "../axios/AxiosInstance";
+import { useNavigate } from "react-router-dom";
 
 interface BMIRecord {
   id: number | undefined;
@@ -12,7 +13,7 @@ interface BMIRecord {
 
 export default function AddBMI() {
 
-    
+  const navigate = useNavigate();
   const [userBMI, setUserBMI] = useState<BMIRecord[]>([]);
   const [newBMI, setNewBMI] = useState<BMIRecord>({
     id: undefined,
@@ -34,6 +35,7 @@ export default function AddBMI() {
           })
           console.log(response)
           setUserBMI(response.data)
+          navigate("/bmirecords");
     
         } catch (error) {
           console.error("Failed to update user BMI information:", error)

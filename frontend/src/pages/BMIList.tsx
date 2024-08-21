@@ -1,6 +1,9 @@
 import { useEffect, useState,useRef } from "react";
 import axiosInstance from "../axios/AxiosInstance";
 import AddBMI from "./AddBMI";
+import { useNavigate } from 'react-router-dom';
+
+
 
 interface BMIRecord {
   id: number | undefined;
@@ -12,6 +15,8 @@ interface BMIRecord {
 
 
 export default function BMIList(){
+
+  const navigate = useNavigate();
 
   const [userBMI, setUserBMI] = useState<BMIRecord[]>([]);
   const [editMode, setEditMode] = useState(false);
@@ -72,8 +77,10 @@ export default function BMIList(){
             ) ): (
             <p>Loading...</p>
           )}
-              
         </div>
+        <button onClick={()=>navigate("/addbmirecord")}>Add New Record</button>
+        
+        
         </>
         );
     
