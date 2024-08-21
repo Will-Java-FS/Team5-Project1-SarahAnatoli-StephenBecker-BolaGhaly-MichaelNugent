@@ -4,7 +4,6 @@ import axiosInstance from "../axios/AxiosInstance"
 import '../CSS/UserProfile.css'
 
 export default function UserProfile() {
-
   const [userData, setUserData] = useState({ username: null, email: null, firstName: null, lastName: null, gender: null, age: null, height: null, weight: null, dailyCalorieGoal: null });
 
   useEffect(() => {
@@ -12,19 +11,14 @@ export default function UserProfile() {
     const getUserData = async () => {
       try {
         const response = await axiosInstance.get("/user");
-
         if (response === null) throw 'null result'
 
         setUserData(response.data);
-
-        // console.log(response.data)
-
       } catch (error) {
         console.error('Error in UserProfile data fetch: ', error)
       }
     }
     getUserData();
-
   }, [])
 
 
