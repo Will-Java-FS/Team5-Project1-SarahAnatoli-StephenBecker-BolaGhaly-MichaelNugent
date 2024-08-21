@@ -13,7 +13,7 @@ const genericLinks: string[] = ["Foods", "Exercises"]
 const navLinksList: { [key in view]: string[] } = {
   [view.GUEST]: ["Pricing", "Contact", ...genericLinks, "Login", "Register"],
   [view.USER]: ["Home", ...genericLinks, "Logout"],
-  [view.ADMIN]: ["Home", "Modify Users", ...genericLinks, "Logout"]
+  [view.ADMIN]: ["Home", ...genericLinks, "Logout"]
 }
 
 const buildNavLinks = (list: Array<string>): JSX.Element[] => {
