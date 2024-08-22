@@ -8,11 +8,26 @@ export const SearchBar = ({setResults}) => {
 
     async function fetchData(value) {
         try {
-            const response = await axiosInstance.get(
-                "http://localhost:8080/user/foodItem"
+            const response1 = await axiosInstance.get(
+                "https://api.nal.usda.gov/fdc/v1/foods/list?dataType=Foundation,SR%20Legacy&pageSize=200&pageNumber=1&" + 
+                "api_key=p2S0wOlvzxDu4uIi6andW9nCoverK2Mflvc0a7OG"
             );
-            const results = response.data.filter((food) => {
-                return value && food && food.name && food.name.toLowerCase().includes(value);
+            const response2 = await axiosInstance.get(
+                "https://api.nal.usda.gov/fdc/v1/foods/list?dataType=Foundation,SR%20Legacy&pageSize=200&pageNumber=2&" + 
+                "api_key=p2S0wOlvzxDu4uIi6andW9nCoverK2Mflvc0a7OG"
+            );
+            const response3 = await axiosInstance.get(
+                "https://api.nal.usda.gov/fdc/v1/foods/list?dataType=Foundation,SR%20Legacy&pageSize=200&pageNumber=9&" + 
+                "api_key=p2S0wOlvzxDu4uIi6andW9nCoverK2Mflvc0a7OG"
+            );
+            const response4 = await axiosInstance.get(
+                "https://api.nal.usda.gov/fdc/v1/foods/list?dataType=Foundation,SR%20Legacy&pageSize=200&pageNumber=15&" + 
+                "api_key=p2S0wOlvzxDu4uIi6andW9nCoverK2Mflvc0a7OG"
+            );
+            const totalResponse = [...response1.data, ...response2.data, ...response3.data, ...response4.data];
+            console.log(totalResponse);
+            const results = totalResponse.filter((food) => {
+                return value && food && food.description && food.description.toLowerCase().includes(value);
             });
             console.log(results);
             setResults(results);
