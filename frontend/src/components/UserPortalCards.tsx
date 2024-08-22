@@ -13,7 +13,7 @@ import '../CSS/UserPortalCards.css'
 export default function UserPortalCards() {
     return (
         <div className='UserPortalCards'>
-            <PortalCard title="BMI Records" to="/BMIRecords" imgSrc={HearthStethoscopeIcon} />
+            <PortalCard title="BMI Records" to="/bmirecords" imgSrc={HearthStethoscopeIcon} />
             <PortalCard title="Food Logs" to="/FoodLogs" imgSrc={Meal} />
             <PortalCard title="Exercise Logs" to="/ExerciseLogs" imgSrc={ExerciseLogsIcon} />
             <PortalCard title="User Profile" to="/Profile" imgSrc={UserProfileIcon} />

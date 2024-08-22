@@ -1,15 +1,15 @@
 package com.revature.calorietracker.service;
 
-import com.revature.calorietracker.models.BMIRecord;
-import com.revature.calorietracker.models.Exercise;
 import com.revature.calorietracker.models.User;
 import com.revature.calorietracker.models.UserExerciseLog;
 import com.revature.calorietracker.repos.UserExerciseLogRepo;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import com.revature.calorietracker.repos.UserRepo;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,12 +20,20 @@ public class UserExerciseLogService {
     @Autowired
     private UserExerciseLogRepo userExerciseLogRepo;
 
-    public UserExerciseLog addUserExerciseLog(UserExerciseLog userExerciseLog) {
+    @Autowired
+    UserRepo userRepo;
+
+
+    public UserExerciseLog saveLogRecord(Long userId,UserExerciseLog userExerciseLog) {
+        User user = userRepo.findById(userId).orElseThrow(() -> new UsernameNotFoundException("User not found in saveBMIRecordMike()"));
+
+        userExerciseLog.setUser(user);
+
         return userExerciseLogRepo.save(userExerciseLog);
     }
 
-    public List<UserExerciseLog> getAllRecordsByUser(User user) {
-        return userExerciseLogRepo.findByUser(user);
+    public List<UserExerciseLog> getAllRecordsById(Long userId) {
+        return userExerciseLogRepo.findByUserId(userId);
     }
 
     public void deleteLogById(UserExerciseLog userExerciseLog) {
