@@ -1,6 +1,5 @@
 package com.revature.calorietracker.service;
 
-import com.revature.calorietracker.dto.UserDTO;
 import com.revature.calorietracker.models.BMIRecord;
 import com.revature.calorietracker.models.User;
 import com.revature.calorietracker.repos.BMIRecordRepo;

@@ -1,36 +1,44 @@
 package com.revature.calorietracker.controllers;
 
-import com.revature.calorietracker.models.BMIRecord;
-import com.revature.calorietracker.models.User;
 import com.revature.calorietracker.models.UserExerciseLog;
 import com.revature.calorietracker.service.UserExerciseLogService;
+import com.revature.calorietracker.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
+
+
+import static com.revature.calorietracker.service.SecurityContextService.getUserIdFromSecurityContext;
 
 @RestController
 @RequestMapping("/userexerciselogs")
 public class UserExerciseLogController {
     @Autowired
     private UserExerciseLogService userExerciseLogService;
+    private UserService userService;
 
-    @PatchMapping("/addexerciselog")
-    public ResponseEntity<UserExerciseLog> addUserExerciseLog(@RequestBody UserExerciseLog userExerciseLog) {
-        UserExerciseLog newUserExerciseLog = userExerciseLogService.addUserExerciseLog(userExerciseLog);
-        return ResponseEntity.ok(newUserExerciseLog);
+    public UserExerciseLogController(UserService userService, UserExerciseLogService userExerciseLog) {
+        this.userService = userService;
+        this.userExerciseLogService=userExerciseLog;
     }
 
+    @PostMapping("/addexerciselog")
+    public UserExerciseLog addLogRecord(@RequestBody UserExerciseLog userExerciseLog) throws Exception {
+        Long userId = getUserIdFromSecurityContext();
+        return userExerciseLogService.saveLogRecord(userId ,userExerciseLog);
+    }
+
+
     @GetMapping("/loglistbyuserid")
-    public ResponseEntity<List<UserExerciseLog>> getBMIbyUser(@RequestBody User user) throws Exception {
-        try{
-            List<UserExerciseLog> rec= userExerciseLogService.getAllRecordsByUser(user);
+    public ResponseEntity<List<UserExerciseLog>> getlogbyUser() throws Exception {
+        try {
+            Long userId = getUserIdFromSecurityContext();
+            List<UserExerciseLog> rec = userExerciseLogService.getAllRecordsById(userId);
             return ResponseEntity.status(200).body(rec);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.getMessage();
         }
         return ResponseEntity.status(200).body(null);

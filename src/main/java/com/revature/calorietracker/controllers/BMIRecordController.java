@@ -1,22 +1,14 @@
 package com.revature.calorietracker.controllers;
 
-import com.revature.calorietracker.dto.UserDTO;
-import com.revature.calorietracker.dto.UserSecurityDTO;
 import com.revature.calorietracker.models.BMIRecord;
-import com.revature.calorietracker.models.User;
 import com.revature.calorietracker.service.BMIRecordService;
 import com.revature.calorietracker.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.AuthorizationServiceException;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
+
 
 import static com.revature.calorietracker.service.SecurityContextService.getUserIdFromSecurityContext;
 
@@ -49,7 +41,6 @@ public class BMIRecordController {
     public ResponseEntity<List<BMIRecord>> getBMIbyUser() throws Exception {
         try {
             Long userId = getUserIdFromSecurityContext();
-            //List<BMIRecord> rec = bmiRecordService.getAllRecordsById(user);
             List<BMIRecord> rec = bmiRecordService.getAllRecordsById(userId);
             return ResponseEntity.status(200).body(rec);
         } catch (Exception e) {
