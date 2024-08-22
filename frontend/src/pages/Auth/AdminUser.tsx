@@ -126,7 +126,11 @@ export const AdminUser = () => {
                     ref={firstNameRef}
                   />
                 ) : (
-                  <p>{user.firstName == null ? " - " : user.firstName}</p>
+                  <p>
+                    {user.firstName && user.firstName.length > 0
+                      ? user.firstName
+                      : " - "}
+                  </p>
                 )}
               </div>
               <div className="admin-user-info">
@@ -138,7 +142,11 @@ export const AdminUser = () => {
                     ref={lastNameRef}
                   />
                 ) : (
-                  <p>{user.lastName == null ? " - " : user.lastName}</p>
+                  <p>
+                    {user.lastName && user.lastName.length > 0
+                      ? user.lastName
+                      : " - "}
+                  </p>
                 )}
               </div>
               <div className="admin-user-info">
@@ -191,7 +199,11 @@ export const AdminUser = () => {
                     ref={genderRef}
                   />
                 ) : (
-                  <p>{user.gender == null ? " - " : user.gender}</p>
+                  <p>
+                    {user.gender && user.gender.length > 0
+                      ? user.gender
+                      : " - "}
+                  </p>
                 )}
               </div>
               <div className="admin-user-info">
@@ -212,7 +224,6 @@ export const AdminUser = () => {
                 )}
               </div>
             </div>
-
             {editMode && editUserId === user.id ? (
               <div className="admin-user-buttons">
                 <button
