@@ -8,9 +8,6 @@ export const SearchBar = ({setResults}) => {
 
     async function fetchData(value) {
         try {
-            /*const response = await axiosInstance.get(
-                "https://api.nal.usda.gov/fdc/v1/foods/list?dataType=Foundation,SR%20Legacy&pageSize=200&api_key=p2S0wOlvzxDu4uIi6andW9nCoverK2Mflvc0a7OG"
-            );*/
             const response1 = await axiosInstance.get(
                 "https://api.nal.usda.gov/fdc/v1/foods/list?dataType=Foundation,SR%20Legacy&pageSize=200&pageNumber=1&" + 
                 "api_key=p2S0wOlvzxDu4uIi6andW9nCoverK2Mflvc0a7OG"

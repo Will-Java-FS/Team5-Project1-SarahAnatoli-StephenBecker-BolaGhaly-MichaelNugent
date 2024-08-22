@@ -100,27 +100,9 @@ export default function FoodLog() {
         setEditMode(false);
     }
 
-    const getUSDAData = async () => {
-        //axios will return a response with our function
-        const response1 = await axiosInstance.get(
-            "https://api.nal.usda.gov/fdc/v1/foods/list?dataType=Foundation,SR%20Legacy&pageSize=200&pageNumber=14&" + 
-            "api_key=p2S0wOlvzxDu4uIi6andW9nCoverK2Mflvc0a7OG"
-        );
-        const response2 = await axiosInstance.get(
-            "https://api.nal.usda.gov/fdc/v1/foods/list?dataType=Foundation,SR%20Legacy&pageSize=200&pageNumber=15&" + 
-            "api_key=p2S0wOlvzxDu4uIi6andW9nCoverK2Mflvc0a7OG"
-        );
-
-        //the response is stored as data, so anything must be accessed using response.data
-        //setFood(response.data);
-        const totalResponse = [...response1.data, ...response2.data];
-        console.log(totalResponse);
-        //console.log(Object.assign(response.data, response2.data));
-    }
-
     return (
     <div className="FoodLog">
-        <h1>Food Log <button onClick={getUSDAData}> USDA API</button></h1>
+        <h1>Food Log</h1>
         <div className="food-card">
             <h3>Add a Food From Our Database</h3>
             <div className="search-bar-container">
