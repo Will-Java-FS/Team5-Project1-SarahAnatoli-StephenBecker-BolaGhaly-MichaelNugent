@@ -40,16 +40,22 @@ export default function AddExerciseLogs() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
+        
+
         if (!selectedExerciseId) return;
 
         const selectedExercise = exercises.find(ex => ex.id === selectedExerciseId);
         if (!selectedExercise) return;
 
+        const caloriesBurned = selectedExercise.caloriesBurnedPerMinute * durationMinutes;
+
         const newLog: UserExerciseLog = {
             exercise: selectedExercise,
             durationMinutes,
+            caloriesBurned,
             logDate,
         };
+
 
         try {
             await axiosInstance.post("/userexerciselogs/addexerciselog", newLog);
