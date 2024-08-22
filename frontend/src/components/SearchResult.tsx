@@ -3,7 +3,7 @@ import { useState } from "react";
 import "../CSS/SearchResult.css";
 import axiosInstance from "../axios/AxiosInstance";
 
-export const SearchResult = ({result}) => {
+export const SearchResult = ({ result, getFoodLogs }) => {
     const [name, setName] = useState<string>('');
     const [calories, setCalories] = useState<any>(null);
     const [servingSize, setServingSize] = useState<any>(null);
@@ -18,8 +18,9 @@ export const SearchResult = ({result}) => {
         setProtein(result.protein);
         setCarbs(result.carbs);
         setFat(result.fat);
-        const response = await axiosInstance.post('http://localhost:8080/user/foodItem', {name, calories, servingSize, protein, carbs, fat});
+        const response = await axiosInstance.post('http://localhost:8080/user/foodItem', { name, calories, servingSize, protein, carbs, fat });
         console.log(result);
+        getFoodLogs();
     };
 
     return (
