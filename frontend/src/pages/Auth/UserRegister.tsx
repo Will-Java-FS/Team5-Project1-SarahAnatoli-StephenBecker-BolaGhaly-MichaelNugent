@@ -39,9 +39,14 @@ const UserRegister = () => {
 
         } catch (error: any) {
             console.error('Error during registration:', error);
-            setErrorMessage(error.response.data);
-            // setErrorMessage('Registration failed. Please try again.');
+            if (axios.isAxiosError(error)) {
+                if (!error.response) setErrorMessage('Registration failed: ' + error.message)
+                else {
+                    setErrorMessage('Registration failed: ' + error.response.data);
+                }
+            }
             setSuccessMessage('');  // Clear any previous success message
+
         }
     };
 
