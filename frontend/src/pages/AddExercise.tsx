@@ -77,6 +77,7 @@ export default function AddExercise() {
         <button >Add Exercise</button>
       </form>
       <button onClick={() => navigate("/exercises")}>Cancel</button>
+      <button onClick={() => navigate("/exerciselogs")}>Add New Log</button>
     </>
   );
 }

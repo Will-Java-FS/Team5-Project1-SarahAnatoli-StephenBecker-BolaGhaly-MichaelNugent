@@ -70,7 +70,8 @@ export default function ExerciseLogsList(){
             <p>Loading...</p>
           )}
         </div>
-        <button onClick={()=>navigate("/addexerciselog")}>Add New Exercise</button>
+        <button onClick={()=>navigate("/addexerciselog")}>Add New Log</button>
+        <button onClick={()=>navigate("/addexercise")}>Add New Exercise</button>
         
         
         </>

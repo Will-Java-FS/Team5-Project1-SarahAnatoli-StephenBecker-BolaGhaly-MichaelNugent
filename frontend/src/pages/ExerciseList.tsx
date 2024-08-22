@@ -58,7 +58,8 @@ export default function Exercise(){
             <p>Loading...</p>
           )}
         </div>
-        <button onClick={()=>navigate("/addexercise")}>Add New Record</button>
+        <button onClick={()=>navigate("/addexercise")}>Add Exercise</button>
+        <button onClick={()=>navigate("/addexerciselog")}>Add New Log</button>
         
         
         </>
