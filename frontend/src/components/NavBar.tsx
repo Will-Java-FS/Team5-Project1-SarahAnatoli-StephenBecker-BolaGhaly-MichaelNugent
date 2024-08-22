@@ -8,12 +8,16 @@ import { view } from '../enums/view';
 //context
 import { AuthContext } from '../context/AuthContext';
 
+//image
+import Logo from '../assets/images/CalorieTrackerLogo.webp'
+
 const genericLinks: string[] = ["Foods", "Exercises"]
 
 const navLinksList: { [key in view]: string[] } = {
   [view.GUEST]: ["Pricing", "Contact", ...genericLinks, "Login", "Register"],
   [view.USER]: ["Home", ...genericLinks, "Logout"],
   [view.ADMIN]: ["Home", ...genericLinks, "Logout"]
+  //"Users", "Modify Foods", "Modify Exercises",  //Other possibly needed admin links
 }
 
 const buildNavLinks = (list: Array<string>): JSX.Element[] => {
@@ -41,7 +45,10 @@ const NavigationBar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-logo">
-        <Link to="/">Calorie Tracker</Link>
+        <Link to="/">
+          <img src={Logo} className='logo' />
+          <h1>Calorie Tracker</h1>
+        </Link>
       </div>
       <ul className="navbar-links">
         {navLinks}

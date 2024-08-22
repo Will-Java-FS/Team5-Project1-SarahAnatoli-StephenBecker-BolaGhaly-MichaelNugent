@@ -1,31 +1,37 @@
 package com.revature.calorietracker.integration;
 
-import com.revature.calorietracker.dto.UserDTO;
 import com.revature.calorietracker.models.User;
 import com.revature.calorietracker.repos.UserRepo;
+import lombok.AllArgsConstructor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@ExtendWith(SpringExtension.class)
 class UserControllerIntegrationTest {
-
     @Autowired
-    private MockMvc mockMvc;
+    public UserControllerIntegrationTest(MockMvc mockMvc, UserRepo userRepo) {
+        this.mockMvc = mockMvc;
+        this.userRepo = userRepo;
+    }
 
-    @Autowired
-    private UserRepo userRepo;
+    private final MockMvc mockMvc;
+    private final UserRepo userRepo;
 
     @BeforeEach
     void setUp() {
