@@ -47,7 +47,8 @@
   border-radius: 10px;
 }
 
-.edit-button, .save-changes-button {
+.edit-button,
+.save-changes-button {
   background-color: #049660;
 }
 
@@ -82,4 +83,15 @@
 .admin-user-info p {
   font-size: 16px;
   text-align: center;
+}
+
+.user-password-container p {
+  margin: 0 auto;
+}
+
+.user-password {
+  max-width: 50px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
