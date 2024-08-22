@@ -23,7 +23,8 @@ export default function FoodLog() {
     const [successMessage, setSuccessMessage] = useState<string>('');
     const [errorMessage, setErrorMessage] = useState<string>('');
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
 
         try {
             //replace this web url with an environment variable so as to support both development and production instances
@@ -33,35 +34,39 @@ export default function FoodLog() {
             // Redirect or perform other post-login actions
             console.log(response.data);
 
+            getData();
+
         } catch (error) {
             console.error('Could not log food item:', error);
             setErrorMessage('Food wasnt logged.');
             setSuccessMessage('');  // Clear any previous success message
         }
     };
+    const getData = async () => {
+        //axios will return a response with our function
+        const response = await axiosInstance.get(
+            "http://localhost:8080/user/foodItem"
+        );
+
+        //the response is stored as data, so anything must be accessed using response.data
+        setFood(response.data);
+    }
 
     useEffect(() => {
-        const getData = async () => {
-            //axios will return a response with our function
-            const response = await axiosInstance.get(
-                "http://localhost:8080/user/foodItem"
-            );
-    
-            //the response is stored as data, so anything must be accessed using response.data
-            setFood(response.data);
-        }
-        getData();
-      })
 
-    async function deleteEntry(id:number) {
+        getData();
+    }, [])
+
+    async function deleteEntry(id: number) {
         //let index = 3;
         const response = await axiosInstance.delete(
             `http://localhost:8080/foodItem/${id}`
         );
-        setFood(response.data);
+        // setFood(response.data);
+        getData()
     };
 
-    function edit(index:number) {
+    function edit(index: number) {
         setRow(index);
         setEditMode(true);
     }
@@ -73,35 +78,37 @@ export default function FoodLog() {
     const carbsRef = useRef<HTMLInputElement>(null);
     const fatRef = useRef<HTMLInputElement>(null);
 
-    async function save(id:number) {
+    async function save(id: number) {
 
         try {
-          const response = await axiosInstance.patch(`http://localhost:8080/foodItem/${id}`, {
-            name: nameRef.current!.value,
-            calories: caloriesRef.current!.value,
-            servingSize: servingSizeRef.current!.value,
-            protein: proteinRef.current!.value,
-            carbs: carbsRef.current!.value,
-            fat: fatRef.current!.value
-          })
-          console.log(response)
-          setFood(response.data)
-    
-        } catch (error) {
-          console.error("Failed to update food information:", error)
-        }
-    
-        setEditMode(false);
-      }
+            const response = await axiosInstance.patch(`http://localhost:8080/foodItem/${id}`, {
+                name: nameRef.current!.value,
+                calories: caloriesRef.current!.value,
+                servingSize: servingSizeRef.current!.value,
+                protein: proteinRef.current!.value,
+                carbs: carbsRef.current!.value,
+                fat: fatRef.current!.value
+            })
+            console.log(response)
+            // setFood(response.data)
+            getData();
 
-    return (<div className="FoodLog">
+        } catch (error) {
+            console.error("Failed to update food information:", error)
+        }
+
+        setEditMode(false);
+    }
+
+    return (
+    <div className="FoodLog">
         <h1>Food Log</h1>
         <div className="food-card">
-        <h3>Add a Food From Our Database</h3>
-        <div className="search-bar-container">
-            <SearchBar setResults={setResults}/>
-            <SearchResultsList results={results}/>
-        </div>
+            <h3>Add a Food From Our Database</h3>
+            <div className="search-bar-container">
+                <SearchBar setResults={setResults} />
+                <SearchResultsList results={results} getFoodLogs={getData} />
+            </div>
         </div>
         <div className="food-card">
             <h3>Add Your Own</h3>
@@ -174,32 +181,32 @@ export default function FoodLog() {
         <div className="log-card">
             <h3>Your Log</h3>
             <table className="log-table">
-            <tr className="log-table">
-                <th className="log-table">Name</th>
-                <th className="log-table">Calories</th>
-                <th className="log-table">Date Logged</th>
-                <th className="log-table">Serving Size</th>
-                <th className="log-table">Protein</th>
-                <th className="log-table">Carbs</th>
-                <th className="log-table">Fat</th>
-            </tr>
-            <tbody className="log-table">
-            {food && food.map && food.map((food, index) => (
-                <tr className="log-table" key={index}>
-                    <td className="log-table">{editMode && index === row ? <input type="text" defaultValue={food.name} ref={nameRef} /> : food.name}</td>
-                    <td className="log-table">{editMode && index === row ? <input type="number" defaultValue={food.calories} ref={caloriesRef} /> : food.calories}kcal</td>
-                    <td className="log-table">{food.logDate}</td>
-                    <td className="log-table">{editMode && index === row ? <input type="number" defaultValue={food.servingSize} ref={servingSizeRef} /> : food.servingSize}</td>
-                    <td className="log-table">{editMode && index === row ? <input type="number" defaultValue={food.protein} ref={proteinRef} /> : food.protein}g</td>
-                    <td className="log-table">{editMode && index === row ? <input type="number" defaultValue={food.carbs} ref={carbsRef} /> : food.carbs}g</td>
-                    <td className="log-table">{editMode && index === row ? <input type="number" defaultValue={food.fat} ref={fatRef} /> : food.fat}g</td>
-                    <td className="log-table"><button className="delete-edit-button" onClick={() => deleteEntry(food.id)}>Delete</button></td>
-                    <td className="log-table">{editMode && index === row
-                    ? <><button className="save-cancel-button" onClick={() => save(food.id)}>Save</button><button className="save-cancel-button" onClick={() => setEditMode(false)}>Cancel</button></>
-                    : <button className="delete-edit-button" onClick={() => edit(index)}>Edit</button>}</td>
+                <tr className="log-table">
+                    <th className="log-table">Name</th>
+                    <th className="log-table">Calories</th>
+                    <th className="log-table">Date Logged</th>
+                    <th className="log-table">Serving Size</th>
+                    <th className="log-table">Protein</th>
+                    <th className="log-table">Carbs</th>
+                    <th className="log-table">Fat</th>
                 </tr>
-            ))}
-            </tbody>
+                <tbody className="log-table">
+                    {food && food.map && food.map((food, index) => (
+                        <tr className="log-table" key={index}>
+                            <td className="log-table">{editMode && index === row ? <input type="text" defaultValue={food.name} ref={nameRef} /> : food.name}</td>
+                            <td className="log-table">{editMode && index === row ? <input type="number" defaultValue={food.calories} ref={caloriesRef} /> : food.calories}kcal</td>
+                            <td className="log-table">{food.logDate}</td>
+                            <td className="log-table">{editMode && index === row ? <input type="number" defaultValue={food.servingSize} ref={servingSizeRef} /> : food.servingSize}</td>
+                            <td className="log-table">{editMode && index === row ? <input type="number" defaultValue={food.protein} ref={proteinRef} /> : food.protein}g</td>
+                            <td className="log-table">{editMode && index === row ? <input type="number" defaultValue={food.carbs} ref={carbsRef} /> : food.carbs}g</td>
+                            <td className="log-table">{editMode && index === row ? <input type="number" defaultValue={food.fat} ref={fatRef} /> : food.fat}g</td>
+                            <td className="log-table"><button className="delete-edit-button" onClick={() => deleteEntry(food.id)}>Delete</button></td>
+                            <td className="log-table">{editMode && index === row
+                                ? <><button className="save-cancel-button" onClick={() => save(food.id)}>Save</button><button className="save-cancel-button" onClick={() => setEditMode(false)}>Cancel</button></>
+                                : <button className="delete-edit-button" onClick={() => edit(index)}>Edit</button>}</td>
+                        </tr>
+                    ))}
+                </tbody>
             </table>
         </div>
     </div>)
