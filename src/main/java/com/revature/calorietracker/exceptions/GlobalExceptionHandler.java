@@ -34,9 +34,9 @@ public class GlobalExceptionHandler {
         //ToDo: decipher exception to provide client more specific information about their request failure
         String resMsg;
         if (ex.getMessage().contains("ERROR: duplicate key value violates unique constraint \"users_email_key\""))
-            resMsg = "Email address already registered.";
+            resMsg = "Email address already exists.";
         else if (ex.getMessage().contains("username") && ex.getMessage().contains("already exists"))
-            resMsg = "Username already registered.";
+            resMsg = "Username already exists.";
         else resMsg = ex.getMessage();
         return new ResponseEntity<>(resMsg, HttpStatus.BAD_REQUEST);
     }

@@ -34,7 +34,13 @@ export default function UserLogin() {
 
         } catch (error) {
             console.error('Error during login:', error);
-            setErrorMessage('Login failed. Please check your username and password.');
+            if (axios.isAxiosError(error)) {
+                if (!error.response) setErrorMessage('Login failed: ' + error.message)
+                else {
+                    setErrorMessage('Login failed: ' + error.response.data)
+                }
+            }
+
         }
     };
 

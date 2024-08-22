@@ -17,7 +17,9 @@ const CalorieMeter: React.FC = () => {
                 const response = await axiosInstance.get("/user/calorieMeter");
 
                 if (response.status === 200) {
-                    console.log('Data received', response)
+
+                    //debug
+                    // console.log('Data received', response)
 
                     //handle empty data
                     const retrievedCalories = response.data.dailyCalorieIntake;
