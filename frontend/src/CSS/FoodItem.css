@@ -39,3 +39,7 @@
 .save-cancel-button {
   width: 100px;
 }
+
+.foodlog-input {
+  max-width: 100px;
+}

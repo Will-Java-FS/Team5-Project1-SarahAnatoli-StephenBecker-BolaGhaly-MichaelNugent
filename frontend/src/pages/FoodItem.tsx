@@ -193,13 +193,13 @@ export default function FoodLog() {
                 <tbody className="log-table">
                     {food && food.map && food.map((food, index) => (
                         <tr className="log-table" key={index}>
-                            <td className="log-table">{editMode && index === row ? <input type="text" defaultValue={food.name} ref={nameRef} /> : food.name}</td>
-                            <td className="log-table">{editMode && index === row ? <input type="number" defaultValue={food.calories} ref={caloriesRef} /> : food.calories}kcal</td>
+                            <td className="log-table">{editMode && index === row ? <input className="foodlog-input" type="text" defaultValue={food.name} ref={nameRef} /> : food.name}</td>
+                            <td className="log-table">{editMode && index === row ? <input className="foodlog-input" type="number" defaultValue={food.calories} ref={caloriesRef} /> : food.calories}kcal</td>
                             <td className="log-table">{food.logDate}</td>
-                            <td className="log-table">{editMode && index === row ? <input type="number" defaultValue={food.servingSize} ref={servingSizeRef} /> : food.servingSize}</td>
-                            <td className="log-table">{editMode && index === row ? <input type="number" defaultValue={food.protein} ref={proteinRef} /> : food.protein}g</td>
-                            <td className="log-table">{editMode && index === row ? <input type="number" defaultValue={food.carbs} ref={carbsRef} /> : food.carbs}g</td>
-                            <td className="log-table">{editMode && index === row ? <input type="number" defaultValue={food.fat} ref={fatRef} /> : food.fat}g</td>
+                            <td className="log-table">{editMode && index === row ? <input className="foodlog-input" type="number" defaultValue={food.servingSize} ref={servingSizeRef} /> : food.servingSize}</td>
+                            <td className="log-table">{editMode && index === row ? <input className="foodlog-input" type="number" defaultValue={food.protein} ref={proteinRef} /> : food.protein}g</td>
+                            <td className="log-table">{editMode && index === row ? <input className="foodlog-input" type="number" defaultValue={food.carbs} ref={carbsRef} /> : food.carbs}g</td>
+                            <td className="log-table">{editMode && index === row ? <input className="foodlog-input" type="number" defaultValue={food.fat} ref={fatRef} /> : food.fat}g</td>
                             <td className="log-table"><button className="delete-edit-button" onClick={() => deleteEntry(food.id)}>Delete</button></td>
                             <td className="log-table">{editMode && index === row
                                 ? <><button className="save-cancel-button" onClick={() => save(food.id)}>Save</button><button className="save-cancel-button" onClick={() => setEditMode(false)}>Cancel</button></>
