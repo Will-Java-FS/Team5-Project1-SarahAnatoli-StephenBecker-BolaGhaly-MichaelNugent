@@ -8,8 +8,8 @@ import Logout from './pages/Auth/Logout'
 import Home from './pages/Home'
 
 //CSS
-import './CSS/App.css'
-import NavigationBar from './components/NavBar'
+import "./CSS/App.css";
+import NavigationBar from "./components/NavBar";
 
 //context
 
@@ -21,6 +21,7 @@ import AddExerciseLogs from './pages/AddExerciseLogs'
 import ExerciseList from './pages/ExerciseList'
 import AddExercise from './pages/AddExercise'
 
+
 function App() {
 
 
@@ -31,9 +32,19 @@ function App() {
       <BrowserRouter>
         <AuthProvider>
           <Routes>
-            <Route path='*' element={<NavigationBar />} />
+            <Route path="*" element={<NavigationBar />} />
           </Routes>
           <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/Home" element={<Home />} />
+            <Route path="/Register" element={<UserRegister />} />
+            <Route path='/FoodLogs' element={<FoodLog />} />
+            <Route path="/Login" element={<UserLogin />} />
+            <Route path="/Profile" element={<UserProfile />} />
+            <Route path="/Logout" element={<Logout />} />
+            <Route path="/Admin/Users" element={<AdminUser />} />
+            <Route path="/Pricing" element={<Pricing />} />
+            <Route path="/Contact" element={<ContactUs />} />
             <Route path='/' element={<Home />} />
             <Route path='/Home' element={<Home />} />
             <Route path='/Register' element={<UserRegister />} />

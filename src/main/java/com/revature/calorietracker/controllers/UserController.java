@@ -2,25 +2,26 @@ package com.revature.calorietracker.controllers;
 
 import com.revature.calorietracker.dto.CalorieMeter;
 import com.revature.calorietracker.dto.UserDTO;
-import com.revature.calorietracker.models.*;
+import com.revature.calorietracker.models.BMIRecord;
+import com.revature.calorietracker.models.FoodItem;
+import com.revature.calorietracker.models.User;
+import com.revature.calorietracker.models.UserExerciseLog;
 import com.revature.calorietracker.service.UserService;
-
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 import static com.revature.calorietracker.service.SecurityContextService.getUserIdFromSecurityContext;
 import static com.revature.calorietracker.service.SecurityContextService.getUsernameFromSecurityContext;
 
 @RestController
+@RequiredArgsConstructor
 public class UserController {
-    @Autowired
-    UserService userService;
+    private final UserService userService;
 
     // for testing purposes
     @GetMapping(value = "/users")
@@ -67,6 +68,7 @@ public class UserController {
     public UserDTO updateByUsername(@RequestBody UserDTO userDTO) {
         return userService.updateByUsername(getUsernameFromSecurityContext(), userDTO);
     }
+
     @PatchMapping("/user/{id}")
     public ResponseEntity<User> addDailyCalorieGoal(@PathVariable Long id, @RequestBody Map<String, Integer> dailyCalorieGoalMap) {
         Integer dailyCalorieGoal = dailyCalorieGoalMap.get("dailyCalorieGoal");
@@ -74,20 +76,20 @@ public class UserController {
         return ResponseEntity.status(200).body(updatedUser);
     }
 
-    @GetMapping("/user/{id}/calories/daily")
-    public ResponseEntity<Integer> getDailyCaloricIntake(@PathVariable Long id) {
-        int totalCalories = userService.getDailyCaloricIntake(id);
+    @GetMapping("/user/calories/daily")
+    public ResponseEntity<Integer> getDailyCaloricIntake() {
+        int totalCalories = userService.getDailyCaloricIntake(getUserIdFromSecurityContext());
         return ResponseEntity.status(200).body(totalCalories);
     }
 
     @GetMapping("/user/calorieMeter")
-    public CalorieMeter getCalorieMeter(){
+    public CalorieMeter getCalorieMeter() {
         return userService.getCalorieMeterByUserId(getUserIdFromSecurityContext());
     }
 
-    @GetMapping("/user/{id}/calories/weekly")
-    public ResponseEntity<Integer> getWeeklyCaloricIntake(@PathVariable Long id) {
-        int totalCalories = userService.getWeeklyCaloricIntake(id);
+    @GetMapping("/user/calories/weekly")
+    public ResponseEntity<Integer> getWeeklyCaloricIntake() {
+        int totalCalories = userService.getWeeklyCaloricIntake(getUserIdFromSecurityContext());
         return ResponseEntity.status(200).body(totalCalories);
     }
 }

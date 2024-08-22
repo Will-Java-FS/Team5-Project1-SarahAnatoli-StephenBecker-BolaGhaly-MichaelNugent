@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from "react"
 import axiosInstance from "../axios/AxiosInstance"
+import { Link } from 'react-router-dom';
+import { useEffect, useRef, useState } from "react"
 
 //CSS
 import '../CSS/UserProfile.css'
@@ -13,6 +14,8 @@ export default function UserProfile() {
 
   const [userData, setUserData] = useState({ username: undefined, email: undefined, firstName: undefined, lastName: undefined, gender: undefined, age: undefined, height: undefined, weight: undefined, dailyCalorieGoal: undefined });
   const [editMode, setEditMode] = useState(false);
+  const [dailyCaloricIntake, setDailyCaloricIntake] = useState(0);
+  const [weeklyCaloricIntake, setWeeklyCaloricIntake] = useState(0);
 
   useEffect(() => {
 
@@ -31,6 +34,26 @@ export default function UserProfile() {
     getUserData();
 
   }, [])
+
+  useEffect(() => {
+    const getDailyCaloricIntake = async () => {
+      const response = await axiosInstance.get(
+        "http://localhost:8080/user/calories/daily"
+        );
+        setDailyCaloricIntake(response.data);
+    }
+    getDailyCaloricIntake();
+  })
+
+  useEffect(() => {
+    const getWeeklyCaloricIntake = async () => {
+      const response = await axiosInstance.get(
+        "http://localhost:8080/user/calories/weekly"
+        );
+        setWeeklyCaloricIntake(response.data);
+    }
+    getWeeklyCaloricIntake();
+  })
 
   const usernameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
@@ -105,6 +128,19 @@ export default function UserProfile() {
         </div>
       </div>
 
+      {/* Card for food log */}
+      <div className="profile-card">
+        <h3>Food Log</h3>
+        <div className="profile-info">
+          <p><strong>Daily Caloric Intake:</strong> {dailyCaloricIntake} kcal</p>
+          <p><strong>Weekly Caloric Intake:</strong> {weeklyCaloricIntake} kcal</p>
+          <ul className="foodItem-links">
+        <li>
+          <Link to="/FoodLogs">Access your food log</Link>
+        </li>
+      </ul>
+        </div>
+      </div>
       <div className="userProfileButtons">
         {editMode
           ? <><button onClick={save}>Save</button><button onClick={() => setEditMode(false)}>Cancel</button></>
