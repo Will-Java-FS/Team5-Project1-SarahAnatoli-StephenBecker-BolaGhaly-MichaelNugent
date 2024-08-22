@@ -24,6 +24,7 @@ import "./CSS/App.css";
 import { AuthProvider } from './context/AuthContext'
 import Pricing from './pages/Pricing'
 import ContactUs from './pages/Contact'
+import { AdminUser } from './pages/Auth/AdminUser'
 
 
 
@@ -55,6 +56,7 @@ function App() {
             <Route path='/exercises' element={<ExerciseList />} />
             <Route path='/addexerciselog' element={<AddExerciseLogs />} />
             <Route path='/addexercise' element={<AddExercise />} />
+            <Route path='/Admin/Users' element={<AdminUser />} />
           </Routes>
         </AuthProvider>
       </BrowserRouter>
