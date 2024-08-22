@@ -5,7 +5,7 @@ import axiosInstance from '../axios/AxiosInstance';
 
 const CalorieMeter: React.FC = () => {
 
-    const [calories, setCalories] = useState<number>(1000);
+    const [calories, setCalories] = useState<number>(0);
     const [caloriesGoal, setCaloriesGoal] = useState<number>(2000);
 
     const percentage = Math.min((calories / caloriesGoal) * 100, 100);
