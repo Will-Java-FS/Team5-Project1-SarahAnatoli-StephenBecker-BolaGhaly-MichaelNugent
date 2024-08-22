@@ -1,5 +1,6 @@
 package com.revature.calorietracker.models.auth;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.revature.calorietracker.models.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -28,5 +29,6 @@ public class Token {
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="user_id")
+    @JsonIgnore
     public User user;
 }
