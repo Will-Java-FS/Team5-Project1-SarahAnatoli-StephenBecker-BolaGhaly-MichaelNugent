@@ -7,14 +7,6 @@ export const SearchBar = ({setResults}) => {
     const [input, setInput] = useState("");
 
     async function fetchData(value) {
-        /*fetch("https://jsonplaceholder.typicode/users")
-        .then((response) => response.json())
-        .then((json) => {
-            const results = json.filter((food) => {
-                return value && food && food.name && food.name.toLowerCase().includes(value);
-            });
-            setResults(results);
-        });*/
         try {
             const response = await axiosInstance.get(
                 "http://localhost:8080/user/foodItem"
