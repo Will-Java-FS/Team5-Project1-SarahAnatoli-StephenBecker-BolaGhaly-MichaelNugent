@@ -2,9 +2,11 @@ package com.revature.calorietracker.controllers;
 
 import com.revature.calorietracker.models.FoodItem;
 import com.revature.calorietracker.service.FoodItemService;
+import com.revature.calorietracker.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import static com.revature.calorietracker.service.SecurityContextService.getUserIdFromSecurityContext;
 
 import java.util.List;
 
@@ -29,10 +31,16 @@ public class FoodItemController {
         return ResponseEntity.status(200).body(foodItem);
     }
 
-    @PostMapping("user/{userID}/foodItem")
-    public ResponseEntity<FoodItem> logFoodItem(@PathVariable Long userID, @RequestBody FoodItem foodItem) {
-        foodItemService.logFoodItem(userID, foodItem);
+    @PostMapping("user/foodItem")
+    public ResponseEntity<FoodItem> logFoodItem(@RequestBody FoodItem foodItem) {
+        foodItemService.logFoodItem(getUserIdFromSecurityContext(), foodItem);
         return ResponseEntity.status(200).body(foodItem);
+    }
+
+    @GetMapping("user/foodItem")
+    public ResponseEntity<List<FoodItem>> getAllUserFoodItems() {
+        List<FoodItem> foodItems = foodItemService.getAllUserFoodItems(getUserIdFromSecurityContext());
+        return ResponseEntity.status(200).body(foodItems);
     }
 
     @DeleteMapping("foodItem/{foodID}")

@@ -7,15 +7,17 @@ import UserProfile from "./pages/UserProfile";
 import Logout from "./pages/Auth/Logout";
 import Home from "./pages/Home";
 import { AdminUser } from "./pages/Auth/AdminUser";
+import Pricing from "./pages/Pricing";
+import ContactUs from "./pages/Contact";
+import FoodLog from './pages/FoodItem'
 
 //CSS
 import "./CSS/App.css";
 import NavigationBar from "./components/NavBar";
 
 //context
-import { AuthProvider } from "./context/AuthContext";
-import Pricing from "./pages/Pricing";
-import ContactUs from "./pages/Contact";
+import { AuthProvider } from './context/AuthContext'
+
 
 function App() {
   return (
@@ -29,6 +31,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/Home" element={<Home />} />
             <Route path="/Register" element={<UserRegister />} />
+            <Route path='/FoodLogs' element={<FoodLog />} />
             <Route path="/Login" element={<UserLogin />} />
             <Route path="/Profile" element={<UserProfile />} />
             <Route path="/Logout" element={<Logout />} />

@@ -37,6 +37,11 @@ public class FoodItemService {
         return foodItemRepo.findAll();
     }
 
+    public List<FoodItem> getAllUserFoodItems(Long id) {
+        User u = userRepo.findById(id).get();
+        return u.getFoodLogs();
+    }
+
     public int deleteFoodItem(Long foodID) {
         Optional<FoodItem> foodItem = foodItemRepo.findById(foodID);
         if(foodItem.isPresent()) {
