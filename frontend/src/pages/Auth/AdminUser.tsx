@@ -9,7 +9,6 @@ export const AdminUser = () => {
   const [editMode, setEditMode] = useState(false);
   const [editUserId, setEditUserId] = useState<number>();
   const usernameRef = useRef<HTMLInputElement>(null);
-  const passwordRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const firstNameRef = useRef<HTMLInputElement>(null);
   const lastNameRef = useRef<HTMLInputElement>(null);
@@ -62,7 +61,6 @@ export const AdminUser = () => {
 
   const saveChangesForUserInfo = async (id: number) => {
     try {
-      setEditMode(false);
       const response1 = await axiosInstance.patch(`/admin/user/${id}`, {
         username: usernameRef.current!.value,
         email: emailRef.current!.value,
@@ -75,19 +73,8 @@ export const AdminUser = () => {
         dailyCalorieGoal: dailyCalorieGoalRef.current!.value,
       });
 
-      console.log(passwordRef);
-
-      // const response2 = await axiosInstance.post(
-      //   `/admin/user/${id}/resetPassword`,
-      //   {
-      //     password: passwordRef.current!.value,
-      //   }
-      // );
-
-      //console.log(response2);
-      //&& response2.status === 200
-
       if (response1.status === 200) getAllUsers();
+      setEditMode(false);
     } catch (error) {
       console.error("Failed to update this user's information.", error);
     }
@@ -126,24 +113,6 @@ export const AdminUser = () => {
                   />
                 ) : (
                   <p>{user.email}</p>
-                )}
-              </div>
-              <div className="admin-user-info user-password-container">
-                <h6>Password</h6>
-                {editMode && editUserId === user.id ? (
-                  <input
-                    type="text"
-                    defaultValue={user.password}
-                    ref={passwordRef}
-                    onChange={(e) => {
-                      console.log(e.target.value);
-                      console.log(passwordRef.current?.value);
-                    }}
-                  />
-                ) : (
-                  <p className="user-password">
-                    {user.password.replace(/./g, "*")}
-                  </p>
                 )}
               </div>
               <div className="admin-user-info">
