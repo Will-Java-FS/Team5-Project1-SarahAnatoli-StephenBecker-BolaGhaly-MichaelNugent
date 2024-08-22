@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "food_items")
@@ -25,6 +26,7 @@ public class FoodItem {
     @Column(nullable = false)
     private Integer calories;
 
+    @CreationTimestamp
     private LocalDate logDate;
 
     private String servingSize;

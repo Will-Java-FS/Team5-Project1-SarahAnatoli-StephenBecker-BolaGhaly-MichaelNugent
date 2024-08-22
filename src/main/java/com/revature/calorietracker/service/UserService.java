@@ -3,6 +3,7 @@ package com.revature.calorietracker.service;
 import com.revature.calorietracker.dto.UserDTO;
 import com.revature.calorietracker.dto.UserMapper;
 import com.revature.calorietracker.dto.UserSecurityDTO;
+import com.revature.calorietracker.dto.CalorieMeter;
 import com.revature.calorietracker.exceptions.UserNotFoundException;
 import com.revature.calorietracker.models.FoodItem;
 import com.revature.calorietracker.models.User;
@@ -94,40 +95,19 @@ public class UserService {
     }
 
     public int getDailyCaloricIntake(Long id) {
-        LocalDate today = LocalDate.now();
-        int totalCalories = 0;
-
-        Optional<User> optionalUser = userRepo.findById(id);
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            List<FoodItem> userFoodLogs = user.getFoodLogs();
-            for (FoodItem food : userFoodLogs) {
-                if (food.getLogDate() == today) {
-                    totalCalories += food.getCalories();
-                }
-            }
-        }
-        return totalCalories;
+        return userRepo.getDailyCaloricIntake(id);
     }
 
     public int getWeeklyCaloricIntake(Long id) {
-        LocalDate oneWeekAgo = LocalDate.now().minusWeeks(1);
-        int totalCalories = 0;
-
-        Optional<User> optionalUser = userRepo.findById(id);
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            List<FoodItem> userFoodLogs = user.getFoodLogs();
-            for (FoodItem food : userFoodLogs) {
-                if (food.getLogDate().isAfter(oneWeekAgo)) {
-                    totalCalories += food.getCalories();
-                }
-            }
-        }
-        return totalCalories;
+        return userRepo.getWeeklyCaloricIntake(id);
     }
 
     public UserSecurityDTO getUserSecurityDTOById(Long id) {
         return userRepo.findUserSecurityDTOById(id).orElseThrow(() -> new UsernameNotFoundException("UserSecurityDTO not found in database."));
+    }
+
+    public CalorieMeter getCalorieMeterByUserId(Long id){
+        UserDTO userDTO = userRepo.findUserDTOById(id).orElseThrow(()->new UsernameNotFoundException("UserDTO not found in database."));
+        return new CalorieMeter(getDailyCaloricIntake(id), userDTO.dailyCalorieGoal());
     }
 }

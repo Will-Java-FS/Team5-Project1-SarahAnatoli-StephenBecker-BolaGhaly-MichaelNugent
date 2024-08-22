@@ -9,7 +9,7 @@
     align-items: center;
 }
 
-input {
+#search-bar {
     background-color: transparent;
     border: none;
     height: 100%;
@@ -24,4 +24,5 @@ input:focus {
 
 #search-icon {
     color: royalblue;
+    margin-left: 5px;
 }

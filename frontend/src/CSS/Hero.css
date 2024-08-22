@@ -1,0 +1,50 @@
+.Hero {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 600px;
+    height: auto;
+    /* align-content: center;
+    align-self: center; */
+    margin: auto;
+}
+
+.Hero .callToActionButton {
+    background-color: #28a745;
+    /* A nice green color */
+    color: white;
+    /* White text */
+    border: none;
+    /* Remove default borders */
+    padding: 12px 24px;
+    /* Add padding for a larger clickable area */
+    font-size: 16px;
+    /* Set font size */
+    font-weight: bold;
+    /* Bold text for emphasis */
+    border-radius: 6px;
+    /* Rounded corners for a modern look */
+    cursor: pointer;
+    /* Change the cursor to pointer on hover */
+    transition: background-color 0.3s ease;
+    /* Smooth transition effect */
+    width: 50%;
+    align-self: center;
+}
+
+.Hero .callToActionButton:hover {
+    background-color: #218838;
+    /* Darker green on hover for interactivity */
+}
+
+.Hero .callToActionButton:active {
+    background-color: #1e7e34;
+    /* Even darker green when the button is clicked */
+}
+
+.Hero .callToActionButton:focus {
+    outline: none;
+    /* Remove the focus outline */
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.4);
+    /* Add focus ring for accessibility */
+}
