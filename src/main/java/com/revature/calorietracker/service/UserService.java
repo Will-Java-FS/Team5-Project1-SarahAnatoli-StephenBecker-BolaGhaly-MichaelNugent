@@ -94,38 +94,12 @@ public class UserService {
         }
     }
 
-    public int getDailyCaloricIntake(Long id) {
-        LocalDate today = LocalDate.now();
-        int totalCalories = 0;
-
-        Optional<User> optionalUser = userRepo.findById(id);
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            List<FoodItem> userFoodLogs = user.getFoodLogs();
-            for (FoodItem food : userFoodLogs) {
-                if (food.getLogDate() == today) {
-                    totalCalories += food.getCalories();
-                }
-            }
-        }
-        return totalCalories;
+    public Integer getDailyCaloricIntake(Long id) {
+        return userRepo.getDailyCaloricIntake(id);
     }
 
-    public int getWeeklyCaloricIntake(Long id) {
-        LocalDate oneWeekAgo = LocalDate.now().minusWeeks(1);
-        int totalCalories = 0;
-
-        Optional<User> optionalUser = userRepo.findById(id);
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            List<FoodItem> userFoodLogs = user.getFoodLogs();
-            for (FoodItem food : userFoodLogs) {
-                if (food.getLogDate().isAfter(oneWeekAgo)) {
-                    totalCalories += food.getCalories();
-                }
-            }
-        }
-        return totalCalories;
+    public Integer getWeeklyCaloricIntake(Long id) {
+        return userRepo.getWeeklyCaloricIntake(id);
     }
 
     public UserSecurityDTO getUserSecurityDTOById(Long id) {
