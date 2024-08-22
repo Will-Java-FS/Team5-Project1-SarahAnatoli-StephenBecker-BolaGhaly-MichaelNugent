@@ -2,6 +2,7 @@ package com.revature.calorietracker.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.revature.calorietracker.models.auth.Role;
+import com.revature.calorietracker.models.auth.Token;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -65,6 +66,9 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "user")
     private List<UserExerciseLog> exerciseLogs;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Token> tokens;
 
     @Override
     @JsonIgnore
