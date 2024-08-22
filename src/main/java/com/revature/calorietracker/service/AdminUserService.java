@@ -22,15 +22,9 @@ public class AdminUserService {
     PasswordEncoder passwordEncoder;
 
     @PreAuthorize("hasRole('ADMIN')")
-    public List<UserDTO> getAllUserAccounts() {
+    public List<User> getAllUserAccounts() {
         List <User> allUsersAccounts = adminUserRepo.getAllUserAccounts();
-        List <UserDTO> allUsersDTOAccounts = new ArrayList<>();
-
-        for (User user : allUsersAccounts) {
-            allUsersDTOAccounts.add(UserMapper.toDTO(user));
-        }
-
-        return allUsersDTOAccounts;
+        return allUsersAccounts;
     }
 
     @PreAuthorize("hasRole('ADMIN')")
