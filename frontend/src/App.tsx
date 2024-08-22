@@ -45,16 +45,16 @@ function App() {
             <Route path='/Register' element={<UserRegister />} />
             <Route path='/Login' element={<UserLogin />} />
             <Route path='/Profile' element={<UserProfile />} />
+            <Route path='/Pricing' element={<Pricing />} />
+            <Route path='/Contact' element={<ContactUs />} />
             <Route path='/Logout' element={<Logout />} />
+            <Route path='/FoodLogs' element={<FoodLog />} />
             <Route path='/bmirecords' element={<BMIList />} />
             <Route path='/addbmirecord' element={<BMIAdd />} />
             <Route path='/exerciselogs' element={<ExerciseLogsList />} />
-            <Route path='/addexerciselog' element={<AddExerciseLogs />} />
             <Route path='/exercises' element={<ExerciseList />} />
+            <Route path='/addexerciselog' element={<AddExerciseLogs />} />
             <Route path='/addexercise' element={<AddExercise />} />
-            <Route path='/FoodLogs' element={<FoodLog />} />
-            <Route path='/Pricing' element={<Pricing />} />
-            <Route path='/Contact' element={<ContactUs />} />
           </Routes>
         </AuthProvider>
       </BrowserRouter>
