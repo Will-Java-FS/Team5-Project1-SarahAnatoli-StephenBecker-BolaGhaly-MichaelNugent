@@ -24,7 +24,7 @@ public class AdminUserController {
 
     // Admins can view all user accounts
     @GetMapping("/admin/users")
-    public List<UserDTO> getAllUserAccounts() throws Exception {
+    public List<User> getAllUserAccounts() throws Exception {
         return adminUserService.getAllUserAccounts();
     }
 

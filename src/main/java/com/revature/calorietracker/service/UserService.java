@@ -94,11 +94,11 @@ public class UserService {
         }
     }
 
-    public int getDailyCaloricIntake(Long id) {
+    public Integer getDailyCaloricIntake(Long id) {
         return userRepo.getDailyCaloricIntake(id);
     }
 
-    public int getWeeklyCaloricIntake(Long id) {
+    public Integer getWeeklyCaloricIntake(Long id) {
         return userRepo.getWeeklyCaloricIntake(id);
     }
 

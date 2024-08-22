@@ -78,18 +78,18 @@ public class UserController {
 
     @GetMapping("/user/calories/daily")
     public ResponseEntity<Integer> getDailyCaloricIntake() {
-        int totalCalories = userService.getDailyCaloricIntake(getUserIdFromSecurityContext());
+        Integer totalCalories = userService.getDailyCaloricIntake(getUserIdFromSecurityContext());
+        return ResponseEntity.status(200).body(totalCalories);
+    }
+
+    @GetMapping("/user/calories/weekly")
+    public ResponseEntity<Integer> getWeeklyCaloricIntake() {
+        Integer totalCalories = userService.getWeeklyCaloricIntake(getUserIdFromSecurityContext());
         return ResponseEntity.status(200).body(totalCalories);
     }
 
     @GetMapping("/user/calorieMeter")
     public CalorieMeter getCalorieMeter() {
         return userService.getCalorieMeterByUserId(getUserIdFromSecurityContext());
-    }
-
-    @GetMapping("/user/calories/weekly")
-    public ResponseEntity<Integer> getWeeklyCaloricIntake() {
-        int totalCalories = userService.getWeeklyCaloricIntake(getUserIdFromSecurityContext());
-        return ResponseEntity.status(200).body(totalCalories);
     }
 }
